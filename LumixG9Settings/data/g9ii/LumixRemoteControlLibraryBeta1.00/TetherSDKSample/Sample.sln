@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetSetParameters01", "GetSetParameters01\GetSetParameters01.vcxproj", "{E5D17FDE-AF3B-40B9-A78F-2E50E200F9CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActionParameters01", "ActionParameters01\ActionParameters01.vcxproj", "{E5734F09-2260-4A85-BE29-AA13BF8B5370}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiveView01", "LiveView01\LiveView01.vcxproj", "{C6B418F7-2DF6-437A-98DC-0C867FA297A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5D17FDE-AF3B-40B9-A78F-2E50E200F9CC}.Debug|x64.ActiveCfg = Debug|x64
+		{E5D17FDE-AF3B-40B9-A78F-2E50E200F9CC}.Debug|x64.Build.0 = Debug|x64
+		{E5D17FDE-AF3B-40B9-A78F-2E50E200F9CC}.Release|x64.ActiveCfg = Release|x64
+		{E5D17FDE-AF3B-40B9-A78F-2E50E200F9CC}.Release|x64.Build.0 = Release|x64
+		{E5734F09-2260-4A85-BE29-AA13BF8B5370}.Debug|x64.ActiveCfg = Debug|x64
+		{E5734F09-2260-4A85-BE29-AA13BF8B5370}.Debug|x64.Build.0 = Debug|x64
+		{E5734F09-2260-4A85-BE29-AA13BF8B5370}.Release|x64.ActiveCfg = Release|x64
+		{E5734F09-2260-4A85-BE29-AA13BF8B5370}.Release|x64.Build.0 = Release|x64
+		{C6B418F7-2DF6-437A-98DC-0C867FA297A3}.Debug|x64.ActiveCfg = Debug|x64
+		{C6B418F7-2DF6-437A-98DC-0C867FA297A3}.Debug|x64.Build.0 = Debug|x64
+		{C6B418F7-2DF6-437A-98DC-0C867FA297A3}.Release|x64.ActiveCfg = Release|x64
+		{C6B418F7-2DF6-437A-98DC-0C867FA297A3}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,814 @@
+{
+  "camera": "Panasonic Lumix G9 MkII (DC-G9M2)",
+  "firmware": "2.5",
+  "last_updated": "2026-03-21",
+  "owner": "Nelson",
+  "role": "PRIMARY: Wildlife/Birds + Video",
+  "notes": "Nelson's main camera. Shoots RAW. Has Crop Zoom (fw 2.3+), Live View Composite, Creative Video mode, full subject detection suite.",
+
+  "gear": {
+    "lenses": [
+      {"name": "Leica DG Vario-Elmar 100-400mm f/4-6.3 II ASPH", "primary_use": "Wildlife, birds, BIF", "max_aperture": "f/4-6.3"},
+      {"name": "Olympus M.Zuiko 90mm f/3.5 Macro IS PRO", "primary_use": "Tripod macro, focus bracketing", "max_aperture": "f/3.5"},
+      {"name": "Olympus M.Zuiko 60mm f/2.8 Macro", "primary_use": "Handheld macro (Costa Rica)", "max_aperture": "f/2.8"},
+      {"name": "Lumix G Vario 12-35mm f/2.8 II ASPH Power OIS", "primary_use": "Wide/General, video travel", "max_aperture": "f/2.8"},
+      {"name": "Lumix G Vario 35-100mm f/2.8 II ASPH Power OIS", "primary_use": "Portrait/Tele (shared)", "max_aperture": "f/2.8"}
+    ],
+    "teleconverter": [
+      {"name": "Olympus MC-20 2x Teleconverter", "primary_use": "Macro magnification with 90mm", "note": "Effective 180mm f/7 macro"}
+    ],
+    "flash": [
+      {"name": "Godox V860III", "primary_use": "Main flash (tripod macro)", "trigger": "Built-in"},
+      {"name": "Godox AD100Pro", "primary_use": "Handheld macro (Costa Rica)", "trigger": "Godox X3", "diffuser": "ML-CD15"}
+    ],
+    "accessories": [
+      {"name": "Raynox DCR-250", "type": "Diopter", "use": "Extra magnification with 60mm"},
+      {"name": "MIOPS Trigger", "type": "Lightning trigger", "use": "Alternative to LVC for lightning"}
+    ]
+  },
+
+  "global_settings": {
+    "double_card_slot_function": "Relay",
+    "usb_ssd": "OFF",
+    "copyright_information": "ON",
+    "power_save_mode": {
+      "sleep": "2MIN",
+      "monitor_off": "1MIN"
+    },
+    "thermal_management": "STANDARD",
+    "monitor_frame_rate": "60fps",
+    "lvf_frame_rate": "60fps",
+    "monitor_backlight_lvf_luminance": "AUTO",
+    "eye_sensor": {
+      "sensitivity": "LOW"
+    },
+    "beep": "All OFF",
+    "usb": {
+      "mode": "Select on connection",
+      "power": "ON"
+    },
+    "battery_use_priority": "BG",
+    "network_connection_light": "OFF",
+    "system_frequency": "59.94Hz NTSC"
+  },
+
+  "qmenu": {
+    "_description": "12 slots, MODE1 fixed grid — IDENTICAL across ALL modes, NEVER changes per mode. Only items with NO dedicated button.",
+    "layout_style": "MODE1 (12-item fixed grid)",
+    "slots": [
+      {"slot": 1, "item": "AF Detection Setting", "rationale": "Master switch for subject detection ON/OFF"},
+      {"slot": 2, "item": "Detecting Subject", "rationale": "Select Human/Animal/Car/Airplane/Train"},
+      {"slot": 3, "item": "Image Stabilizer", "rationale": "Toggle ON/OFF, Mode 1/2. No dedicated button"},
+      {"slot": 4, "item": "Metering Mode", "rationale": "Switch Multi/Spot/Center. No dedicated button"},
+      {"slot": 5, "item": "Picture Quality", "rationale": "RAW/RAW+JPEG/JPEG. No dedicated button"},
+      {"slot": 6, "item": "Shutter Type", "rationale": "Mech/EFC/Electronic. No dedicated button"},
+      {"slot": 7, "item": "Bracketing", "rationale": "Focus/Exposure bracket ON/OFF. No dedicated button"},
+      {"slot": 8, "item": "Flash Mode", "rationale": "ON/OFF, Forced, Slow Sync. No dedicated button"},
+      {"slot": 9, "item": "Flash Adjust.", "rationale": "Flash exposure compensation. Critical for macro"},
+      {"slot": 10, "item": "Min. Shutter Speed", "rationale": "Safety net for Auto ISO. No dedicated button"},
+      {"slot": 11, "item": "Photo Style", "rationale": "Switch Standard/Vivid/Natural/Portrait. No dedicated button"},
+      {"slot": 12, "item": "Aspect Ratio", "rationale": "Switch 4:3/3:2/16:9/1:1. No dedicated button"}
+    ],
+    "excluded_rationale": "AF Mode, ISO, WB, Exposure Comp all have dedicated buttons on MkII — stay OUT of Q.Menu"
+  },
+
+  "my_menu": {
+    "_description": "Unified maintenance toolbox — same across all modes",
+    "items": [
+      {"slot": 1, "item": "Save to Custom Mode", "rationale": "Re-save modes after tweaks"},
+      {"slot": 2, "item": "Card Format", "rationale": "Quick format between shooting days"},
+      {"slot": 3, "item": "AF Custom Setting (Photo)", "rationale": "Switch tracking behavior Set 1-4"},
+      {"slot": 4, "item": "Focus Limiter", "rationale": "Prevent lens hunting to infinity during macro"},
+      {"slot": 5, "item": "Burst Shot Setting", "rationale": "Change burst speed H/M/L or SH burst"},
+      {"slot": 6, "item": "Bracket (detailed settings)", "rationale": "Configure Step, Count, Type for Focus Bracketing"},
+      {"slot": 7, "item": "Ex. Tele Conv.", "rationale": "Digital crop 1.4x/2.0x"},
+      {"slot": 8, "item": "Long Exposure NR", "rationale": "Toggle ON/OFF"},
+      {"slot": 9, "item": "Fn Button Set", "rationale": "Reassign function buttons"},
+      {"slot": 10, "item": "Shutter Delay", "rationale": "Add 1-8s delay for tripod vibration"},
+      {"slot": 11, "item": "Sensor Cleaning", "rationale": "Quick field maintenance"},
+      {"slot": 12, "item": "Focus Peaking SET", "rationale": "Adjust sensitivity/color"},
+      {"slot": 13, "item": "Zebra Pattern SET", "rationale": "Adjust threshold"},
+      {"slot": 14, "item": "Rec Quality", "rationale": "Change video resolution/framerate"},
+      {"slot": 15, "item": "Sound Rec Level Adj.", "rationale": "Adjust mic input levels for video"},
+      {"slot": 16, "item": "Time Lapse/Animation", "rationale": "Configure time lapse and stop motion"},
+      {"slot": 17, "item": "ISO Sensitivity (photo)", "rationale": "Access Auto ISO Upper Limit"},
+      {"slot": 18, "item": "Custom Mode Settings", "rationale": "Edit Title, Limit No., How to Reload"}
+    ]
+  },
+
+  "fn_buttons": {
+    "_description": "Only 1 button changed from default. Touch Tab OFF = Fn4-Fn8 disabled.",
+    "changed": [
+      {
+        "button": "Fn1",
+        "location": "Back panel, bottom-right (27)",
+        "assignment": "AF-ON: Near Shift",
+        "rationale": "Tells AF to prioritize closer subjects. Press when camera grabs background instead of bird."
+      }
+    ],
+    "defaults_kept": [
+      {"button": "Fn2 (44)", "assignment": "AF-Point Scope", "rationale": "Zooms into AF point for precise focus check"},
+      {"button": "Fn3 (46)", "assignment": "Preview", "rationale": "Depth-of-field preview"},
+      {"button": "WB (6)", "assignment": "White Balance", "rationale": "Dedicated button"},
+      {"button": "ISO (7)", "assignment": "Sensitivity", "rationale": "Dedicated button"},
+      {"button": "+/- (8)", "assignment": "Exposure Comp.", "rationale": "Dedicated button"},
+      {"button": "Video rec (10)", "assignment": "Video Record", "rationale": "Dedicated button"},
+      {"button": "LVF (15)", "assignment": "LVF/Monitor Switch", "rationale": "Dedicated button"},
+      {"button": "AF Mode (18)", "assignment": "AF Mode", "rationale": "Dedicated button"},
+      {"button": "AF ON (20)", "assignment": "AF-ON", "rationale": "Back-button focus backbone"},
+      {"button": "Q (22)", "assignment": "Q.MENU", "rationale": "Dedicated button"},
+      {"button": "Fn9-Fn12 (23)", "assignment": "Cursor / Crop Zoom controls", "rationale": "Auto-assigned by Crop Zoom when active"},
+      {"button": "Fn13-Fn17 (21)", "assignment": "D.FOCUS Movement", "rationale": "Joystick moves AF point"},
+      {"button": "Lens Fn (100-400mm)", "assignment": "AF-ON", "rationale": "For monopod shooting when thumb can't reach back AF-ON"}
+    ],
+    "notes": [
+      "Touch Tab is OFF — Fn4-Fn8 (touch icons) not accessible",
+      "G9 MkII has dedicated AF-ON, Q, AF Mode buttons (unlike MkI)"
+    ]
+  },
+
+  "baseline_settings": {
+    "_description": "These values are shared across all modes unless overridden. Each mode lists ONLY what differs from this baseline.",
+    "photo": {
+      "image_quality": {
+        "photo_style": "Standard",
+        "metering_mode": "Multi",
+        "aspect_ratio": "4:3",
+        "picture_quality": "RAW",
+        "picture_size": "L",
+        "high_resolution_mode": "OFF",
+        "long_exposure_nr": "OFF",
+        "iso_sensitivity": {
+          "mode": "AUTO",
+          "lower_limit": 100,
+          "upper_limit": "No Limit"
+        },
+        "min_shutter_speed": "AUTO",
+        "i_dynamic_range": "OFF",
+        "vignetting_comp": "OFF",
+        "diffraction_compensation": "OFF",
+        "filter_settings": "OFF"
+      },
+      "focus": {
+        "af_detection_setting": "ON",
+        "detecting_subject": "HUMAN",
+        "detecting_subject_target_parts": "All checked",
+        "af_custom_setting_photo": "Set 1",
+        "focus_limiter": "OFF",
+        "af_assist_light": "ON",
+        "focus_peaking": {
+          "enabled": "ON",
+          "sensitivity": "LOW",
+          "color": "RED",
+          "display": "PEAKING & IMAGE"
+        },
+        "focus_frame_moving_speed": "FAST"
+      },
+      "flash": {
+        "flash_mode": "Forced OFF",
+        "firing_mode": "TTL",
+        "flash_adjust": "±0",
+        "flash_synchro": "1ST",
+        "manual_flash_adjust": "1/1",
+        "auto_exposure_comp": "OFF",
+        "wireless": "OFF",
+        "wireless_channel": "1CH",
+        "wireless_fp": "OFF",
+        "communication_light": "HIGH"
+      },
+      "others": {
+        "bracketing": "OFF",
+        "silent_mode": "OFF",
+        "image_stabilizer_operation_mode": "Normal",
+        "burst_shot_1_setting": "H",
+        "burst_shot_2_setting": "SH75",
+        "shutter_type": "EFC",
+        "shutter_delay": "OFF",
+        "crop_zoom_photo": "OFF",
+        "time_lapse_animation": "OFF",
+        "live_view_composite": "OFF",
+        "self_timer": "OFF"
+      }
+    },
+    "video": {
+      "image_quality": {
+        "exposure_mode": "P",
+        "photo_style": "Standard",
+        "metering_mode": "Multi",
+        "iso_sensitivity": {
+          "mode": "AUTO",
+          "upper_limit": "No Limit"
+        },
+        "synchro_scan": "OFF",
+        "flicker_decrease": "OFF",
+        "master_pedestal_level": 0,
+        "ss_gain_operation": "SEC/ISO",
+        "i_dynamic_range": "OFF",
+        "vignetting_comp": "ON",
+        "diffraction_compensation": "ON",
+        "filter_settings": "OFF",
+        "shutter_speed_limiter": "OFF"
+      },
+      "image_format": {
+        "rec_file_format": "MP4",
+        "image_area_of_video": "FULL",
+        "rec_quality": "4K 30p",
+        "slow_and_quick_setting": "30fps",
+        "time_code": "OFF",
+        "luminance_level": "16-255"
+      },
+      "focus": {
+        "af_detection_setting": "ON",
+        "detecting_subject": "HUMAN",
+        "af_custom_setting_video": "OFF",
+        "focus_limiter": "OFF",
+        "continuous_af": "MODE1",
+        "af_assist_light": "ON",
+        "focus_peaking": {
+          "enabled": "ON",
+          "sensitivity": "LOW",
+          "color": "RED"
+        },
+        "focus_frame_moving_speed": "FAST"
+      },
+      "audio": {
+        "sound_rec_level_disp": "OFF",
+        "mute_sound_input": "OFF",
+        "sound_rec_gain_level": "STANDARD",
+        "sound_rec_level_adj": "0dB",
+        "sound_rec_quality": "48kHz/24bit",
+        "sound_rec_level_limiter": "ON",
+        "wind_noise_canceller": "STANDARD",
+        "wind_cut": "OFF",
+        "lens_noise_cut": "ON",
+        "mic_socket": "MIC",
+        "special_mic": "STEREO",
+        "four_ch_mic_input": "OFF",
+        "xlr_mic_adaptor_setting": "ON",
+        "sound_output": "REALTIME",
+        "headphone_volume": "LEVEL3",
+        "sound_monitoring_channel": "CH1/CH2"
+      },
+      "others": {
+        "silent_mode": "OFF",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Normal"
+        },
+        "e_stabilization_video": "OFF",
+        "boost_is_video": "OFF",
+        "self_timer_setting": "OFF",
+        "focus_transition": "OFF",
+        "segmented_file_recording": "OFF"
+      }
+    },
+    "custom": {
+      "image_quality": {
+        "photo_style_settings_show_hide": "All visible",
+        "lut_library": "Vlog_709",
+        "iso_increments": "1/3 EV",
+        "extended_iso": "OFF",
+        "exposure_offset_adjust": "±0 all",
+        "face_priority_in_multi_metering": "ON",
+        "awb_lock_setting": {
+          "sync_shutter": "OFF",
+          "fn_lock": "ON"
+        },
+        "color_space": "sRGB",
+        "exposure_comp_reset": "OFF",
+        "auto_exposure_in_pasm": "ON",
+        "creative_video_combined_set": "All Combined"
+      },
+      "focus_shutter": {
+        "focus_shutter_priority": {
+          "afs": "FOCUS",
+          "afc": "FOCUS"
+        },
+        "focus_switching_for_vert_hor": "OFF",
+        "af_ae_lock_hold": "OFF",
+        "af_plus_mf": "ON",
+        "mf_assist": {
+          "focus_ring": "ON",
+          "display": "PIP"
+        },
+        "mf_guide": "ON",
+        "focus_ring_lock": "OFF",
+        "show_hide_af_mode": "All ON",
+        "pinpoint_af_setting": {
+          "time": "MID",
+          "display": "PIP"
+        },
+        "af_point_scope_setting": "OFF",
+        "shutter_af": "OFF",
+        "human_eye_detection_display": "ON",
+        "half_press_shutter": "OFF",
+        "assign_rec_to_shutter_button": "ON",
+        "quick_af": "OFF",
+        "eye_sensor_af": "OFF",
+        "looped_focus_frame": "OFF",
+        "enlarged_live_display_video": {
+          "enabled": "ON",
+          "display": "PIP"
+        }
+      },
+      "operation": {
+        "q_menu_layout_style": "MODE1 (12-item)",
+        "touch_settings": {
+          "screen": "ON",
+          "tab": "OFF",
+          "af": "AF",
+          "pad": "OFF"
+        },
+        "operation_lock_setup": "All unlocked",
+        "wb_iso_expo_button": "AFTER PRESSING2",
+        "iso_displayed_setting": "Front/Rear Dials",
+        "exposure_comp_disp_setting": "Default",
+        "dial_set": "Default",
+        "joystick_setting": "D.FOCUS Movement",
+        "video_rec_button_remote": "Video Record"
+      },
+      "monitor_display_photo": {
+        "auto_review": "OFF",
+        "constant_preview": {
+          "enabled": "ON",
+          "effect": "Aperture+SS"
+        },
+        "histogram": "OFF",
+        "photo_grid_line": "9-SECTION",
+        "live_view_boost": "OFF",
+        "night_mode": "OFF",
+        "lvf_monitor_disp_set": "Default",
+        "expo_meter": "OFF",
+        "focal_length": "ON",
+        "blinking_highlights": "OFF",
+        "sheer_overlay": "OFF",
+        "is_status_scope": "OFF",
+        "level_gauge": "ON",
+        "luminance_spot_meter": "OFF",
+        "framing_outline": "OFF",
+        "show_hide_monitor_layout": {
+          "control_panel": "ON",
+          "black_screen": "ON"
+        }
+      },
+      "monitor_display_video": {
+        "v_log_view_assist": "OFF",
+        "hlg_view_assist": {
+          "monitor": "MODE2",
+          "hdmi": "AUTO"
+        },
+        "anamorphic_desqueeze": "OFF",
+        "monochrome_live_view": "OFF",
+        "center_marker": "OFF",
+        "safety_zone_marker": "OFF",
+        "frame_marker": "OFF",
+        "zebra_pattern": {
+          "mode": "ZEBRA1",
+          "range": "100-105%"
+        },
+        "wfm_vector_scope": "OFF",
+        "color_bars": "SMPTE",
+        "video_priority_display": "OFF",
+        "red_rec_frame_indicator": "ON"
+      },
+      "in_out": {
+        "hdmi_rec_output": {
+          "info": "ON",
+          "control": "ON",
+          "sound": "ON"
+        }
+      },
+      "lens_others": {
+        "lens_focus_resume": "OFF",
+        "power_zoom_lens": "Default",
+        "lens_fn_button_setting": "AF-ON",
+        "aperture_ring_increment": "1/3 EV",
+        "focus_ring_control": "NON-LINEAR",
+        "af_micro_adjustment": "OFF",
+        "lens_info_confirmation": "ON",
+        "vertical_position_info_video": "ON"
+      }
+    }
+  },
+  "modes": {
+    "C1": {
+      "name": "Street / General",
+      "recording_mode": "A (Aperture Priority)",
+      "focus_lever": "AFS",
+      "drive_dial": "Single Shot (S)",
+      "overrides": {
+        "aperture": "f/5.6",
+        "white_balance": "AWB"
+      }
+    },
+    "C2": {
+      "name": "Portrait / People",
+      "recording_mode": "A (Aperture Priority)",
+      "focus_lever": "AFS",
+      "drive_dial": "Single Shot (S)",
+      "overrides": {
+        "photo_style": "Portrait",
+        "aperture": "f/2.8",
+        "min_shutter_speed": "1/125s",
+        "white_balance": "AWB"
+      }
+    },
+    "C3-1": {
+      "name": "Landscape",
+      "recording_mode": "A (Aperture Priority)",
+      "focus_lever": "AFS",
+      "drive_dial": "Single Shot (S)",
+      "overrides": {
+        "photo_style": "Scenery/Landscape",
+        "aperture": "f/8",
+        "af_detection_setting": "OFF",
+        "white_balance": "AWB"
+      }
+    },
+    "C3-2": {
+      "name": "Macro Handheld (Single Shot)",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "MF",
+      "drive_dial": "Single Shot (S)",
+      "overrides": {
+        "photo_style": "Natural",
+        "aperture": "f/11",
+        "shutter_speed": "1/200s",
+        "iso_sensitivity": {
+          "mode": "Fixed",
+          "value": 200
+        },
+        "af_detection_setting": "OFF",
+        "flash_mode": "Forced ON / TTL",
+        "flash_adjust": "±0",
+        "shutter_type": "MSHTR (Mechanical)",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Mode 1"
+        },
+        "white_balance": "AWB",
+        "focus_ring_control": "NON-LINEAR (could be LINEAR 180° for macro precision - field variant)"
+      }
+    },
+    "C3-3": {
+      "name": "Wildlife / Action",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "AFC",
+      "drive_dial": "Burst I",
+      "overrides": {
+        "photo_style": "Standard",
+        "aperture": "f/6.3",
+        "shutter_speed": "1/2000s",
+        "iso_sensitivity": {
+          "mode": "AUTO",
+          "upper_limit": "No Limit"
+        },
+        "af_detection_setting": "ON",
+        "detecting_subject": "Animal",
+        "af_mode": "Zone",
+        "burst_shot_1_setting": "H",
+        "shutter_type": "ELEC.",
+        "flash_mode": "Forced OFF",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Mode 1"
+        },
+        "white_balance": "AWB"
+      }
+    },
+    "C3-4": {
+      "name": "Tripod Macro (Focus Bracketing)",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "MF",
+      "drive_dial": "Single Shot (S)",
+      "overrides": {
+        "photo_style": "Natural",
+        "aperture": "f/8",
+        "shutter_speed": "1/200s",
+        "iso_sensitivity": {
+          "mode": "Fixed",
+          "value": 400
+        },
+        "af_detection_setting": "OFF",
+        "bracketing": "ON - Focus Bracketing",
+        "shutter_type": "MSHTR (Mechanical)",
+        "shutter_delay": "2s",
+        "image_stabilizer": "OFF",
+        "flash_mode": "Forced ON / TTL",
+        "flash_adjust": "±0",
+        "white_balance": "AWB"
+      }
+    },
+    "C3-5": {
+      "name": "Birds with Crop Zoom",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "AFC",
+      "drive_dial": "Burst I",
+      "overrides": {
+        "photo_style": "Standard",
+        "picture_quality": "FINE (NOT RAW - Crop Zoom requires JPEG)",
+        "aperture": "f/6.3",
+        "shutter_speed": "1/2000s",
+        "iso_sensitivity": {
+          "mode": "AUTO",
+          "upper_limit": "No Limit"
+        },
+        "af_detection_setting": "ON",
+        "detecting_subject": "Animal",
+        "af_mode": "Zone",
+        "burst_shot_1_setting": "H",
+        "shutter_type": "ELEC.",
+        "flash_mode": "Forced OFF",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Mode 1"
+        },
+        "white_balance": "AWB",
+        "crop_zoom_photo": "ON",
+        "crop_zoom_focal_length_display": "Composite Focal Length",
+        "crop_zoom_minimum_image_size": "S (max 2.0x)",
+        "crop_zoom_set_recording_image_size": "ON",
+        "crop_zoom_zoom_speed": "M"
+      }
+    },
+    "C3-6": {
+      "name": "Landscape Tripod (Lightning) — Live View Composite",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "MF",
+      "drive_dial": "Single Shot (S)",
+      "overrides": {
+        "photo_style": "Standard",
+        "aspect_ratio": "16:9",
+        "aperture": "f/8",
+        "shutter_speed": "4s",
+        "iso_sensitivity": {
+          "mode": "Fixed",
+          "value": 400
+        },
+        "af_detection_setting": "OFF",
+        "shutter_type": "MSHTR (Mechanical) — forced by LVC",
+        "image_stabilizer": "OFF",
+        "flash_mode": "Forced OFF",
+        "white_balance": "Clear sky (sun icon / Daylight)",
+        "live_view_composite": "configured (activate in field by entering menu and pressing Start)",
+        "lvc_shutter_delay": "2s",
+        "long_exposure_nr": "ON (forced by LVC)",
+        "silent_mode": "OFF (not available with LVC)"
+      },
+      "notes": "Press Q button to exit LVC mode"
+    },
+    "C3-7": {
+      "name": "Indoor / Low Light",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "AFC",
+      "drive_dial": "Single Shot (S)",
+      "overrides": {
+        "photo_style": "Natural",
+        "aperture": "f/2.8",
+        "shutter_speed": "1/125s",
+        "iso_sensitivity": {
+          "mode": "AUTO",
+          "upper_limit": 12800
+        },
+        "af_detection_setting": "ON",
+        "detecting_subject": "Human",
+        "af_mode": "Full Area",
+        "silent_mode": "ON",
+        "shutter_type": "ELEC. (forced by Silent Mode)",
+        "flash_mode": "Forced OFF",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Mode 1"
+        },
+        "white_balance": "AWB",
+        "shutter_delay": "OFF"
+      }
+    },
+    "C3-8": {
+      "name": "Birds in Flight (BIF)",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "AFC",
+      "drive_dial": "Burst I",
+      "overrides": {
+        "photo_style": "Standard",
+        "aperture": "f/6.3",
+        "shutter_speed": "1/4000s",
+        "iso_sensitivity": {
+          "mode": "AUTO",
+          "upper_limit": "No Limit"
+        },
+        "af_detection_setting": "ON",
+        "detecting_subject": "Animal",
+        "af_mode": "Tracking",
+        "burst_shot_1_setting": "H",
+        "shutter_type": "ELEC.",
+        "flash_mode": "Forced OFF",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Mode 2 (Panning Left/Right)"
+        },
+        "white_balance": "AWB"
+      }
+    },
+    "C3-9": {
+      "name": "Video — Travel / Documentary",
+      "recording_mode": "Creative Video",
+      "focus_lever": "AFC",
+      "overrides": {
+        "exposure_sub_mode": "P (Program)",
+        "rec_quality": "4K 30p",
+        "af_detection_setting": "ON",
+        "detecting_subject": "HUMAN",
+        "af_mode": "Full Area",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Normal"
+        },
+        "e_stabilization_video": "STANDARD",
+        "boost_is_video": "OFF",
+        "photo_style": "Standard",
+        "shutter_type": "ELEC.",
+        "flash_mode": "Forced OFF",
+        "white_balance": "AWB",
+        "audio": "Internal mic, default levels"
+      }
+    },
+    "C3-10": {
+      "name": "Video — Wildlife in Motion",
+      "recording_mode": "Creative Video",
+      "focus_lever": "AFC",
+      "overrides": {
+        "exposure_sub_mode": "M (Manual)",
+        "rec_quality": "4K 30p",
+        "aperture": "f/6.3",
+        "shutter_speed": "1/500s",
+        "iso_sensitivity_video": {
+          "mode": "AUTO",
+          "upper_limit": "No Limit"
+        },
+        "af_detection_setting": "ON",
+        "detecting_subject": "Animal",
+        "af_mode": "Tracking",
+        "image_stabilizer": {
+          "enabled": "ON",
+          "mode": "Normal"
+        },
+        "e_stabilization_video": "HIGH",
+        "boost_is_video": "OFF",
+        "photo_style": "Standard",
+        "shutter_type": "ELEC.",
+        "flash_mode": "Forced OFF",
+        "white_balance": "AWB",
+        "audio": "Internal mic, default levels"
+      }
+    }
+  },
+  "field_variants": {
+    "C3-2_macro_handheld": {
+      "_description": "Variants for C3-2 Macro Handheld depending on lens/accessory combination",
+      "variant_1": {
+        "name": "60mm bare, no stacking, handheld",
+        "notes": "Baseline configuration as stored in C3-2"
+      },
+      "variant_2": {
+        "name": "60mm + Raynox DCR-250, no stacking, handheld",
+        "changes": {
+          "notes": "Possibly tighter aperture, flash comp same"
+        }
+      },
+      "variant_3": {
+        "name": "90mm bare, no stacking, handheld",
+        "changes": {
+          "aperture": "wider aperture OK",
+          "flash_adjust": "+0.3 to +0.7",
+          "shutter_speed": "1/250s"
+        }
+      },
+      "variant_4": {
+        "name": "90mm + MC-20, no stacking, handheld",
+        "changes": {
+          "aperture": "wider aperture",
+          "flash_adjust": "+0.7 to +1.3",
+          "shutter_speed": "1/250s to 1/320s",
+          "iso_sensitivity": "200-400"
+        }
+      },
+      "variant_5": {
+        "name": "60mm bare + Focus Stacking, handheld or tripod",
+        "changes": {
+          "bracketing": "ON",
+          "aperture": "f/5.6 to f/8",
+          "flash_adjust": "low flash power",
+          "iso_sensitivity": "200-400"
+        }
+      },
+      "variant_6": {
+        "name": "60mm + Raynox + Focus Stacking, tripod recommended",
+        "changes": {
+          "bracketing": "ON",
+          "aperture": "f/7.1 to f/9",
+          "flash_adjust": "+0.3 to +0.7",
+          "iso_sensitivity": "200-400"
+        }
+      },
+      "variant_7": {
+        "name": "90mm bare + Focus Stacking, optional tripod",
+        "changes": {
+          "bracketing": "ON",
+          "aperture": "wider aperture",
+          "flash_adjust": "lower flash power",
+          "iso_sensitivity": "200-800"
+        }
+      },
+      "variant_8": {
+        "name": "90mm + MC-20 + Focus Stacking, tripod required",
+        "changes": {
+          "bracketing": "ON",
+          "aperture": "f/5.6 (effective ~f/11)",
+          "image_stabilizer": "OFF",
+          "shutter_delay": "ON",
+          "flash_adjust": "balance flash vs recycle",
+          "iso_sensitivity": "400-1600"
+        }
+      }
+    },
+    "C3-6_lightning": {
+      "_description": "MIOPS Trigger variant and scenario table for C3-6 Lightning",
+      "miops_trigger_variant": {
+        "name": "MIOPS Trigger (replaces LVC)",
+        "changes": {
+          "live_view_composite": "OFF",
+          "long_exposure_nr": "OFF",
+          "shutter_speed": "2s to Bulb",
+          "iso_sensitivity": 100,
+          "picture_quality": "RAW",
+          "shutter_delay": "OFF"
+        }
+      },
+      "scenario_table": {
+        "daylight_storm": {
+          "aperture": "f/11",
+          "shutter_speed": "1/2s to 2s",
+          "iso": 100
+        },
+        "dusk_twilight": {
+          "aperture": "f/8",
+          "shutter_speed": "2s to 8s",
+          "iso": "100-400"
+        },
+        "night_storm": {
+          "aperture": "f/5.6 to f/8",
+          "shutter_speed": "8s to 30s",
+          "iso": "100-400"
+        },
+        "very_dark_distant": {
+          "aperture": "f/5.6",
+          "shutter_speed": "15s to Bulb",
+          "iso": "200-400"
+        }
+      }
+    }
+  },
+  "side_effects_incompatibilities": [
+    {
+      "feature": "Live View Composite",
+      "effects": "Disables Silent Mode, Electronic Shutter, Bracketing, Bulb, i.Dynamic Range, ISO Auto. Forces Mechanical Shutter, Long Exposure NR ON. Max ISO 1600."
+    },
+    {
+      "feature": "Silent Mode",
+      "effects": "Forces Electronic Shutter."
+    },
+    {
+      "feature": "Flash",
+      "effects": "Requires Mechanical Shutter (MSHTR)."
+    },
+    {
+      "feature": "EFC",
+      "effects": "Max shutter speed 1/2000s."
+    },
+    {
+      "feature": "Crop Zoom (Photo)",
+      "effects": "Not available with RAW. Requires JPEG (FINE/STD)."
+    },
+    {
+      "feature": "MF mode (focus lever)",
+      "effects": "AF Detection Setting grayed out."
+    },
+    {
+      "feature": "M mode with fixed SS",
+      "effects": "Min. Shutter Speed grayed out."
+    },
+    {
+      "feature": "M mode with fixed ISO",
+      "effects": "Min. Shutter Speed grayed out."
+    },
+    {
+      "feature": "Constant Preview",
+      "effects": "Works with flash as of firmware 2.5."
+    },
+    {
+      "feature": "LVC exit",
+      "effects": "Press Q button."
+    }
+  ]
+}

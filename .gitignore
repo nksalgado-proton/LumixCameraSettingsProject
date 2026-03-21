@@ -1,0 +1,45 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# IDE / editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.claude/
+
+# Test / lint caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large binary files (camera manuals — keep locally, too large for git)
+Configuration Guides/Camera documentation/*.pdf
+
+# Legacy PDFs and presentations (keep locally)
+Configuration Guides/Legacy Configuration Guides/**/*.pdf
+Configuration Guides/Legacy Configuration Guides/**/*.pptx
+
+# Binary libraries
+*.dll
+*.lib
+*.exe
+
+# CACHEDIR tags
+CACHEDIR.TAG

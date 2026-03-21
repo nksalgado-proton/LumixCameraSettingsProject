@@ -1,0 +1,59 @@
+{
+  "cameras": [
+    {
+      "model": "Lumix G9",
+      "sensor_format": "MFT",
+      "fps_bracket": 10,
+      "notes": "Contrast Detect AF"
+    },
+    {
+      "model": "Lumix G9II",
+      "sensor_format": "MFT",
+      "fps_bracket": 20,
+      "notes": "Phase Detect AF - faster readout"
+    }
+  ],
+{
+  "lenses": [
+    {
+      "name": "M.Zuiko 60mm f/2.8 Macro",
+      "focal_length": 60,
+      "max_magnification": 1.0,
+      "min_f_stop": 2.8,
+      "min_wd_at_1x": 190,
+      "mount": "MFT"
+    },
+    {
+      "name": "M.Zuiko 90mm f/3.5 Macro IS PRO",
+      "focal_length": 90,
+      "max_magnification": 2.0,
+      "min_f_stop": 3.5,
+      "min_wd_at_1x": 250,
+      "mount": "MFT"
+    }
+  ],
+  "accessories": [
+    {
+      "name": "None",
+      "type": "none",
+      "mag_multiplier": 1.0,
+      "f_stop_offset": 0
+    },
+    {
+      "name": "Olympus MC-20",
+      "type": "teleconverter",
+      "mag_multiplier": 2.0,
+      "f_stop_offset": 2.0
+    },
+    {
+      "name": "Raynox DCR-250",
+      "type": "diopter",
+      "diopters": 8.0,
+      "notes": "Focal length of 125mm"
+    }
+  ],
+  "constants": {
+    "MFT": { "coc": 0.015, "diffraction_limit": 8.0 },
+    "FullFrame": { "coc": 0.030, "diffraction_limit": 11.0 }
+  }
+}
