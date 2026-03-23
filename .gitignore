@@ -29,12 +29,12 @@ build/
 Thumbs.db
 desktop.ini
 
-# Large binary files (camera manuals — keep locally, too large for git)
-Configuration Guides/Camera documentation/*.pdf
+# Large binary files — camera/flash manuals (keep locally, too large for git)
+reference/manuals/*.pdf
 
 # Legacy PDFs and presentations (keep locally)
-Configuration Guides/Legacy Configuration Guides/**/*.pdf
-Configuration Guides/Legacy Configuration Guides/**/*.pptx
+reference/legacy/**/*.pdf
+reference/legacy/**/*.pptx
 
 # Binary libraries
 *.dll

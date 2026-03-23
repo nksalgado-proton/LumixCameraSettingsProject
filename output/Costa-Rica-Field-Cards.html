@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Costa Rica Field Reference Cards — Nelson Salgado</title>
+<style>
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 8pt;
+    color: #1a1a1a;
+    background: #fff;
+  }
+
+  /* Each .page is one A4 landscape sheet */
+  .page {
+    width: 277mm;
+    height: 190mm;
+    padding: 4mm;
+    page-break-after: always;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4mm;
+    align-content: flex-start;
+  }
+  .page:last-child { page-break-after: avoid; }
+
+  /* Cards: 2 columns on landscape A4 */
+  .card {
+    width: 134mm;
+    border: 1.5px solid #333;
+    border-radius: 4px;
+    padding: 5mm;
+    page-break-inside: avoid;
+    overflow: hidden;
+  }
+  .card-full {
+    width: 100%;
+  }
+
+  .card h2 {
+    font-size: 11pt;
+    font-weight: 800;
+    color: #fff;
+    padding: 3px 8px;
+    margin: -5mm -5mm 4px -5mm;
+    border-radius: 3px 3px 0 0;
+  }
+  .card h3 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    margin: 5px 0 2px 0;
+    color: #1b4965;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1px;
+  }
+  .card h4 {
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin: 4px 0 1px 0;
+    color: #444;
+  }
+
+  /* Color coding by card type */
+  .bg-blue h2 { background: #1b4965; }
+  .bg-green h2 { background: #2d6a4f; }
+  .bg-orange h2 { background: #b85c1e; }
+  .bg-red h2 { background: #9b2226; }
+  .bg-purple h2 { background: #5b4a8a; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.5pt;
+    margin: 2px 0;
+  }
+  th {
+    background: #e8eff7;
+    font-weight: 700;
+    text-align: left;
+    padding: 2px 4px;
+    font-size: 7pt;
+    text-transform: uppercase;
+    border-bottom: 1px solid #aaa;
+  }
+  td {
+    padding: 1.5px 4px;
+    border-bottom: 0.5px solid #ddd;
+    vertical-align: top;
+    line-height: 1.3;
+  }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  tr:nth-child(even) td { background: #f8f9fa; }
+
+  .highlight { background: #fff3cd !important; font-weight: 700; }
+  .warning { color: #9b2226; font-weight: 700; }
+  .note { font-size: 7pt; color: #555; font-style: italic; margin-top: 3px; line-height: 1.3; }
+  .big-text { font-size: 10pt; font-weight: 800; }
+  .step { margin: 2px 0; padding-left: 14px; text-indent: -14px; line-height: 1.4; }
+  .step-num { font-weight: 800; color: #1b4965; }
+  .divider { border-top: 1px dashed #aaa; margin: 4px 0; }
+
+  ul { margin: 2px 0 2px 14px; padding: 0; }
+  li { margin: 1px 0; line-height: 1.3; }
+
+  @media print {
+    body { margin: 0; }
+    .page { margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: MODE CARDS — G9 MkI ==================== -->
+<div class="page">
+
+  <div class="card bg-blue" style="height: 88mm;">
+    <h2>G9 MkI — Mode Map (5 modes)</h2>
+    <table>
+      <tr><th>Mode</th><th>Scenario</th><th>Exp</th><th>Key Settings</th><th>Lens</th></tr>
+      <tr><td>C1</td><td>Street / General</td><td>A f/5.6</td><td>AFS, Single, no detection</td><td>12-35mm</td></tr>
+      <tr><td>C2</td><td>Portrait / People</td><td>A f/2.8</td><td>AFS, Human detect, Min SS 1/125</td><td>35-100mm</td></tr>
+      <tr><td>C3-1</td><td>Landscape</td><td>A f/8</td><td>AFS, Single, no detection, Scenery</td><td>12-35mm</td></tr>
+      <tr class="highlight"><td>C3-2</td><td>Macro Handheld</td><td>M f/11 1/200 ISO200</td><td>MF, Mech shutter, Flash ON</td><td>90mm / 60mm</td></tr>
+      <tr><td>C3-3</td><td>Wildlife / Action</td><td>M f/2.8 1/2000 Auto ISO</td><td>AFC, Zone, Animal detect, Burst, ELEC</td><td>35-100mm</td></tr>
+    </table>
+    <div class="divider"></div>
+    <p class="note"><strong>All modes share ~80 set-and-forget settings</strong> (back-button AF, focus peaking, zebras, beeps OFF, etc.). Only the settings above change between modes.</p>
+    <p class="note"><strong>Q.Menu layout never changes.</strong> Muscle memory across all modes.</p>
+  </div>
+
+  <div class="card bg-blue" style="height: 88mm;">
+    <h2>G9 MkII — Mode Map (12 modes)</h2>
+    <table style="font-size: 7pt;">
+      <tr><th>Mode</th><th>Scenario</th><th>Exp</th><th>Key Settings</th><th>Lens</th></tr>
+      <tr><td>C1</td><td>Street / General</td><td>A f/5.6</td><td>AFS, Single, no detect</td><td>12-35</td></tr>
+      <tr><td>C2</td><td>Portrait / People</td><td>A f/2.8</td><td>AFS, Human, Min SS 1/125</td><td>35-100</td></tr>
+      <tr><td>C3-1</td><td>Landscape</td><td>A f/8</td><td>AFS, Single, Scenery style</td><td>12-35</td></tr>
+      <tr class="highlight"><td>C3-2</td><td>Macro Handheld</td><td>M f/11 1/200 ISO200</td><td>MF, MSHTR, Flash, <span class="warning">Preview OFF</span></td><td>90/60mm</td></tr>
+      <tr><td>C3-3</td><td>Wildlife / Action</td><td>M f/6.3 1/2000 Auto</td><td>AFC, Zone, Animal, Burst, ELEC</td><td>100-400</td></tr>
+      <tr class="highlight"><td>C3-4</td><td>Tripod Macro Stack</td><td>M f/8 1/200 ISO400</td><td>MF, MSHTR, Flash, Bracket, <span class="warning">Preview OFF</span></td><td>90mm</td></tr>
+      <tr><td>C3-5</td><td>Birds Crop Zoom</td><td>M f/6.3 1/2000 Auto</td><td>AFC, Zone, Animal, JPEG only</td><td>100-400</td></tr>
+      <tr><td>C3-6</td><td>Lightning (LVC)</td><td>M f/8 4s ISO400</td><td>MF, LVC ON, 16:9, WB Daylight</td><td>12-35</td></tr>
+      <tr><td>C3-7</td><td>Indoor / Low Light</td><td>M f/2.8 1/125 Auto≤12800</td><td>AFC, Human, Silent ON, Natural</td><td>12-35</td></tr>
+      <tr><td>C3-8</td><td>Birds in Flight</td><td>M f/6.3 1/4000 Auto</td><td>AFC, Tracking, Animal, IS Mode 2</td><td>100-400</td></tr>
+      <tr><td>C3-9</td><td>Video Travel</td><td>P (auto)</td><td>AFC, Human, 4K30p, e-stab STD</td><td>12-35</td></tr>
+      <tr><td>C3-10</td><td>Video Wildlife</td><td>M f/6.3 1/500 Auto</td><td>AFC, Tracking, Animal, e-stab HIGH</td><td>100-400</td></tr>
+    </table>
+  </div>
+
+  <!-- ROW 2 -->
+  <div class="card bg-green" style="height: 88mm;">
+    <h2>C3-2 Macro — Detailed Settings</h2>
+    <p style="font-size: 7.5pt; margin-bottom: 3px;"><strong>Same on both cameras.</strong> Flash = AD100Pro + X3 + ML-CD15</p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Mode Dial</td><td><span class="big-text">M</span></td></tr>
+      <tr><td>Aperture</td><td><span class="big-text">f/11</span></td></tr>
+      <tr><td>Shutter Speed</td><td><span class="big-text">1/200s</span> (sync speed)</td></tr>
+      <tr><td>ISO</td><td><span class="big-text">200</span> fixed (flash provides light)</td></tr>
+      <tr><td>Focus</td><td><span class="big-text">MF</span> — body rocking + focus peaking</td></tr>
+      <tr><td>Shutter Type</td><td><span class="big-text">MSHTR</span> (flash requires mechanical)</td></tr>
+      <tr><td>Drive</td><td>Single Shot</td></tr>
+      <tr><td>Flash Mode</td><td>Forced ON</td></tr>
+      <tr><td>IS</td><td>ON, Mode 1</td></tr>
+      <tr><td>Photo Style</td><td>Natural</td></tr>
+      <tr><td>Detection</td><td>OFF (MF mode)</td></tr>
+      <tr class="highlight"><td>Const. Preview</td><td><span class="warning">OFF on MkII</span> (OK on MkI)</td></tr>
+    </table>
+  </div>
+
+  <div class="card bg-green" style="height: 88mm;">
+    <h2>Macro Lens Selection — Costa Rica</h2>
+
+    <h3>90mm f/3.5 (Default)</h3>
+    <table>
+      <tr><th>Best for</th><th>Working dist.</th><th>Flash comp</th></tr>
+      <tr><td>Frogs, snakes, lizards, tarantulas</td><td>~11cm at 1:1</td><td>±0 to +0.3</td></tr>
+    </table>
+    <ul>
+      <li>Safer distance from venomous species</li>
+      <li>Dual IS (lens + body) on MkI = steadier</li>
+      <li>Better background blur (longer FL)</li>
+    </ul>
+
+    <h3>60mm f/2.8 (Swap)</h3>
+    <table>
+      <tr><th>Best for</th><th>Working dist.</th><th>Flash comp</th></tr>
+      <tr><td>Small insects, glass frogs, 1:1 detail</td><td>~7cm at 1:1</td><td>±0</td></tr>
+    </table>
+    <ul>
+      <li>Lighter (185g vs 453g)</li>
+      <li>True 1:1 for tiny subjects</li>
+      <li>Closer = more flash at same power</li>
+    </ul>
+
+    <div class="divider"></div>
+    <p class="note"><strong>Camera settings identical for both lenses.</strong> Only adjust flash compensation on the X3 if needed.</p>
+    <p class="note">With Raynox DCR-250 on 60mm: switch X3 to Manual, 1/128 power (TTL overexposes at very close distance).</p>
+  </div>
+
+</div>
+
+<!-- ==================== PAGE 2: FLASH CARDS ==================== -->
+<div class="page">
+
+  <div class="card bg-orange" style="height: 120mm;">
+    <h2>AD100Pro + X3 — Flash Setup &amp; Operation</h2>
+
+    <h3>Initial Setup (once)</h3>
+    <table>
+      <tr><th>Device</th><th>Setting</th><th>Value</th></tr>
+      <tr><td>X3</td><td>Channel</td><td>CH1</td></tr>
+      <tr><td>X3</td><td>ID</td><td>OFF</td></tr>
+      <tr><td>X3</td><td>Shooting mode</td><td>One-shoot</td></tr>
+      <tr><td>X3</td><td>Buzz</td><td>OFF</td></tr>
+      <tr><td>X3</td><td>Min Power</td><td>1/256</td></tr>
+      <tr><td>X3</td><td>Step</td><td>0.3</td></tr>
+      <tr><td>X3</td><td>Auto Off</td><td>60 min</td></tr>
+      <tr><td>X3</td><td>Sync mode</td><td>Front curtain</td></tr>
+      <tr><td>AD100Pro</td><td>Wireless</td><td>RX mode</td></tr>
+      <tr><td>AD100Pro</td><td>Channel</td><td>CH1 (match X3)</td></tr>
+      <tr><td>AD100Pro</td><td>ID</td><td>OFF (match X3)</td></tr>
+      <tr><td>AD100Pro</td><td>Group</td><td>A</td></tr>
+    </table>
+
+    <h3>Mounting Order</h3>
+    <div class="step"><span class="step-num">1.</span> Camera OFF → mount X3 on hot shoe</div>
+    <div class="step"><span class="step-num">2.</span> Turn ON X3 → turn ON camera</div>
+    <div class="step"><span class="step-num">3.</span> Turn ON AD100Pro (RX mode, same channel)</div>
+    <div class="step"><span class="step-num">4.</span> Attach ML-CD15 diffuser magnetically</div>
+    <div class="step"><span class="step-num">5.</span> Test fire: press X3 test button</div>
+
+    <h3>TTL Mode (0.5x–1x on MkI)</h3>
+    <div class="step">Main screen should show Group A in <strong>TTL</strong>, FEC <strong>0.0</strong></div>
+    <div class="step">Adjust: tap <strong>+</strong>/<strong>−</strong> for ±0.3 per tap, or slide the bar</div>
+
+    <h3>Manual Mode (>1x, or always on MkII)</h3>
+    <div class="step"><span class="step-num">1.</span> Tap group A display → enter single-group view</div>
+    <div class="step"><span class="step-num">2.</span> Tap <strong>TTL</strong> → toggles to <strong>M</strong></div>
+    <div class="step"><span class="step-num">3.</span> Set power to <strong>1/128</strong> (tap +/− or slide bar)</div>
+    <div class="step"><span class="step-num">4.</span> Swipe right → back to main view</div>
+  </div>
+
+  <div class="card bg-orange" style="height: 120mm;">
+    <h2>Flash Power Quick Reference</h2>
+
+    <h3>Starting Power (Manual mode, with ML-CD15)</h3>
+    <table>
+      <tr><th>Lens</th><th>Distance</th><th>Start Power</th><th>If dark</th><th>If bright</th></tr>
+      <tr class="highlight"><td>90mm at 1:1</td><td>~11cm</td><td><strong>1/128</strong></td><td>1/64</td><td>Back flash away</td></tr>
+      <tr class="highlight"><td>60mm at 1:1</td><td>~7cm</td><td><strong>1/128</strong></td><td>1/64</td><td>Back flash away</td></tr>
+      <tr><td>60mm + MCP-250</td><td>~5cm</td><td><strong>1/128</strong></td><td>1/64</td><td>Back flash away</td></tr>
+      <tr><td>90mm at 1:2</td><td>~22cm</td><td><strong>1/64</strong></td><td>1/32</td><td>1/128</td></tr>
+      <tr><td>Any lens half-body</td><td>~30cm+</td><td><strong>1/32</strong></td><td>1/16</td><td>1/64</td></tr>
+    </table>
+
+    <h3>FEC Guide (TTL mode)</h3>
+    <table>
+      <tr><th>Subject</th><th>FEC</th></tr>
+      <tr><td>Normal (green leaf, brown insect)</td><td><strong>±0</strong></td></tr>
+      <tr><td>Dark insect on dark leaf</td><td><strong>+0.3 to +0.7</strong></td></tr>
+      <tr><td>Light/reflective (white butterfly, wet frog)</td><td><strong>−0.3 to −1.0</strong></td></tr>
+      <tr><td>90mm (more distance than 60mm)</td><td><strong>+0.3 base</strong></td></tr>
+    </table>
+
+    <h3>Troubleshooting</h3>
+    <table>
+      <tr><th>Problem</th><th>Fix</th></tr>
+      <tr><td>Flash not firing</td><td>Check: X3 ON? AD100Pro ON + RX? Same channel? Hot shoe seated?</td></tr>
+      <tr><td>Image completely black</td><td>MkII: Constant Preview must be OFF</td></tr>
+      <tr><td>Image overexposed (TTL)</td><td>Switch to Manual mode, start at 1/128</td></tr>
+      <tr><td>Image underexposed</td><td>Increase power (+), or wider aperture, or ISO 400</td></tr>
+      <tr><td>Slow recycling</td><td>Lower power. Charge AD100Pro battery.</td></tr>
+      <tr><td>X3 zoom setting</td><td><span class="warning">Has NO effect on AD100Pro</span> (fixed round head)</td></tr>
+    </table>
+
+    <div class="divider"></div>
+    <h3>Switch TTL ↔ Manual (3 taps)</h3>
+    <div class="step"><span class="step-num">1.</span> Tap group A power display</div>
+    <div class="step"><span class="step-num">2.</span> Tap <strong>TTL</strong> (toggles to M) or <strong>M</strong> (toggles to TTL)</div>
+    <div class="step"><span class="step-num">3.</span> If M: set power with +/− or slider. Swipe right to exit.</div>
+  </div>
+
+  <!-- Bottom row: smaller cards -->
+  <div class="card bg-red" style="height: 56mm;">
+    <h2>Critical Reminders</h2>
+    <table>
+      <tr><td class="warning" style="width:50%">Flash = Mechanical Shutter ONLY</td><td>Electronic/EFC will NOT sync</td></tr>
+      <tr><td class="warning">MkII Constant Preview OFF</td><td>In C3-2 and C3-4 (flash modes)</td></tr>
+      <tr><td class="warning">Focus lever → MF</td><td>Before using C3-2. AF detection grays out in MF — this is normal.</td></tr>
+      <tr><td class="warning">EFC caps SS at 1/2000s</td><td>Wildlife modes use full ELEC for faster SS</td></tr>
+      <tr><td class="warning">Crop Zoom = JPEG only</td><td>C3-5 — no RAW available</td></tr>
+      <tr><td class="warning">LVC exit</td><td>Press Q button to end Live View Composite</td></tr>
+    </table>
+  </div>
+
+  <div class="card bg-purple" style="height: 56mm;">
+    <h2>Costa Rica Scenario Checklists</h2>
+    <div style="display: flex; gap: 8px;">
+      <div style="flex: 1;">
+        <h4>Rainforest Macro Walk</h4>
+        <ul style="font-size: 7pt;">
+          <li>MkI + 90mm on C3-2</li>
+          <li>60mm in bag (swap)</li>
+          <li>AD100Pro + X3 + ML-CD15</li>
+          <li>MCP-250 in pocket</li>
+          <li>Spare AD100Pro battery</li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h4>Bird / Wildlife Outing</h4>
+        <ul style="font-size: 7pt;">
+          <li>MkII + 100-400mm on C3-3</li>
+          <li>MkI + 35-100mm on C3-3</li>
+          <li>No flash needed</li>
+          <li>Switch to C3-8 for BIF (MkII)</li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h4>Mixed Day (Town + Nature)</h4>
+        <ul style="font-size: 7pt;">
+          <li>MkI + 12-35mm on C1</li>
+          <li>MkII + 100-400mm on C3-3</li>
+          <li>90mm + flash gear in bag</li>
+          <li>Swap to C3-2 if macro opportunity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== PAGE 3: WILDLIFE + VIDEO MODES DETAIL ==================== -->
+<div class="page">
+
+  <div class="card bg-blue" style="height: 88mm;">
+    <h2>C3-3 Wildlife / Action — Both Cameras</h2>
+    <div style="display: flex; gap: 8px;">
+      <div style="flex: 1;">
+        <h3>G9 MkI</h3>
+        <table>
+          <tr><td>Mode</td><td><span class="big-text">M</span></td></tr>
+          <tr><td>Aperture</td><td><span class="big-text">f/2.8</span></td></tr>
+          <tr><td>SS</td><td><span class="big-text">1/2000s</span></td></tr>
+          <tr><td>ISO</td><td>AUTO ≤6400</td></tr>
+          <tr><td>AF</td><td>AFC, Zone, Animal</td></tr>
+          <tr><td>Drive</td><td>Burst I (H)</td></tr>
+          <tr><td>Shutter</td><td>Electronic</td></tr>
+          <tr><td>Lens</td><td>35-100mm f/2.8</td></tr>
+        </table>
+      </div>
+      <div style="flex: 1;">
+        <h3>G9 MkII</h3>
+        <table>
+          <tr><td>Mode</td><td><span class="big-text">M</span></td></tr>
+          <tr><td>Aperture</td><td><span class="big-text">f/6.3</span></td></tr>
+          <tr><td>SS</td><td><span class="big-text">1/2000s</span></td></tr>
+          <tr><td>ISO</td><td>AUTO no limit</td></tr>
+          <tr><td>AF</td><td>AFC, Zone, Animal</td></tr>
+          <tr><td>Drive</td><td>Burst I (H)</td></tr>
+          <tr><td>Shutter</td><td>Electronic</td></tr>
+          <tr><td>Lens</td><td>100-400mm f/4-6.3</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <p class="note"><strong>Manual + Auto ISO</strong>: You fix aperture (lens-limited) and SS (subject speed). ISO floats. A noisy sharp photo beats a clean blurry one.</p>
+  </div>
+
+  <div class="card bg-blue" style="height: 88mm;">
+    <h2>C3-8 Birds in Flight — MkII Only</h2>
+    <table>
+      <tr><th>Setting</th><th>Value</th><th>vs C3-3</th></tr>
+      <tr><td>SS</td><td><span class="big-text">1/4000s</span></td><td>↑ from 1/2000 — freezes wings</td></tr>
+      <tr><td>AF Mode</td><td><span class="big-text">Tracking</span></td><td>↑ from Zone — more aggressive</td></tr>
+      <tr><td>IS</td><td><span class="big-text">Mode 2</span> (Panning)</td><td>↑ from Mode 1 — vertical only</td></tr>
+      <tr><td>Everything else</td><td colspan="2">Same as C3-3 (M, f/6.3, Auto ISO, ELEC, Burst H, Animal)</td></tr>
+    </table>
+    <div class="divider"></div>
+    <p class="note"><strong>When to switch C3-3 → C3-8:</strong> Bird takes flight, or you're tracking flight paths. The 3 changes (SS, AF, IS) are the difference between capturing and missing a raptor in flight.</p>
+
+    <h3 style="margin-top: 8px;">C3-5 Crop Zoom — MkII Only</h3>
+    <table>
+      <tr><th>Setting</th><th>Value</th><th>vs C3-3</th></tr>
+      <tr><td>Image Quality</td><td><span class="warning">JPEG FINE</span> (no RAW)</td><td>Required for Crop Zoom</td></tr>
+      <tr><td>Crop Zoom</td><td>ON, up to 2.0x</td><td>400mm × 2 MFT × 2 crop = 1600mm equiv</td></tr>
+      <tr><td>Everything else</td><td colspan="2">Same as C3-3</td></tr>
+    </table>
+    <p class="note">Use only when subject is too far for C3-3. You lose RAW flexibility.</p>
+  </div>
+
+  <div class="card bg-purple" style="height: 88mm;">
+    <h2>Video Modes — MkII Only</h2>
+    <div style="display: flex; gap: 8px;">
+      <div style="flex: 1;">
+        <h3>C3-9: Travel / Documentary</h3>
+        <table>
+          <tr><td>Mode</td><td><span class="big-text">P</span> (auto)</td></tr>
+          <tr><td>Resolution</td><td>4K 30p</td></tr>
+          <tr><td>AF</td><td>AFC, Full Area, Human</td></tr>
+          <tr><td>E-Stab</td><td>Standard</td></tr>
+          <tr><td>Style</td><td>Standard</td></tr>
+          <tr><td>Lens</td><td>12-35mm</td></tr>
+        </table>
+        <p class="note">Point-and-shoot video. Camera handles exposure.</p>
+      </div>
+      <div style="flex: 1;">
+        <h3>C3-10: Wildlife in Motion</h3>
+        <table>
+          <tr><td>Mode</td><td><span class="big-text">M</span></td></tr>
+          <tr><td>Aperture</td><td>f/6.3</td></tr>
+          <tr><td>SS</td><td>1/500s</td></tr>
+          <tr><td>ISO</td><td>AUTO no limit</td></tr>
+          <tr><td>AF</td><td>AFC, Tracking, Animal</td></tr>
+          <tr><td>E-Stab</td><td>HIGH</td></tr>
+          <tr><td>Lens</td><td>100-400mm</td></tr>
+        </table>
+        <p class="note">Manual for consistent exposure. SS faster than 180° rule for telephoto sharpness.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-green" style="height: 88mm;">
+    <h2>Special Modes — MkII Only</h2>
+
+    <h3>C3-6: Lightning (Live View Composite)</h3>
+    <table>
+      <tr><td>Mode</td><td>M, f/8, 4s, ISO 400</td></tr>
+      <tr><td>Focus</td><td>MF — pre-focus on horizon</td></tr>
+      <tr><td>WB</td><td>Daylight (fixed — not AWB)</td></tr>
+      <tr><td>Aspect</td><td>16:9</td></tr>
+      <tr><td>LVC</td><td>ON — only adds brighter pixels</td></tr>
+      <tr><td>IS</td><td>OFF (tripod)</td></tr>
+    </table>
+    <p class="note"><span class="warning">LVC forces:</span> Mechanical shutter, Long Exp NR ON, Silent Mode OFF, max ISO 1600. <strong>Press Q to end session.</strong></p>
+
+    <h3>C3-7: Indoor / Low Light</h3>
+    <table>
+      <tr><td>Mode</td><td>M, f/2.8, 1/125s, Auto ISO ≤12800</td></tr>
+      <tr><td>AF</td><td>AFC, Full Area, Human detection</td></tr>
+      <tr><td>Silent</td><td>ON (forces electronic shutter)</td></tr>
+      <tr><td>Style</td><td>Natural (less contrast for harsh indoor light)</td></tr>
+      <tr><td>Flash</td><td>OFF</td></tr>
+    </table>
+    <p class="note">Museums, churches, events, forest canopy. Completely silent.</p>
+  </div>
+
+</div>
+
+<div style="text-align: center; font-size: 8pt; color: #888; padding: 4px;">
+  Costa Rica Field Reference Cards — Nelson Salgado — March 2026 — Print on A4 Landscape, cut &amp; laminate
+</div>
+
+</body>
+</html>

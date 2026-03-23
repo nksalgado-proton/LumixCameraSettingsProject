@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Camera Mode System — A Conceptual Guide</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm 20mm 18mm;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.55;
+    color: #1a1a1a;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 20mm 18mm;
+    background: #fff;
+  }
+  h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #0d1b2a;
+    border-bottom: 3px solid #1b4965;
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 10pt;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+  h2 {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #1b4965;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    border-bottom: 1.5px solid #bee9e8;
+    padding-bottom: 4px;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #274c77;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+  p {
+    margin: 0 0 10px 0;
+    text-align: justify;
+  }
+  strong { color: #0d1b2a; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px 0;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #1b4965;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 10px;
+    font-size: 9.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #dde5ed;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f4f7fa; }
+  tr:hover td { background: #e8eff7; }
+  .mode-section {
+    page-break-inside: avoid;
+    border-left: 4px solid #1b4965;
+    padding-left: 14px;
+    margin-bottom: 24px;
+  }
+  .mode-section h3 {
+    margin-top: 0;
+    color: #1b4965;
+    font-size: 14pt;
+  }
+  .mode-scenario {
+    font-style: italic;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  .rationale {
+    background: #f0f6fb;
+    border-left: 3px solid #5fa8d3;
+    padding: 8px 12px;
+    margin: 10px 0 14px 0;
+    font-size: 10pt;
+    color: #333;
+    page-break-inside: avoid;
+  }
+  .rationale strong { color: #274c77; }
+  .side-effects {
+    background: #fff8f0;
+    border-left: 3px solid #e8871e;
+    padding: 8px 12px;
+    margin: 10px 0 14px 0;
+    font-size: 10pt;
+  }
+  .sony-section {
+    background: #f5f0ff;
+    border: 1.5px solid #7b68ae;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin: 16px 0;
+  }
+  .sony-section h2 {
+    color: #5b4a8a;
+    border-bottom-color: #c4b8e0;
+    margin-top: 0;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #cdd8e4;
+    margin: 20px 0;
+  }
+  ul { margin: 6px 0 12px 0; padding-left: 22px; }
+  li { margin-bottom: 4px; }
+  @media print {
+    body { padding: 0; max-width: none; }
+    .mode-section { page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+    table { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Custom Camera Mode System</h1>
+<div class="subtitle">
+  <strong>Author:</strong> Nelson Salgado &nbsp;|&nbsp;
+  <strong>Date:</strong> March 2026 &nbsp;|&nbsp;
+  <strong>Cameras:</strong> Panasonic Lumix G9 Mark II (12 modes) &amp; G9 Mark I (5 modes)<br>
+  <strong>Context:</strong> Designed for a 2-week wildlife + travel trip to Costa Rica
+</div>
+
+<h2>The Problem</h2>
+<p>Modern mirrorless cameras expose 150&ndash;200 configurable parameters. When you switch from photographing a bird in flight to a macro insect to a landscape, dozens of settings need to change: exposure mode, shutter speed, ISO behavior, autofocus mode, subject detection, shutter type, stabilizer mode, flash, drive mode, and more. Changing these one by one in the field is slow, error-prone, and guarantees missed shots.</p>
+<p>The solution is a <strong>custom mode system</strong> &mdash; a set of pre-configured camera profiles that you recall with a dial turn. Each profile stores the <em>complete</em> camera state for a specific shooting scenario.</p>
+
+<h2>Architecture: Baseline + Overrides</h2>
+<p>Rather than configuring each mode from scratch, the system uses a <strong>layered architecture</strong>:</p>
+
+<h3>Layer 1: The Baseline (~80 &ldquo;set-and-forget&rdquo; settings)</h3>
+<p>These are settings that remain <strong>identical across every mode</strong>. They define how the camera <em>behaves</em> regardless of what you're shooting. Here are representative examples from each category:</p>
+
+<p><strong>Focus behavior:</strong></p>
+<ul>
+  <li><strong>Shutter AF: OFF</strong> &mdash; The shutter button never focuses. Focus is controlled exclusively by a dedicated back button (back-button focus). This separates the &ldquo;think&rdquo; (focus) and &ldquo;act&rdquo; (shoot) decisions, allowing focus lock, recompose, and selective tracking without the camera fighting you.</li>
+  <li><strong>Focus priority (AFS and AFC): FOCUS</strong> &mdash; The camera refuses to fire until the subject is sharp. A blurry frame has zero value; better to miss a frame than capture a soft one.</li>
+  <li><strong>AF+MF: ON</strong> &mdash; After autofocus locks, you can immediately fine-tune by turning the focus ring without switching modes.</li>
+  <li><strong>Quick AF / Eye Sensor AF: OFF</strong> &mdash; The camera never focuses on its own. It focuses only when commanded via the back button.</li>
+</ul>
+
+<p><strong>Display and feedback:</strong></p>
+<ul>
+  <li><strong>Constant Preview: ON</strong> &mdash; The viewfinder shows the actual exposure in real time (what you see is what you get). Without this, Manual mode is a guessing game.</li>
+  <li><strong>Auto Review: OFF</strong> &mdash; The camera does not display the image after capture. During burst shooting or wildlife, review blocks the live view. You review when you choose.</li>
+  <li><strong>Focus Peaking: ON (Low sensitivity, Red)</strong> &mdash; Colored highlights on in-focus edges. Primary visual confirmation for manual focus and macro work.</li>
+  <li><strong>Zebra Pattern: ON (~100%)</strong> &mdash; Diagonal stripes on overexposed areas. A real-time blown-highlight alarm for white feathers, bright skies, and flash hotspots.</li>
+  <li><strong>Grid: 9-section (rule of thirds)</strong> &mdash; Always visible, never distracting.</li>
+  <li><strong>Level Gauge: ON</strong> &mdash; Prevents crooked horizons.</li>
+</ul>
+
+<p><strong>Exposure behavior:</strong></p>
+<ul>
+  <li><strong>ISO increments: 1/3 EV</strong> &mdash; Fine control. Full-stop jumps (100&rarr;200&rarr;400) are too coarse.</li>
+  <li><strong>Extended ISO: OFF</strong> &mdash; ISO 50 is a &ldquo;pull&rdquo; that sacrifices highlight headroom. Not worth it.</li>
+  <li><strong>Face Priority in Multi Metering: ON</strong> &mdash; Prevents backlit portrait silhouettes by biasing exposure toward detected faces.</li>
+  <li><strong>Auto Exposure in P/A/S/M: ON</strong> &mdash; If you accidentally hit the video record button during stills, the camera uses auto exposure for video instead of your manual stills settings. Safety net.</li>
+</ul>
+
+<p><strong>Ergonomics:</strong></p>
+<ul>
+  <li><strong>All beeps: OFF</strong> &mdash; Complete silence. Essential for wildlife (don't scare the bird) and street (don't announce yourself).</li>
+  <li><strong>Touch Pad AF: OFF</strong> &mdash; Prevents nose and cheek touches from moving the AF point while using the viewfinder.</li>
+  <li><strong>Power Save: Sleep 2 min, Monitor Off 1 min</strong> &mdash; Battery life matters on a multi-week trip.</li>
+</ul>
+
+<div class="rationale">
+  <strong>Key insight:</strong> These ~80 settings are configured once and saved into every custom mode as an identical foundation. They never vary between modes because they represent <em>how you want the camera to work</em>, not <em>what you're shooting</em>.
+</div>
+
+<h3>Layer 2: Mode-Specific Overrides (5&ndash;15 settings per mode)</h3>
+<p>Each custom mode changes only the parameters that matter for its specific scenario. Everything else inherits from the baseline. This means:</p>
+<ul>
+  <li>Switching modes changes only what <em>needs</em> to change</li>
+  <li>You never wonder &ldquo;did I forget to reset the stabilizer?&rdquo; because the baseline guarantees it</li>
+  <li>Adding a new mode requires defining only the differences</li>
+</ul>
+
+<hr>
+
+<h2>The Modes</h2>
+
+<!-- C1 -->
+<div class="mode-section">
+  <h3>C1: Street / General</h3>
+  <p class="mode-scenario">Walk-around photography. Markets, parks, towns, beaches, sightseeing. Unpredictable subjects, mixed lighting, no time to think about settings. The &ldquo;pick up and shoot&rdquo; mode &mdash; it should handle anything competently.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Aperture Priority (A)</strong></td><td>You control depth of field; camera handles shutter speed. Fastest reaction to changing scenes.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/5.6</strong></td><td>Sweet spot for sharpness across the frame. Wide enough for reasonable shutter speeds, narrow enough for adequate depth of field.</td></tr>
+    <tr><td>ISO</td><td><strong>Auto (no upper limit)</strong></td><td>Let the camera choose. In bright Costa Rica daylight, it will stay at base ISO most of the time.</td></tr>
+    <tr><td>Min. Shutter Speed</td><td><strong>Auto</strong></td><td>Camera auto-selects a safe handheld speed based on focal length.</td></tr>
+    <tr><td>AF mode</td><td><strong>Single-area</strong></td><td>Medium focus box. You point it at the subject. Predictable, no surprises.</td></tr>
+    <tr><td>Subject detection</td><td><strong>OFF</strong></td><td>Not needed for general scenes. Can be toggled on quickly if you spot a person or animal.</td></tr>
+    <tr><td>White balance</td><td><strong>Auto (AWB)</strong></td><td>Adapts to mixed lighting &mdash; sun, shade, indoor, artificial.</td></tr>
+    <tr><td>Photo style</td><td><strong>Standard</strong></td><td>Neutral, balanced look. Good starting point for any scene.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>ON, Normal mode</strong></td><td>Standard stabilization for handheld shooting.</td></tr>
+    <tr><td>Shutter type</td><td><strong>Electronic Front Curtain (EFC)</strong></td><td>Eliminates first-curtain vibration (sharper images) while maintaining flash compatibility.</td></tr>
+    <tr><td>Drive</td><td><strong>Single shot</strong></td><td>One press, one photo. Deliberate shooting.</td></tr>
+  </table>
+  <div class="rationale"><strong>Why Aperture Priority?</strong> In a walk-around context, shutter speed rarely matters &mdash; you're not freezing fast action or doing long exposures. Aperture controls your depth of field (how much is in focus), which <em>is</em> a creative decision. Let the camera handle the rest.</div>
+</div>
+
+<!-- C2 -->
+<div class="mode-section">
+  <h3>C2: Portrait / People</h3>
+  <p class="mode-scenario">Group shots, posed or candid portraits, people at events. The subject is a person and the goal is a sharp subject with a soft, separated background.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Aperture Priority (A)</strong></td><td>Control background blur via aperture.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/2.8</strong></td><td>Wide open for maximum background separation. On Micro Four Thirds, f/2.8 gives roughly equivalent depth of field to f/5.6 on full frame.</td></tr>
+    <tr><td>ISO</td><td><strong>Auto (no upper limit)</strong></td><td>Camera handles sensitivity.</td></tr>
+    <tr><td>Min. Shutter Speed</td><td><strong>1/125s</strong></td><td>Safety floor. People move &mdash; even &ldquo;still&rdquo; subjects sway, blink, gesture. Below 1/125s you risk motion blur.</td></tr>
+    <tr><td>AF mode</td><td><strong>Full Area + Face/Eye detection</strong></td><td>Camera finds faces automatically across the entire frame and locks onto the nearest eye.</td></tr>
+    <tr><td>Subject detection</td><td><strong>Human</strong></td><td>Activates face and eye detection specifically for people.</td></tr>
+    <tr><td>White balance</td><td><strong>Auto (AWB)</strong></td><td>Adapts to skin tones under any lighting.</td></tr>
+    <tr><td>Photo style</td><td><strong>Portrait</strong></td><td>Slightly warmer tones, softer skin rendering. Subtle but flattering.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>ON, Normal mode</strong></td><td>Handheld stability.</td></tr>
+    <tr><td>Shutter type</td><td><strong>EFC</strong></td><td>Sharp images, no vibration.</td></tr>
+    <tr><td>Drive</td><td><strong>Single shot</strong></td><td>Portraits are deliberate.</td></tr>
+  </table>
+</div>
+
+<!-- C3-1 -->
+<div class="mode-section">
+  <h3>C3-1: Landscape</h3>
+  <p class="mode-scenario">Scenic vistas, travel landscapes, wide compositions. Tripod optional. The goal is maximum sharpness across the entire frame and rich, saturated colors.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Aperture Priority (A)</strong></td><td>You choose depth of field; camera handles the rest.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/8</strong></td><td>Optimal diffraction-limited sharpness on MFT. Going narrower (f/11, f/16) introduces diffraction softness. On APS-C, f/8&ndash;f/11 is the sweet spot.</td></tr>
+    <tr><td>AF mode</td><td><strong>Single-area, no detection</strong></td><td>You place the focus point deliberately (typically 1/3 into the scene). Face detection would be distracting.</td></tr>
+    <tr><td>Subject detection</td><td><strong>OFF</strong></td><td>No subjects to detect in a landscape.</td></tr>
+    <tr><td>Photo style</td><td><strong>Scenery/Landscape</strong></td><td>Boosted saturation and contrast for vivid skies and foliage.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>ON, Normal</strong></td><td>For handheld. Turn off if on tripod.</td></tr>
+    <tr><td>Drive</td><td><strong>Single shot</strong></td><td>Landscapes are composed, not sprayed.</td></tr>
+  </table>
+  <div class="rationale"><strong>Why no detection?</strong> Subject detection (face, eye, animal) is designed for discrete subjects within a frame. In landscape photography, the &ldquo;subject&rdquo; is the entire scene. Detection would hunt for nonexistent faces or fixate on a distant hiker.</div>
+</div>
+
+<!-- C3-2 -->
+<div class="mode-section">
+  <h3>C3-2: Macro Handheld (Single Shot)</h3>
+  <p class="mode-scenario">Insects, spiders, small reptiles, flowers at close range. Handheld, using a dedicated macro lens and external flash. No focus stacking &mdash; quick single shots of subjects that may move at any moment. The most technically demanding mode.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Manual (M)</strong></td><td>Full control is essential. At macro distances, small changes in distance shift exposure. Aperture Priority would constantly adjust shutter speed as you rock forward and back, creating inconsistent flash exposures.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/11</strong></td><td>Balances depth of field against diffraction. At 1:1 on MFT, effective aperture is ~f/22. This gives roughly 2&ndash;3mm depth of field &mdash; enough for an insect's head.</td></tr>
+    <tr><td>Shutter speed</td><td><strong>1/200s</strong></td><td>Flash sync speed ceiling. The flash freezes the subject (~1/4000s duration at low power), but the shutter must be open long enough to capture the pulse.</td></tr>
+    <tr><td>ISO</td><td><strong>Fixed 200 (base)</strong></td><td>Maximum dynamic range, minimal noise. Flash provides all illumination &mdash; high ISO not needed.</td></tr>
+    <tr><td>Focus</td><td><strong>Manual (MF)</strong></td><td>Autofocus cannot reliably acquire macro subjects. Manual focus via body rocking is the standard technique. Focus peaking highlights the in-focus zone.</td></tr>
+    <tr><td>Flash</td><td><strong>ON, TTL mode</strong></td><td>TTL measures flash exposure through the lens and adjusts power automatically. Essential for handheld macro where distance varies constantly.</td></tr>
+    <tr><td>Flash compensation</td><td><strong>&plusmn;0</strong></td><td>Starting point. Increase for dark subjects, decrease for reflective ones.</td></tr>
+    <tr><td>Shutter type</td><td><strong>Mechanical</strong></td><td>Flash requires mechanical shutter &mdash; electronic shutter cannot sync with flash.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>ON, Mode 1</strong></td><td>Helps frame the subject while rocking into focus.</td></tr>
+    <tr><td>Subject detection</td><td><strong>OFF</strong></td><td>Irrelevant in MF mode. Camera can't autofocus anyway.</td></tr>
+  </table>
+  <div class="rationale"><strong>Field variants:</strong> This mode has 8 documented variants depending on the lens/accessory combination &mdash; different lenses and diopter attachments require adjusted aperture, flash compensation, and ISO. For example, adding a 2x teleconverter loses 2 stops of light, requiring wider aperture, higher flash power (+0.7 to +1.3 compensation), and potentially higher ISO (200&ndash;400).</div>
+</div>
+
+<!-- C3-3 -->
+<div class="mode-section">
+  <h3>C3-3: Wildlife / Action</h3>
+  <p class="mode-scenario">Birds perched or moving, animals, any fast or unpredictable subject at distance. Using a telephoto lens. The goal is to freeze motion with sharp focus on the animal.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Manual (M)</strong></td><td>Manual with Auto ISO gives fixed aperture and fixed shutter speed, while ISO floats to handle exposure changes. The &ldquo;manual with one auto variable&rdquo; technique.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/6.3</strong></td><td>Maximum aperture at 400mm. You want every photon. On faster lenses, open wide for the same reason.</td></tr>
+    <tr><td>Shutter speed</td><td><strong>1/2000s</strong></td><td>Freezes most bird and animal movement. Walking birds: 1/1000s. Flying: 1/2000&ndash;1/4000s. Practical compromise.</td></tr>
+    <tr><td>ISO</td><td><strong>Auto (no upper limit)</strong></td><td>ISO floats to achieve correct exposure. A noisy sharp photo is infinitely better than a clean blurry one.</td></tr>
+    <tr><td>AF mode</td><td><strong>Zone</strong></td><td>Cluster of AF points covering a region. Wider than single-point (easier to keep a bird in the zone) but narrower than full-area (doesn't grab background).</td></tr>
+    <tr><td>Subject detection</td><td><strong>Animal</strong></td><td>Camera identifies animal bodies, faces, and eyes. Eye detection prioritizes the eye for tack-sharp portraits.</td></tr>
+    <tr><td>Drive</td><td><strong>Burst (high speed)</strong></td><td>Wildlife moments are fleeting &mdash; 14fps gives 14 chances per second to capture the perfect moment.</td></tr>
+    <tr><td>Shutter type</td><td><strong>Electronic</strong></td><td>Maximum burst rate. Completely silent. Rolling shutter negligible at 1/2000s+.</td></tr>
+    <tr><td>Flash</td><td><strong>OFF</strong></td><td>Startles wildlife, insufficient range for telephoto distances, incompatible with electronic shutter.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>ON, Mode 1 (Normal)</strong></td><td>Stabilizes all axes for general handheld telephoto shooting.</td></tr>
+  </table>
+  <div class="rationale"><strong>Why Manual + Auto ISO instead of Aperture Priority?</strong> In A-mode, the camera chooses shutter speed and may choose too slow for a moving bird. You could set a minimum shutter speed floor, but then you're constraining A-mode into behaving like M-mode with extra steps. Manual + Auto ISO is more direct: you choose aperture (lens-limited anyway) and shutter speed (based on subject speed); ISO is the only variable that floats.</div>
+</div>
+
+<!-- C3-4 -->
+<div class="mode-section">
+  <h3>C3-4: Tripod Macro (Focus Bracketing) &mdash; <em>G9 MkII only</em></h3>
+  <p class="mode-scenario">Tripod-mounted macro with focus bracketing. The camera takes a sequence of images, each focused slightly deeper into the subject, later merged in software to create extreme depth of field.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Manual (M)</strong></td><td>Exposure must be identical across all frames. Any variation causes banding in the merged result.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/8</strong></td><td>Wider than single-shot macro (f/11) because each frame only needs to be sharp at one focus plane. Less diffraction, more light, faster flash recycling.</td></tr>
+    <tr><td>Shutter speed</td><td><strong>1/200s</strong></td><td>Flash sync speed.</td></tr>
+    <tr><td>ISO</td><td><strong>Fixed 400</strong></td><td>Slightly higher to allow lower flash power per frame &rarr; faster recycling between bracket shots.</td></tr>
+    <tr><td>Focus</td><td><strong>Manual (MF)</strong></td><td>Set initial focus at nearest part of subject. Camera shifts focus deeper automatically for each frame.</td></tr>
+    <tr><td>Bracketing</td><td><strong>ON &mdash; Focus Bracketing</strong></td><td>Camera takes N frames, shifting focus by a configurable step between each. Step size and count depend on magnification.</td></tr>
+    <tr><td>Shutter delay</td><td><strong>2 seconds</strong></td><td>Lets tripod vibrations from pressing the button die down before first frame.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>OFF</strong></td><td>On a tripod, IS can <em>cause</em> micro-vibrations. Always off on tripod.</td></tr>
+    <tr><td>Flash</td><td><strong>ON, TTL</strong></td><td>Same flash illumination as handheld macro. TTL adjusts power per frame as focus distance shifts.</td></tr>
+    <tr><td>Shutter type</td><td><strong>Mechanical</strong></td><td>Required for flash sync.</td></tr>
+  </table>
+  <div class="rationale"><strong>Why not just use f/22 instead of stacking?</strong> At macro magnifications, diffraction at f/22 severely degrades sharpness. Focus stacking at f/8 produces dramatically sharper results because each individual frame is captured at a diffraction-friendly aperture. The depth of field comes from combining dozens of razor-thin focus planes, not from stopping down.</div>
+</div>
+
+<!-- C3-5 -->
+<div class="mode-section">
+  <h3>C3-5: Birds with Crop Zoom &mdash; <em>G9 MkII only</em></h3>
+  <p class="mode-scenario">Distant birds where you need more reach than your longest lens provides. Crop Zoom digitally crops into the center of the frame, multiplying focal length up to 2x, at the cost of switching from RAW to JPEG.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure / AF / Drive</td><td><strong>Same as C3-3 (Wildlife)</strong></td><td>Identical strategy: freeze motion, Zone AF, Animal detection, burst.</td></tr>
+    <tr><td>Image quality</td><td><strong>JPEG Fine (not RAW)</strong></td><td>Crop Zoom operates on the processed image, not raw sensor data. Main trade-off.</td></tr>
+    <tr><td>Crop Zoom</td><td><strong>ON, max 2.0x</strong></td><td>100&ndash;400mm at 400mm &times; 2x MFT factor &times; 2x crop = 1600mm equivalent field of view.</td></tr>
+  </table>
+  <div class="rationale"><strong>Trade-off:</strong> You lose RAW flexibility (white balance, exposure recovery, noise reduction in post) in exchange for 2x more reach. Use this mode only when the subject is genuinely too far for the standard Wildlife mode.</div>
+</div>
+
+<!-- C3-6 -->
+<div class="mode-section">
+  <h3>C3-6: Landscape Tripod / Lightning &mdash; Live View Composite &mdash; <em>G9 MkII only</em></h3>
+  <p class="mode-scenario">Lightning photography using the camera's Live View Composite feature. LVC keeps the shutter open and composites only brighter-than-previous pixels &mdash; lightning bolts accumulate while the sky doesn't overexpose.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Manual (M)</strong></td><td>Exposure for the base frame is set manually. Lightning bolts are added on top by the composite algorithm.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/8</strong></td><td>Sharp landscape aperture.</td></tr>
+    <tr><td>Shutter speed</td><td><strong>4 seconds</strong></td><td>Base exposure per composite cycle. Adjust in field based on ambient brightness.</td></tr>
+    <tr><td>ISO</td><td><strong>Fixed 400</strong></td><td>Low for clean base exposure. Lightning is extremely bright.</td></tr>
+    <tr><td>White balance</td><td><strong>Daylight (fixed)</strong></td><td>AWB would shift between frames as lightning illuminates the scene differently. Fixed WB ensures consistent color.</td></tr>
+    <tr><td>Aspect ratio</td><td><strong>16:9</strong></td><td>Wide cinematic framing suits sweeping storm landscapes.</td></tr>
+    <tr><td>Focus</td><td><strong>Manual (MF)</strong></td><td>Pre-focus on the horizon. Nothing should change during the composite.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>OFF</strong></td><td>Tripod-mounted.</td></tr>
+    <tr><td>Live View Composite</td><td><strong>ON</strong></td><td>The defining feature. Only adds brighter pixels to the running exposure.</td></tr>
+    <tr><td>Shutter type</td><td><strong>Mechanical (forced)</strong></td><td>LVC requires mechanical shutter &mdash; hardware constraint.</td></tr>
+    <tr><td>Long Exposure NR</td><td><strong>ON (forced)</strong></td><td>LVC forces this on. Camera takes a dark frame to subtract hot pixels.</td></tr>
+  </table>
+  <div class="side-effects"><strong>LVC side effects:</strong> Silent Mode disabled, maximum ISO capped at 1600, electronic shutter unavailable, bracketing disabled. These constraints exist because LVC operates at a firmware level that bypasses normal processing paths.</div>
+</div>
+
+<!-- C3-7 -->
+<div class="mode-section">
+  <h3>C3-7: Indoor / Low Light &mdash; <em>G9 MkII only</em></h3>
+  <p class="mode-scenario">Dim interiors, restaurants, forest canopy, dusk. Any situation where light is scarce and you need to maximize what the camera can capture without flash. Events, museums, churches, canopy walks.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Manual (M)</strong></td><td>Precise control of the exposure triangle in difficult light.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/2.8</strong></td><td>Wide open for maximum light gathering. Every fraction of a stop matters.</td></tr>
+    <tr><td>Shutter speed</td><td><strong>1/125s</strong></td><td>Minimum for sharp handheld shots of people. Stabilization helps the camera, but the <em>subject</em> can still blur below this.</td></tr>
+    <tr><td>ISO</td><td><strong>Auto (upper limit 12800)</strong></td><td>Camera pushes ISO high to maintain exposure. 12800 is the practical ceiling where noise remains acceptable.</td></tr>
+    <tr><td>AF mode</td><td><strong>Full Area + Face/Eye detection</strong></td><td>In low light, AF is already struggling &mdash; give it the best chance with full sensor coverage and face detection.</td></tr>
+    <tr><td>Subject detection</td><td><strong>Human</strong></td><td>Indoor scenarios usually involve people.</td></tr>
+    <tr><td>Silent Mode</td><td><strong>ON</strong></td><td>Completely silent operation. Essential for concerts, ceremonies, museums. Forces electronic shutter.</td></tr>
+    <tr><td>Photo style</td><td><strong>Natural</strong></td><td>Less contrast than Standard. In harsh indoor lighting, Natural avoids crushed shadows and blown highlights.</td></tr>
+    <tr><td>Flash</td><td><strong>OFF</strong></td><td>Flash would defeat the purpose. Also incompatible with electronic shutter.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>ON, Mode 1</strong></td><td>Critical for handheld low-light shooting.</td></tr>
+  </table>
+</div>
+
+<!-- C3-8 -->
+<div class="mode-section">
+  <h3>C3-8: Birds in Flight (BIF) &mdash; <em>G9 MkII only</em></h3>
+  <p class="mode-scenario">Dedicated mode for birds actively flying &mdash; the most demanding autofocus challenge in wildlife photography. Birds in flight change distance, speed, and direction unpredictably, against complex backgrounds.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Manual (M)</strong></td><td>Same Manual + Auto ISO strategy as general wildlife.</td></tr>
+    <tr><td>Aperture</td><td><strong>f/6.3</strong></td><td>Maximum at 400mm. Every photon counts for fast shutter speeds.</td></tr>
+    <tr><td>Shutter speed</td><td><strong>1/4000s</strong></td><td>Freezes wing motion. At 1/2000s, fast-beating wings still show blur. 1/4000s freezes nearly everything.</td></tr>
+    <tr><td>ISO</td><td><strong>Auto (no upper limit)</strong></td><td>Must float freely to compensate for the extremely fast shutter speed.</td></tr>
+    <tr><td>AF mode</td><td><strong>Tracking</strong></td><td>Most aggressive AF mode. Camera locks onto the subject and follows it anywhere in the frame.</td></tr>
+    <tr><td>Subject detection</td><td><strong>Animal</strong></td><td>Camera identifies the bird shape and prioritizes it. Eye detection locks onto the eye when visible.</td></tr>
+    <tr><td>Drive</td><td><strong>Burst (high speed)</strong></td><td>BIF is a numbers game &mdash; maximum frame rate gives the best chance of capturing peak action.</td></tr>
+    <tr><td>Shutter type</td><td><strong>Electronic</strong></td><td>Maximum frame rate and complete silence. At 1/4000s, rolling shutter is imperceptible.</td></tr>
+    <tr><td>Stabilizer</td><td><strong>ON, Mode 2 (Panning)</strong></td><td>Stabilizes only the vertical axis, allowing smooth horizontal panning. Mode 1 would fight your panning motion.</td></tr>
+  </table>
+  <div class="rationale"><strong>What distinguishes BIF from general Wildlife?</strong> Three things: faster shutter speed (1/4000s vs 1/2000s) to freeze wings, Tracking AF instead of Zone (more aggressive following), and IS Mode 2 for panning. These seem like small changes, but they're the difference between capturing and missing a raptor diving at 200 km/h.</div>
+</div>
+
+<!-- C3-9 -->
+<div class="mode-section">
+  <h3>C3-9: Video &mdash; Travel / Documentary &mdash; <em>G9 MkII only</em></h3>
+  <p class="mode-scenario">Simple travel video. Documenting scenes, places, people, food, activities. Point-and-shoot video that looks good with minimal effort. Not cinema &mdash; for social sharing and trip memories.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Program (P)</strong></td><td>Camera handles both aperture and shutter speed. For casual video, consistent well-exposed footage is the goal.</td></tr>
+    <tr><td>Resolution</td><td><strong>4K 30p</strong></td><td>High quality without excessive file sizes. 30fps is natural-looking for travel content.</td></tr>
+    <tr><td>AF mode</td><td><strong>Full Area + Face detection</strong></td><td>Camera tracks faces automatically. Travel video is often people-centric.</td></tr>
+    <tr><td>Subject detection</td><td><strong>Human</strong></td><td>Primary subjects are people in travel scenarios.</td></tr>
+    <tr><td>Electronic stabilization</td><td><strong>Standard</strong></td><td>Additional software stabilization. Smooths handheld walking footage. Slight crop (~10%) is worthwhile.</td></tr>
+    <tr><td>Photo style</td><td><strong>Standard</strong></td><td>Balanced look, no heavy color grading needed.</td></tr>
+    <tr><td>Audio</td><td><strong>Internal mic, default levels</strong></td><td>Capture ambient sound. Adjust levels in field if needed.</td></tr>
+  </table>
+</div>
+
+<!-- C3-10 -->
+<div class="mode-section">
+  <h3>C3-10: Video &mdash; Wildlife in Motion &mdash; <em>G9 MkII only</em></h3>
+  <p class="mode-scenario">Video of wildlife behavior &mdash; birds feeding, animals moving, action sequences at telephoto distances. Manual exposure for consistency and aggressive autofocus.</p>
+  <table>
+    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+    <tr><td>Exposure mode</td><td><strong>Manual (M)</strong></td><td>Consistent exposure across clips. Wildlife moves between shade and sun &mdash; auto exposure would pump (brightness oscillating).</td></tr>
+    <tr><td>Aperture</td><td><strong>f/6.3</strong></td><td>Maximum at 400mm.</td></tr>
+    <tr><td>Shutter speed</td><td><strong>1/500s</strong></td><td>Compromise: some motion blur for natural movement in video, but sharp enough for freeze-frame detail. The 180&deg; rule suggests 1/60s for 30p, but that's too slow for telephoto wildlife.</td></tr>
+    <tr><td>ISO</td><td><strong>Auto (no upper limit)</strong></td><td>ISO floats to handle exposure changes.</td></tr>
+    <tr><td>Resolution</td><td><strong>4K 30p</strong></td><td>Matches travel video format for consistent editing.</td></tr>
+    <tr><td>AF mode</td><td><strong>Tracking + Animal detection</strong></td><td>Aggressive tracking follows the animal across the frame.</td></tr>
+    <tr><td>Electronic stabilization</td><td><strong>High</strong></td><td>More aggressive stabilization for telephoto handheld. The additional crop is acceptable at these focal lengths.</td></tr>
+    <tr><td>Photo style</td><td><strong>Standard</strong></td><td>Consistent with travel video. Easy to edit.</td></tr>
+  </table>
+</div>
+
+<hr>
+
+<h2>Feature Side-Effects and Incompatibilities</h2>
+<p>Several camera features have hidden dependencies that constrain mode design:</p>
+<table>
+  <tr><th>Feature</th><th>Side Effect</th></tr>
+  <tr><td><strong>Flash</strong></td><td>Requires mechanical shutter. Electronic and electronic front curtain cannot sync with flash.</td></tr>
+  <tr><td><strong>Silent Mode</strong></td><td>Forces electronic shutter. You cannot have silence with a mechanical shutter.</td></tr>
+  <tr><td><strong>Electronic Front Curtain (EFC)</strong></td><td>Maximum shutter speed capped at 1/2000s. Fast action modes must use full electronic shutter.</td></tr>
+  <tr><td><strong>Live View Composite</strong></td><td>Forces mechanical shutter, Long Exposure NR ON, disables Silent Mode, caps ISO at 1600, disables bracketing.</td></tr>
+  <tr><td><strong>Crop Zoom</strong></td><td>Requires JPEG. Cannot operate on RAW data.</td></tr>
+  <tr><td><strong>Manual Focus mode</strong></td><td>Subject detection is grayed out. AF detection requires an AF mode to be active.</td></tr>
+  <tr><td><strong>Manual exposure + fixed shutter speed</strong></td><td>Minimum shutter speed setting is grayed out (only applies when the camera is choosing shutter speed).</td></tr>
+</table>
+
+<hr>
+
+<div class="sony-section">
+  <h2>Implementing This on a Sony A6700</h2>
+  <p>The Sony A6700 supports a very similar custom mode architecture. It offers <strong>three &ldquo;Memory Recall&rdquo; (MR) slots</strong> on the mode dial (MR1, MR2, MR3) plus additional slots accessible via the menu &mdash; functionally equivalent to Panasonic's C1/C2/C3 system. Each MR slot stores the complete camera state including exposure mode, AF settings, drive mode, and all menu parameters. The baseline + overrides approach translates directly: configure all your set-and-forget settings first (back-button AF via <strong>AF w/ shutter: OFF</strong>, focus peaking, zebras, display settings, etc.), save that state as your first MR slot, then modify only the mode-specific parameters for each subsequent slot and save. Sony's <strong>&ldquo;Recall Custom hold&rdquo;</strong> feature is particularly powerful &mdash; it lets you temporarily activate a custom mode by holding a function button, reverting to your current settings when released. This could be mapped to your BIF or macro profile for instant switching without touching the mode dial.</p>
+  <p>Key Sony equivalents: Subject detection &rarr; Sony's <strong>Real-time Recognition AF</strong> (animal, bird, insect, human, etc. &mdash; Sony's detection categories are more granular than Panasonic's). Zone AF &rarr; Sony's Zone or Tracking. Electronic shutter &rarr; Sony's Silent Shooting. EFC &rarr; Sony has it too. The A6700 also has an Auto ISO minimum shutter speed setting with <strong>per-focal-length control</strong>, which is more refined than Panasonic's simpler AUTO option. One advantage Sony has: the A6700 shoots <strong>lossless compressed RAW even with Clear Image Zoom</strong> (Sony's equivalent of Crop Zoom), whereas Panasonic's Crop Zoom is limited to JPEG.</p>
+</div>
+
+<hr>
+
+<h2>Summary Table</h2>
+<table>
+  <tr><th>Mode</th><th>Scenario</th><th>Exposure</th><th>Key AF</th><th>Key Features</th></tr>
+  <tr><td><strong>C1</strong></td><td>Street / General</td><td>A, f/5.6</td><td>Single-area, no detection</td><td>Simple, forgiving</td></tr>
+  <tr><td><strong>C2</strong></td><td>Portrait / People</td><td>A, f/2.8</td><td>Full + Human detection</td><td>Min SS 1/125s, Portrait style</td></tr>
+  <tr><td><strong>C3-1</strong></td><td>Landscape</td><td>A, f/8</td><td>Single-area, no detection</td><td>Scenery style</td></tr>
+  <tr><td><strong>C3-2</strong></td><td>Macro Handheld</td><td>M, f/11, 1/200s, ISO 200</td><td>Manual Focus</td><td>Flash ON/TTL, mechanical shutter</td></tr>
+  <tr><td><strong>C3-3</strong></td><td>Wildlife / Action</td><td>M, f/6.3, 1/2000s, Auto ISO</td><td>Zone + Animal detection</td><td>Burst, electronic shutter</td></tr>
+  <tr><td><strong>C3-4</strong></td><td>Tripod Macro (Stacking)</td><td>M, f/8, 1/200s, ISO 400</td><td>Manual Focus</td><td>Focus bracketing, flash, 2s delay</td></tr>
+  <tr><td><strong>C3-5</strong></td><td>Birds + Crop Zoom</td><td>M, f/6.3, 1/2000s, Auto ISO</td><td>Zone + Animal detection</td><td>JPEG only, 2x digital crop</td></tr>
+  <tr><td><strong>C3-6</strong></td><td>Lightning (LVC)</td><td>M, f/8, 4s, ISO 400</td><td>Manual Focus</td><td>Live View Composite, 16:9</td></tr>
+  <tr><td><strong>C3-7</strong></td><td>Indoor / Low Light</td><td>M, f/2.8, 1/125s, Auto ISO &le;12800</td><td>Full + Human detection</td><td>Silent Mode, Natural style</td></tr>
+  <tr><td><strong>C3-8</strong></td><td>Birds in Flight</td><td>M, f/6.3, 1/4000s, Auto ISO</td><td>Tracking + Animal detection</td><td>Burst, IS Mode 2 (panning)</td></tr>
+  <tr><td><strong>C3-9</strong></td><td>Video &mdash; Travel</td><td>P (auto)</td><td>Full + Human detection</td><td>4K 30p, e-stabilization</td></tr>
+  <tr><td><strong>C3-10</strong></td><td>Video &mdash; Wildlife</td><td>M, f/6.3, 1/500s, Auto ISO</td><td>Tracking + Animal detection</td><td>4K 30p, high e-stabilization</td></tr>
+</table>
+
+<div style="margin-top: 30px; padding-top: 10px; border-top: 1px solid #cdd8e4; font-size: 9pt; color: #888; text-align: center;">
+  Custom Camera Mode System &mdash; Nelson Salgado &mdash; March 2026
+</div>
+
+</body>
+</html>

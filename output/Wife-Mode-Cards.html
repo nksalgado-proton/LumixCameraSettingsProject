@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Camera Mode Quick Cards</title>
+<style>
+  @media print {
+    @page { size: A4 portrait; margin: 10mm; }
+    .page-break { page-break-after: always; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    background: #f0f0f0;
+    color: #222;
+  }
+
+  .card {
+    width: 105mm;
+    min-height: 70mm;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 5mm 6mm;
+    margin: 8mm auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  .card-header {
+    text-align: center;
+    padding-bottom: 3mm;
+    border-bottom: 2px solid #333;
+    margin-bottom: 3mm;
+  }
+
+  .card-header h1 {
+    font-size: 16pt;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .card-header .subtitle {
+    font-size: 9pt;
+    color: #666;
+    margin-top: 1mm;
+  }
+
+  .mode-row {
+    display: flex;
+    align-items: center;
+    padding: 2mm 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .mode-row:last-child {
+    border-bottom: none;
+  }
+
+  .mode-code {
+    font-size: 15pt;
+    font-weight: 800;
+    color: white;
+    background: #1a1a1a;
+    border-radius: 5px;
+    padding: 1.5mm 3mm;
+    min-width: 18mm;
+    text-align: center;
+    flex-shrink: 0;
+    margin-right: 4mm;
+  }
+
+  .mode-code.photo { background: #1565c0; }
+  .mode-code.macro { background: #2e7d32; }
+  .mode-code.action { background: #c62828; }
+  .mode-code.special { background: #6a1b9a; }
+  .mode-code.video { background: #e65100; }
+
+  .mode-info {
+    flex: 1;
+  }
+
+  .mode-name {
+    font-size: 13pt;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .mode-hint {
+    font-size: 9pt;
+    color: #555;
+    line-height: 1.3;
+    margin-top: 0.5mm;
+  }
+
+  .section-label {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2mm 0 1mm 0;
+  }
+
+  /* Print layout: two cards side by side */
+  .cards-row {
+    display: flex;
+    justify-content: center;
+    gap: 8mm;
+    flex-wrap: wrap;
+  }
+
+  .instructions {
+    text-align: center;
+    font-size: 9pt;
+    color: #888;
+    margin: 5mm auto;
+    max-width: 180mm;
+  }
+
+  .cut-line {
+    border: 1px dashed #ccc;
+    margin: 2mm 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="instructions">
+  Print this page, cut along the card borders, and laminate. Cards are credit-card-ish size for easy carrying.
+</div>
+
+<div class="cards-row">
+
+  <!-- G9 MkI Card -->
+  <div class="card">
+    <div class="card-header">
+      <h1>LUMIX G9</h1>
+      <div class="subtitle">Custom Modes &mdash; What Each One Does</div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code photo">C1</div>
+      <div class="mode-info">
+        <div class="mode-name">Street / General</div>
+        <div class="mode-hint">Walking around, everyday photos</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code photo">C2</div>
+      <div class="mode-info">
+        <div class="mode-name">Portrait / People</div>
+        <div class="mode-hint">Photos of people, blurred background</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code photo">C3-1</div>
+      <div class="mode-info">
+        <div class="mode-name">Landscape</div>
+        <div class="mode-hint">Scenery, everything in focus</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code macro">C3-2</div>
+      <div class="mode-info">
+        <div class="mode-name">Macro + Flash</div>
+        <div class="mode-hint">Insects, frogs, close-ups with flash</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code action">C3-3</div>
+      <div class="mode-info">
+        <div class="mode-name">Wildlife / Action</div>
+        <div class="mode-hint">Birds, animals, fast burst</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- G9II Card -->
+  <div class="card" style="min-height: auto;">
+    <div class="card-header">
+      <h1>LUMIX G9II</h1>
+      <div class="subtitle">Custom Modes &mdash; What Each One Does</div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code photo">C1</div>
+      <div class="mode-info">
+        <div class="mode-name">Street / General</div>
+        <div class="mode-hint">Walking around, everyday</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code photo">C2</div>
+      <div class="mode-info">
+        <div class="mode-name">Portrait / People</div>
+        <div class="mode-hint">People, blurred background</div>
+      </div>
+    </div>
+
+    <div class="section-label">C3 Dial &mdash; rotate rear dial to pick:</div>
+
+    <div class="mode-row">
+      <div class="mode-code photo">C3-1</div>
+      <div class="mode-info">
+        <div class="mode-name">Landscape</div>
+        <div class="mode-hint">Scenery, everything sharp</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code macro">C3-2</div>
+      <div class="mode-info">
+        <div class="mode-name">Macro + Flash</div>
+        <div class="mode-hint">Insects, frogs, close-ups</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code action">C3-3</div>
+      <div class="mode-info">
+        <div class="mode-name">Wildlife / Action</div>
+        <div class="mode-hint">Birds &amp; animals, burst</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code macro">C3-4</div>
+      <div class="mode-info">
+        <div class="mode-name">Tripod Macro Stack</div>
+        <div class="mode-hint">Focus stacking on tripod</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code action">C3-5</div>
+      <div class="mode-info">
+        <div class="mode-name">Birds + Crop Zoom</div>
+        <div class="mode-hint">Extra reach, JPEG only</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code special">C3-6</div>
+      <div class="mode-info">
+        <div class="mode-name">Lightning</div>
+        <div class="mode-hint">Live View Composite, tripod</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code special">C3-7</div>
+      <div class="mode-info">
+        <div class="mode-name">Indoor / Low Light</div>
+        <div class="mode-hint">Museums, quiet venues, silent</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code action">C3-8</div>
+      <div class="mode-info">
+        <div class="mode-name">Birds in Flight</div>
+        <div class="mode-hint">Fast tracking, 1/4000s</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code video">C3-9</div>
+      <div class="mode-info">
+        <div class="mode-name">Video &mdash; Travel</div>
+        <div class="mode-hint">4K 30p, auto exposure</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-code video">C3-10</div>
+      <div class="mode-info">
+        <div class="mode-name">Video &mdash; Wildlife</div>
+        <div class="mode-hint">4K 30p, manual, tracking</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
