@@ -1,20 +1,24 @@
 """
-Generate field reference cards from field-cards.json.
-Front: physical setup + field adjustments. Back: saved settings + rationale + hints.
-Card size: ~iPhone 11. Print front & back, cut, laminate.
+Generate foldable field reference cards from field-cards.json.
+Front on top half, back on bottom half (rotated 180° for folding).
+Fold in half → front shows on one side, back on the other.
 
-Single source of truth: field-cards.json
+Produces separate PDFs per camera: G9-Detail-Cards.pdf, G9II-Detail-Cards.pdf
+
+Single source of truth: data/field-cards.json
 """
 
 from fpdf import FPDF
 import json
 import os
+import sys
 
 CARD_W = 151
 CARD_H = 95
 
 A4_W = 210
 A4_H = 297
+HALF_H = A4_H / 2  # 148.5mm
 
 COLOR_MAP = {
     "blue": (21, 101, 192),
@@ -40,6 +44,8 @@ HINT_LABEL = (160, 140, 60)
 LEARN_BG = (245, 248, 255)
 LEARN_BORDER = (170, 190, 220)
 
+FOLD_Y = HALF_H  # fold line at center of page
+
 
 class DetailCardPDF(FPDF):
     def __init__(self):
@@ -49,28 +55,29 @@ class DetailCardPDF(FPDF):
         self.add_font('Segoe', 'B', r'C:\Windows\Fonts\segoeuib.ttf', uni=True)
         self.add_font('Segoe', 'I', r'C:\Windows\Fonts\segoeuii.ttf', uni=True)
 
-    def _page_setup(self):
-        self.add_page()
-        self.set_fill_color(*GRAY_BG)
-        self.rect(0, 0, A4_W, A4_H, style='F')
-        cx = (A4_W - CARD_W) / 2
-        cy = (A4_H - CARD_H) / 2
+    def _draw_fold_line(self):
+        """Dashed fold line at the center of the page."""
+        self.set_draw_color(180, 180, 180)
+        self.set_line_width(0.2)
+        x = 15
+        while x < A4_W - 15:
+            self.line(x, FOLD_Y, x + 4, FOLD_Y)
+            x += 7
+        # Fold instruction
+        self.set_font('Segoe', 'I', 6)
+        self.set_text_color(180, 180, 180)
+        self.set_xy(0, FOLD_Y - 4)
+        self.cell(A4_W, 3, '--- fold here --- cut along card borders --- front above, back below (inverted) ---', align='C')
+
+    def _card_rect(self, cx, cy, label=None):
+        """Draw card border with optional corner label."""
         self.set_fill_color(*WHITE)
         self.rect(cx, cy, CARD_W, CARD_H, style='F')
-        return cx, cy
-
-    def _card_border(self, cx, cy):
-        self.set_draw_color(60, 60, 60)
-        self.set_line_width(0.6)
+        self.set_draw_color(120, 120, 120)
+        self.set_line_width(0.4)
         self.rect(cx, cy, CARD_W, CARD_H, style='D')
-        self.set_font('Segoe', 'I', 7)
-        self.set_text_color(180, 180, 180)
-        self.set_xy(0, A4_H - 12)
-        self.cell(A4_W, 5,
-                  'Cut along the border \u2014 laminate front & back together',
-                  align='C')
 
-    def _header(self, x, y, camera, code, color, name, desc, side_label=None):
+    def _header(self, x, y, camera, code, color, name, desc, side_label):
         bar_h = 13
         self.set_fill_color(*color)
         self.rect(x, y, CARD_W, bar_h, style='F')
@@ -78,10 +85,9 @@ class DetailCardPDF(FPDF):
         self.set_text_color(*WHITE)
         self.set_xy(x + 3, y + 0.8)
         self.cell(30, 3.5, camera, new_x='LMARGIN')
-        if side_label:
-            self.set_font('Segoe', 'B', 6)
-            self.set_xy(x + CARD_W - 22, y + 0.8)
-            self.cell(19, 3.5, side_label, align='R', new_x='LMARGIN')
+        self.set_font('Segoe', 'B', 6)
+        self.set_xy(x + CARD_W - 22, y + 0.8)
+        self.cell(19, 3.5, side_label, align='R', new_x='LMARGIN')
         self.set_font('Segoe', 'B', 14)
         self.set_xy(x, y + 0)
         self.cell(CARD_W, 5.5, code, align='C', new_x='LMARGIN')
@@ -127,7 +133,6 @@ class DetailCardPDF(FPDF):
         iy = y + 4.5
         for item in items:
             if isinstance(item, dict) and 'item' in item:
-                # Structured: {item, value, note}
                 lbl = item.get('item', '')
                 val = item.get('value', '')
                 note = item.get('note', '')
@@ -151,24 +156,26 @@ class DetailCardPDF(FPDF):
                     self.cell(w - 67, 3.5, note, new_x='LMARGIN')
                 iy += 3.8
             elif isinstance(item, dict) and 'text' in item:
-                # Simple text line (tip or warning)
                 text = item['text']
                 is_warning = item.get('type') == 'warning'
                 self.set_font('Segoe', 'B' if is_warning else '', 5.5)
-                self.set_text_color(180, 40, 30) if is_warning else \
+                if is_warning:
+                    self.set_text_color(180, 40, 30)
+                else:
                     self.set_text_color(80, 70, 50)
-                marker = '> ' if item_style == 'arrow' else '\u2022 '
+                marker = '> ' if item_style == 'arrow' else '- '
+                if is_warning:
+                    marker = '!! '
                 self.set_xy(x + 3, iy)
                 self.cell(3, 3.2, marker, new_x='LMARGIN')
                 self.set_xy(x + 6, iy)
                 self.cell(w - 10, 3.2, text, new_x='LMARGIN')
                 iy += 3.4
             else:
-                # Fallback plain string
                 text = str(item)
                 self.set_font('Segoe', '', 5.5)
                 self.set_text_color(80, 70, 50)
-                marker = '> ' if item_style == 'arrow' else '\u2022 '
+                marker = '> ' if item_style == 'arrow' else '- '
                 self.set_xy(x + 3, iy)
                 self.cell(3, 3.2, marker, new_x='LMARGIN')
                 self.set_xy(x + 6, iy)
@@ -176,10 +183,11 @@ class DetailCardPDF(FPDF):
                 iy += 3.4
         return iy
 
-    def add_front(self, camera, code, color, name, desc, must_set, can_adjust):
-        cx, cy = self._page_setup()
+    def _draw_front(self, cx, cy, camera, code, color, name, desc, must_set, can_adjust):
+        """Draw front card at position (cx, cy)."""
+        self._card_rect(cx, cy)
         x, y = cx, cy
-        cur_y = self._header(x, y, camera, code, color, name, desc, 'FRONT')
+        cur_y = self._header(x, y, camera, code, color, name, desc, 'FRENTE')
         cur_y += 1
 
         must_h = 4.5 + len(must_set) * 3.8 + 1
@@ -189,7 +197,7 @@ class DetailCardPDF(FPDF):
         self._draw_box_items(
             x + 3, cur_y, CARD_W - 6, must_h,
             MUST_BG, MUST_BORDER, MUST_LABEL,
-            '!! PHYSICAL SETUP \u2014 CHECK BEFORE SHOOTING',
+            '!! SETUP FISICO -- VERIFICAR ANTES DE FOTOGRAFAR',
             must_set, item_style='check')
 
         cur_y += must_h + 1.5
@@ -197,16 +205,15 @@ class DetailCardPDF(FPDF):
         self._draw_box_items(
             x + 3, cur_y, CARD_W - 6, adjust_h,
             ADJUST_BG, ADJUST_BORDER, ADJUST_LABEL,
-            'ADJUST IN THE FIELD',
+            'AJUSTAR NO CAMPO',
             can_adjust, item_style='arrow')
 
-        self._card_border(cx, cy)
-
-    def add_back(self, camera, code, color, name,
-                 software_settings, hints, why_text):
-        cx, cy = self._page_setup()
+    def _draw_back(self, cx, cy, camera, code, color, name,
+                   software_settings, hints, why_text):
+        """Draw back card at position (cx, cy)."""
+        self._card_rect(cx, cy)
         x, y = cx, cy
-        cur_y = self._mini_header(x, y, camera, code, color, name, 'BACK')
+        cur_y = self._mini_header(x, y, camera, code, color, name, 'VERSO')
         cur_y += 0.5
 
         # Settings table
@@ -217,11 +224,11 @@ class DetailCardPDF(FPDF):
         self.set_font('Segoe', 'B', 5.5)
         self.set_text_color(140, 140, 150)
         self.set_xy(param_x, cur_y)
-        self.cell(24, 3, 'SAVED SETTING', new_x='LMARGIN')
+        self.cell(24, 3, 'PAR\u00c2METRO SALVO', new_x='LMARGIN')
         self.set_xy(val_x, cur_y)
-        self.cell(33, 3, 'VALUE', new_x='LMARGIN')
+        self.cell(33, 3, 'VALOR', new_x='LMARGIN')
         self.set_xy(rat_x, cur_y)
-        self.cell(40, 3, 'RATIONALE', new_x='LMARGIN')
+        self.cell(40, 3, 'RACIONAL', new_x='LMARGIN')
         cur_y += 3.2
         self.set_draw_color(200, 200, 200)
         self.set_line_width(0.15)
@@ -232,7 +239,7 @@ class DetailCardPDF(FPDF):
         avail = 42
         if len(software_settings) * row_h > avail:
             row_h = avail / len(software_settings)
-            row_h = max(row_h, 3.0)
+            row_h = max(row_h, 2.8)
 
         for i, s in enumerate(software_settings):
             param = s['param']
@@ -259,6 +266,11 @@ class DetailCardPDF(FPDF):
 
         # Hints
         hint_h = 4 + len(hints) * 3.2 + 0.5
+        max_hint_y = y + CARD_H - 2
+        if cur_y + hint_h > max_hint_y - 15:
+            hint_h = min(hint_h, max_hint_y - cur_y - 15)
+            hint_h = max(hint_h, 10)
+
         self.set_fill_color(*HINT_BG)
         self.set_draw_color(*HINT_BORDER)
         self.set_line_width(0.25)
@@ -266,13 +278,15 @@ class DetailCardPDF(FPDF):
         self.set_font('Segoe', 'B', 5.5)
         self.set_text_color(*HINT_LABEL)
         self.set_xy(x + 5, cur_y + 0.5)
-        self.cell(20, 3, 'FIELD HINTS', new_x='LMARGIN')
+        self.cell(20, 3, 'DICAS', new_x='LMARGIN')
         hy = cur_y + 3.8
         for hint in hints:
+            if hy + 3 > cur_y + hint_h - 1:
+                break
             self.set_font('Segoe', '', 5)
             self.set_text_color(80, 70, 30)
             self.set_xy(x + 5, hy)
-            self.cell(3, 3, '\u2022', new_x='LMARGIN')
+            self.cell(3, 3, '-', new_x='LMARGIN')
             self.set_xy(x + 8, hy)
             self.cell(CARD_W - 14, 3, hint, new_x='LMARGIN')
             hy += 3.2
@@ -280,7 +294,7 @@ class DetailCardPDF(FPDF):
 
         # Why section
         why_h = (y + CARD_H) - cur_y - 1.5
-        if why_h > 4:
+        if why_h > 6:
             self.set_fill_color(*LEARN_BG)
             self.set_draw_color(*LEARN_BORDER)
             self.set_line_width(0.2)
@@ -288,26 +302,59 @@ class DetailCardPDF(FPDF):
             self.set_font('Segoe', 'B', 5.5)
             self.set_text_color(60, 90, 140)
             self.set_xy(x + 5, cur_y + 0.5)
-            self.cell(40, 3, 'WHY THIS MODE WORKS', new_x='LMARGIN')
-            self.set_font('Segoe', '', 5)
+            self.cell(40, 3, 'POR QUE ESTE MODO FUNCIONA', new_x='LMARGIN')
+            self.set_font('Segoe', '', 4.8)
             self.set_text_color(60, 80, 110)
             self.set_xy(x + 5, cur_y + 4)
-            self.multi_cell(CARD_W - 14, 2.8, why_text, new_x='LMARGIN')
+            self.multi_cell(CARD_W - 14, 2.6, why_text, new_x='LMARGIN')
 
-        self._card_border(cx, cy)
+    def add_foldable_card(self, camera, code, color, name, desc,
+                          must_set, can_adjust,
+                          software_settings, hints, why_text):
+        """One A4 page with front on top half and back on bottom half (rotated 180°)."""
+        self.add_page()
+
+        # Light gray background
+        self.set_fill_color(*GRAY_BG)
+        self.rect(0, 0, A4_W, A4_H, style='F')
+
+        # --- TOP HALF: FRONT ---
+        cx_top = (A4_W - CARD_W) / 2
+        cy_top = (HALF_H - CARD_H) / 2
+        self._draw_front(cx_top, cy_top, camera, code, color, name, desc,
+                         must_set, can_adjust)
+
+        # --- FOLD LINE ---
+        self._draw_fold_line()
+
+        # --- BOTTOM HALF: BACK (rotated 180°) ---
+        # Center of back card area
+        cx_back = (A4_W - CARD_W) / 2
+        cy_back = HALF_H + (HALF_H - CARD_H) / 2
+
+        # Rotation center = center of the back card
+        rot_cx = cx_back + CARD_W / 2
+        rot_cy = cy_back + CARD_H / 2
+
+        with self.rotation(180, rot_cx, rot_cy):
+            self._draw_back(cx_back, cy_back, camera, code, color, name,
+                            software_settings, hints, why_text)
 
 
 def build_pdf():
-    # Load data from JSON
-    project_root = os.path.dirname(os.path.dirname(__file__))
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     json_path = os.path.join(project_root, 'data', 'field-cards.json')
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    pdf = DetailCardPDF()
+    os.makedirs(os.path.join(project_root, 'output'), exist_ok=True)
 
     for camera_data in data['cameras']:
         camera_name = camera_data['camera_short']
+        camera_full = camera_data['camera']
+
+        pdf = DetailCardPDF()
+
         for mode in camera_data['modes']:
             code = mode['code']
             color = COLOR_MAP.get(mode['color'], (100, 100, 100))
@@ -316,22 +363,20 @@ def build_pdf():
             front = mode['front']
             back = mode['back']
 
-            # Front
-            pdf.add_front(
+            pdf.add_foldable_card(
                 camera_name, code, color, name, desc,
                 front['physical_setup'],
-                front['field_adjustments'])
-
-            # Back
-            pdf.add_back(
-                camera_name, code, color, name,
+                front['field_adjustments'],
                 back['software_settings'],
                 back['hints'],
                 back['why'])
 
-    out_path = os.path.join(project_root, 'output', 'Mode-Detail-Cards.pdf')
-    pdf.output(out_path)
-    print(f"PDF saved to: {out_path}")
+        filename = f"{camera_name}-Detail-Cards.pdf"
+        out_path = os.path.join(project_root, 'output', filename)
+        pdf.output(out_path)
+        print(f"  {filename}: {len(camera_data['modes'])} cards ({len(camera_data['modes'])} pages)")
+
+    print(f"\nPDFs saved to: {os.path.join(project_root, 'output')}")
 
 
 if __name__ == '__main__':
