@@ -1,0 +1,14 @@
+{
+  "name": "Lumix Field Cards",
+  "short_name": "FieldCards",
+  "description": "Camera mode reference cards for Lumix G9 & G9 MkII",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

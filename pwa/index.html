@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a1a2e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Lumix Field Cards</title>
+<style>
+:root {
+  --bg: #1a1a2e;
+  --card-bg: #16213e;
+  --surface: #0f3460;
+  --text: #e8e8e8;
+  --text-dim: #9a9ab0;
+  --accent-blue: #4a90d9;
+  --accent-green: #4caf50;
+  --accent-red: #e74c3c;
+  --accent-purple: #9b59b6;
+  --accent-orange: #e67e22;
+  --accent-teal: #1abc9c;
+  --must: #e74c3c;
+  --adjust: #4a90d9;
+  --warning: #f39c12;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+/* --- Top bar / Camera selector --- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 12px 16px 8px;
+}
+.topbar h1 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.camera-tabs {
+  display: flex;
+  gap: 8px;
+}
+.camera-tab {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--card-bg);
+  color: var(--text-dim);
+}
+.camera-tab.active {
+  background: var(--accent-blue);
+  color: #fff;
+}
+
+/* --- Mode list --- */
+.mode-list {
+  padding: 12px 16px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mode-item {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 4px solid var(--accent-blue);
+}
+.mode-item:active { transform: scale(0.98); opacity: 0.9; }
+.mode-item[data-color="green"] { border-left-color: var(--accent-green); }
+.mode-item[data-color="red"] { border-left-color: var(--accent-red); }
+.mode-item[data-color="purple"] { border-left-color: var(--accent-purple); }
+.mode-item[data-color="orange"] { border-left-color: var(--accent-orange); }
+.mode-item[data-color="teal"] { border-left-color: var(--accent-teal); }
+
+.mode-code {
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 52px;
+  color: #fff;
+}
+.mode-info { flex: 1; }
+.mode-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+.mode-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.mode-arrow {
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+/* --- Card detail view --- */
+.card-view {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 200;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  padding-bottom: calc(20px + var(--safe-bottom));
+}
+.card-view.open { transform: translateX(0); }
+
+.card-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.card-header.color-blue { background: linear-gradient(135deg, #2a5298, #1e3c72); }
+.card-header.color-green { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
+.card-header.color-red { background: linear-gradient(135deg, #c62828, #b71c1c); }
+.card-header.color-purple { background: linear-gradient(135deg, #6a1b9a, #4a148c); }
+.card-header.color-orange { background: linear-gradient(135deg, #e65100, #bf360c); }
+.card-header.color-teal { background: linear-gradient(135deg, #00897b, #00695c); }
+
+.back-btn {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.card-title { flex: 1; }
+.card-title .code { font-size: 22px; font-weight: 700; color: #fff; }
+.card-title .name { font-size: 13px; color: rgba(255,255,255,0.8); }
+
+/* --- Tab switcher (Front / Back) --- */
+.tab-bar {
+  display: flex;
+  margin: 12px 16px 0;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 3px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+  color: var(--text-dim);
+}
+.tab-btn.active {
+  background: var(--surface);
+  color: #fff;
+}
+
+.tab-content { display: none; padding: 12px 16px; }
+.tab-content.active { display: block; }
+
+/* --- Front: Physical setup --- */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 16px 0 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.section-label.must {
+  background: rgba(231,76,60,0.15);
+  color: var(--must);
+}
+.section-label.adjust {
+  background: rgba(74,144,217,0.15);
+  color: var(--adjust);
+}
+.section-label.settings {
+  background: rgba(155,89,182,0.15);
+  color: var(--accent-purple);
+}
+.section-label.hints {
+  background: rgba(241,196,15,0.15);
+  color: var(--warning);
+}
+.section-label.why {
+  background: rgba(26,188,156,0.15);
+  color: var(--accent-teal);
+}
+
+.setup-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.setup-row {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.setup-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.setup-detail { flex: 1; }
+.setup-item {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.setup-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+.setup-note {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* --- Field adjustments --- */
+.adjust-row {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.adjust-row.warning-row {
+  background: rgba(231,76,60,0.12);
+  border: 1px solid rgba(231,76,60,0.3);
+}
+.adjust-row .dial-label {
+  font-size: 12px;
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+.adjust-row .dial-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+.adjust-row .dial-note {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.tip-row {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+}
+.warning-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--must);
+}
+
+/* --- Back: Settings table --- */
+.settings-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.settings-table tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+.settings-table tr:last-child { border-bottom: none; }
+.settings-table td {
+  padding: 8px 10px;
+  font-size: 12px;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.settings-table tr:last-child td { border-bottom: none; }
+.settings-table .param { color: var(--text-dim); width: 30%; }
+.settings-table .val { color: #fff; font-weight: 600; width: 25%; }
+.settings-table .rat { color: var(--text-dim); font-style: italic; }
+
+/* --- Hints --- */
+.hint-item {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.why-text {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* --- Description banner --- */
+.desc-banner {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 12px 0 4px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* --- Equipment notes --- */
+.equip-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.equip-tag {
+  background: rgba(74,144,217,0.15);
+  color: var(--accent-blue);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* --- Smooth scrollbar --- */
+::-webkit-scrollbar { width: 0; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Lumix Field Cards</h1>
+  <div class="camera-tabs" id="cameraTabs"></div>
+</div>
+
+<div class="mode-list" id="modeList"></div>
+<div class="card-view" id="cardView"></div>
+
+<script>
+let data = null;
+let currentCamera = 0;
+
+const ICONS = {
+  'Mode dial': '🎛️', 'Focus lever': '🔀', 'Drive dial': '⚡', 'Drive': '⚡',
+  'Lens': '🔭', 'Lens IS switch': '📐', 'Flash: X3 trigger': '📡',
+  'Flash: AD100Pro': '⚡', 'Flash: ML-CD15': '💡', 'Flash': '⚡',
+  'default': '⚙️'
+};
+
+function getIcon(item) { return ICONS[item] || ICONS['default']; }
+
+async function init() {
+  const resp = await fetch('field-cards.json');
+  data = await resp.json();
+  renderCameraTabs();
+  renderModes();
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+}
+
+function renderCameraTabs() {
+  const el = document.getElementById('cameraTabs');
+  el.innerHTML = data.cameras.map((cam, i) =>
+    `<button class="camera-tab ${i === currentCamera ? 'active' : ''}" onclick="switchCamera(${i})">${cam.camera_short}</button>`
+  ).join('');
+}
+
+function switchCamera(i) {
+  currentCamera = i;
+  renderCameraTabs();
+  renderModes();
+  closeCard();
+}
+
+function renderModes() {
+  const cam = data.cameras[currentCamera];
+  document.getElementById('modeList').innerHTML = cam.modes.map((m, i) =>
+    `<div class="mode-item" data-color="${m.color}" onclick="openCard(${i})">
+      <div class="mode-code">${m.code}</div>
+      <div class="mode-info">
+        <div class="mode-name">${m.name}</div>
+        <div class="mode-desc">${m.description}</div>
+      </div>
+      <div class="mode-arrow">›</div>
+    </div>`
+  ).join('');
+}
+
+function openCard(i) {
+  const m = data.cameras[currentCamera].modes[i];
+  const cv = document.getElementById('cardView');
+  cv.innerHTML = buildCard(m);
+  requestAnimationFrame(() => { cv.classList.add('open'); cv.scrollTop = 0; });
+}
+
+function closeCard() {
+  document.getElementById('cardView').classList.remove('open');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.dataset.tab === tab));
+}
+
+function buildCard(m) {
+  const f = m.front;
+  const b = m.back;
+
+  // Physical setup rows
+  const setupHtml = f.physical_setup.map(s =>
+    `<div class="setup-row">
+      <div class="setup-icon">${getIcon(s.item)}</div>
+      <div class="setup-detail">
+        <div class="setup-item">${s.item}</div>
+        <div class="setup-value">${s.value}</div>
+        ${s.note ? `<div class="setup-note">${s.note}</div>` : ''}
+      </div>
+    </div>`
+  ).join('');
+
+  // Field adjustments
+  const adjustHtml = f.field_adjustments.map(a => {
+    if (a.type === 'warning') {
+      return `<div class="adjust-row warning-row"><div class="warning-text">⚠️ ${a.text}</div></div>`;
+    } else if (a.type === 'dial') {
+      return `<div class="adjust-row">
+        <div class="dial-label">${a.item}</div>
+        <div class="dial-value">${a.value}</div>
+        ${a.note ? `<div class="dial-note">${a.note}</div>` : ''}
+      </div>`;
+    } else {
+      return `<div class="tip-row">💡 ${a.text}</div>`;
+    }
+  }).join('');
+
+  // Settings table
+  const settingsHtml = b.software_settings.map(s =>
+    `<tr><td class="param">${s.param}</td><td class="val">${s.value}</td><td class="rat">${s.rationale}</td></tr>`
+  ).join('');
+
+  // Hints
+  const hintsHtml = b.hints.map(h => `<div class="hint-item">💡 ${h}</div>`).join('');
+
+  // Equipment notes
+  const equipHtml = b.equipment_notes
+    ? `<div class="equip-notes">${b.equipment_notes.map(n => `<span class="equip-tag">${n}</span>`).join('')}</div>`
+    : '';
+
+  return `
+    <div class="card-header color-${m.color}">
+      <button class="back-btn" onclick="closeCard()">‹</button>
+      <div class="card-title">
+        <div class="code">${m.code}</div>
+        <div class="name">${m.name}</div>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="front" onclick="switchTab('front')">Frente — No Campo</button>
+      <button class="tab-btn" data-tab="back" onclick="switchTab('back')">Verso — Referência</button>
+    </div>
+
+    <div class="tab-content active" data-tab="front">
+      <div class="desc-banner">${m.description}</div>
+      <div class="section-label must">⚙️ Setup Físico — Verificar antes de fotografar</div>
+      <div class="setup-list">${setupHtml}</div>
+      <div class="section-label adjust">🎚️ Ajustar no Campo</div>
+      <div class="setup-list">${adjustHtml}</div>
+      ${equipHtml}
+    </div>
+
+    <div class="tab-content" data-tab="back">
+      <div class="section-label settings">📋 Configurações Salvas (Software)</div>
+      <table class="settings-table">${settingsHtml}</table>
+      <div class="section-label hints">💡 Dicas de Campo</div>
+      <div class="setup-list">${hintsHtml}</div>
+      ${b.why ? `<div class="section-label why">📖 Por Que Estas Configurações?</div><div class="why-text">${b.why}</div>` : ''}
+    </div>
+  `;
+}
+
+init();
+</script>
+</body>
+</html>
