@@ -1,0 +1,40 @@
+{
+    "observer": {
+        "latitude": -23.532365,
+        "longitude": -46.716318,
+        "name": "São Paulo - Vista Oeste"
+    },
+    "filter": {
+        "radius_km": 20,
+        "fov_center_azimuth": 270,
+        "fov_width_degrees": 180,
+        "_comment": "Campo de visão de 180° a 360° (Sul → Oeste → Norte)"
+    },
+    "telegram": {
+        "bot_token": "8797277897:AAEG-RhINa8QIfDiRt6rxwFcOx0GIeubC4M",
+        "chat_id": "8637456569"
+    },
+    "blitzortung": {
+        "mqtt_host": "blitzortung.ha.sed.pl",
+        "mqtt_port": 1883,
+        "geohash_prefix": "6gyf",
+        "ws_fallback_servers": [1, 5, 6, 7],
+        "ws_port": 3000
+    },
+    "open_meteo": {
+        "base_url": "https://api.open-meteo.com/v1/forecast",
+        "forecast_hours": 6,
+        "cape_threshold_high": 1500,
+        "cape_threshold_moderate": 800,
+        "lifted_index_threshold_high": -4,
+        "lifted_index_threshold_moderate": -2
+    },
+    "alerts": {
+        "batch_interval_seconds": 300,
+        "forecast_check_interval_seconds": 3600,
+        "quiet_hours_start": "23:00",
+        "quiet_hours_end": "05:00",
+        "min_strikes_to_alert": 1,
+        "cooldown_seconds": 900
+    }
+}
