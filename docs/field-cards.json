@@ -170,7 +170,7 @@
           "back": {
             "software_settings": [
               { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Flash is the light; ambient irrelevant" },
-              { "param": "Aperture", "value": "f/11", "rationale": "Max DoF for tiny subjects" },
+              { "param": "Aperture", "value": "f/20", "rationale": "Max DoF for tiny subjects. Go down to f/11 if you can focus easily" },
               { "param": "Shutter Speed", "value": "1/200s", "rationale": "Max flash sync speed" },
               { "param": "ISO", "value": "200 (fixed)", "rationale": "Low noise; flash provides light" },
               { "param": "Focus", "value": "MF", "rationale": "AF hunts at macro \u2014 rock to focus" },
@@ -183,9 +183,9 @@
             "hints": [
               "90mm = safer working distance (frogs, snakes). 60mm = more magnification (insects)",
               "Flash fires at ~1/10000s \u2014 freezes all motion regardless of shutter speed",
-              "At 1:1 magnification, DoF at f/11 is about 1mm. Precision matters!"
+              "At 1:1, DoF at f/20 is ~2mm. If focusing is easy, open to f/11 for sharper results (less diffraction)"
             ],
-            "why": "In flash macro, the flash IS the light system. Ambient is irrelevant \u2014 the flash fires at ~1/10000s, freezing motion and providing all illumination. Everything is fixed: f/11 for DoF, 1/200 for sync, ISO 200 for clean files. The only variable is flash power, adjusted on the X3 trigger.",
+            "why": "In flash macro, the flash IS the light system. Ambient is irrelevant \u2014 the flash fires at ~1/10000s, freezing motion and providing all illumination. Everything is fixed: f/20 for max DoF, 1/200 for sync, ISO 200 for clean files. Open to f/11 when you can nail focus. The only variable is flash power, adjusted on the X3 trigger.",
             "equipment_notes": ["90mm baseline | 60mm swap", "AD100Pro + X3 + ML-CD15"]
           }
         },
@@ -207,7 +207,7 @@
               { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "open wider in shade for lower ISO" },
               { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "raise for faster subjects" },
               { "type": "tip", "text": "f/2.8 in shade (max light) \u2192 f/4-5.6 in bright sun" },
-              { "type": "tip", "text": "1/2000 baseline. Raise to 1/4000+ for fast birds" },
+              { "type": "tip", "text": "1/1000 baseline. Raise to 1/2000-1/4000 if enough light" },
               { "type": "tip", "text": "Half-press and HOLD to track \u2014 AF locks on animal automatically" },
               { "type": "tip", "text": "Zoom out slightly \u2014 crop later. In frame > missed entirely" },
               { "type": "tip", "text": "Accept ISO 3200-6400. Noisy sharp > clean blurry" }
@@ -218,9 +218,9 @@
             "software_settings": [
               { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Lock aperture + speed; ISO floats" },
               { "param": "Aperture", "value": "f/2.8", "rationale": "Wide open for max light" },
-              { "param": "Shutter Speed", "value": "1/2000s", "rationale": "Freezes animal motion" },
+              { "param": "Shutter Speed", "value": "1/1000s", "rationale": "Freezes animal motion" },
               { "param": "ISO", "value": "AUTO (max 6400)", "rationale": "Camera adjusts exposure" },
-              { "param": "Min SS", "value": "1/2000s", "rationale": "Floor \u2014 won't go slower" },
+              { "param": "Min SS", "value": "1/1000s", "rationale": "Floor \u2014 won't go slower" },
               { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Detects animals/birds" },
               { "param": "AF Mode", "value": "Zone", "rationale": "Large tracking area" },
               { "param": "Shutter Type", "value": "Electronic", "rationale": "Max burst speed, silent" },
@@ -232,7 +232,7 @@
               "Zone AF gives generous tracking area \u2014 no need for surgical framing",
               "Keep both eyes open to track subject outside the viewfinder"
             ],
-            "why": "Manual + Auto ISO guarantees your two critical variables: f/2.8 for max light gathering, 1/2000s for freezing motion. The camera just adjusts ISO. AFC + Animal Detection + Zone AF: camera recognizes animals, locks on, and tracks through the frame.",
+            "why": "Manual + Auto ISO guarantees your two critical variables: f/2.8 for max light gathering, 1/1000s baseline for freezing motion. Raise to 1/2000+ if light allows. The camera just adjusts ISO. AFC + Animal Detection + Zone AF: camera recognizes animals, locks on, and tracks through the frame.",
             "equipment_notes": ["Lens: Lumix 35-100mm f/2.8"]
           }
         }
@@ -401,7 +401,7 @@
           "back": {
             "software_settings": [
               { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Flash is the light" },
-              { "param": "Aperture", "value": "f/11", "rationale": "Max DoF for tiny subjects" },
+              { "param": "Aperture", "value": "f/20", "rationale": "Max DoF for tiny subjects. Go down to f/11 if you can focus easily" },
               { "param": "Shutter Speed", "value": "1/200s", "rationale": "Max flash sync speed" },
               { "param": "ISO", "value": "200 (fixed)", "rationale": "Low noise; flash provides light" },
               { "param": "Focus", "value": "MF", "rationale": "Rock to focus at macro distance" },
@@ -438,7 +438,7 @@
               { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "open wider in shade for less noise" },
               { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "raise for faster subjects" },
               { "type": "tip", "text": "f/6.3 at 400mm (max). Open wider at shorter focal lengths" },
-              { "type": "tip", "text": "1/2000 baseline. Raise to 1/4000+ for fast birds" },
+              { "type": "tip", "text": "1/1000 baseline. Raise to 1/2000-1/4000 if enough light" },
               { "type": "tip", "text": "Half-press and HOLD to track \u2014 AF locks on animal" },
               { "type": "tip", "text": "Zoom out slightly \u2014 crop later. In frame > missed" },
               { "type": "tip", "text": "Accept ISO 6400-12800. Noisy sharp > clean blurry" }
@@ -449,9 +449,9 @@
             "software_settings": [
               { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Lock aperture + speed; ISO floats" },
               { "param": "Aperture", "value": "f/6.3", "rationale": "Matched to lens max at 400mm" },
-              { "param": "Shutter Speed", "value": "1/2000s", "rationale": "Freezes animal motion" },
+              { "param": "Shutter Speed", "value": "1/1000s", "rationale": "Freezes animal motion" },
               { "param": "ISO", "value": "AUTO (max 12800)", "rationale": "Camera adjusts" },
-              { "param": "Min SS", "value": "1/2000s", "rationale": "Floor \u2014 won't go slower" },
+              { "param": "Min SS", "value": "1/1000s", "rationale": "Floor \u2014 won't go slower" },
               { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Detects animals/birds" },
               { "param": "AF Mode", "value": "Zone", "rationale": "Large tracking area" },
               { "param": "Shutter Type", "value": "Electronic", "rationale": "Max burst fps" },
@@ -546,7 +546,7 @@
             "software_settings": [
               { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Lock aperture + speed; ISO floats" },
               { "param": "Aperture", "value": "f/6.3", "rationale": "Matched to lens max at 400mm" },
-              { "param": "Shutter Speed", "value": "1/2000s", "rationale": "Freezes bird motion" },
+              { "param": "Shutter Speed", "value": "1/1000s", "rationale": "Freezes bird motion. Raise if light allows" },
               { "param": "ISO", "value": "AUTO (max 12800)", "rationale": "Camera adjusts" },
               { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Bird detection" },
               { "param": "AF Mode", "value": "Zone", "rationale": "Large tracking area" },

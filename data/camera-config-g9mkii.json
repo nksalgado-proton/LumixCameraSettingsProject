@@ -475,7 +475,7 @@
       "drive_dial": "Single Shot (S)",
       "overrides": {
         "photo_style": "Natural",
-        "aperture": "f/11",
+        "aperture": "f/20",
         "shutter_speed": "1/200s",
         "iso_sensitivity": {
           "mode": "Fixed",
@@ -502,7 +502,7 @@
       "overrides": {
         "photo_style": "Standard",
         "aperture": "f/6.3",
-        "shutter_speed": "1/2000s",
+        "shutter_speed": "1/1000s",
         "iso_sensitivity": {
           "mode": "AUTO",
           "upper_limit": "No Limit"
@@ -553,7 +553,7 @@
         "photo_style": "Standard",
         "picture_quality": "FINE (NOT RAW - Crop Zoom requires JPEG)",
         "aperture": "f/6.3",
-        "shutter_speed": "1/2000s",
+        "shutter_speed": "1/1000s",
         "iso_sensitivity": {
           "mode": "AUTO",
           "upper_limit": "No Limit"

@@ -366,7 +366,7 @@
       "flash": "Godox AD100Pro + X3 trigger + ML-CD15 diffuser",
       "overrides": {
         "photo_style": "Natural",
-        "aperture": "f/11",
+        "aperture": "f/20",
         "shutter_speed": "1/200s",
         "iso_sensitivity": {
           "mode": "Fixed",
@@ -392,7 +392,7 @@
       "overrides": {
         "photo_style": "Standard",
         "aperture": "f/2.8",
-        "shutter_speed": "1/2000s",
+        "shutter_speed": "1/1000s",
         "iso_sensitivity": {
           "mode": "AUTO",
           "upper_limit": 6400
