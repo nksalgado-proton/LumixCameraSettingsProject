@@ -1,6 +1,6 @@
 # Camera Configuration Project — Sony A6700
 
-## For: Julia (or whoever is reading this)
+## For: Marina
 
 This document describes a project to systematically configure your Sony A6700 camera so that you can walk into any shooting situation, turn a dial, and start shooting with confidence — without fumbling through menus.
 
@@ -22,14 +22,30 @@ By the end, you will have:
 
 ---
 
+## Your Gear
+
+**Cameras:**
+- **Sony A6700** (ILCE-6700) — 26MP APS-C, the camera you're configuring
+
+**Lenses:**
+- **Sony E 70-350mm f/4.5-6.3 G OSS** — your wildlife/telephoto lens (105-525mm equivalent)
+- **Sony E 11mm f/1.8** — your ultra-wide prime (gift from Nelson). 16mm equivalent. Fast f/1.8 aperture perfect for astrophotography, landscapes, and interiors
+
+**Planned addition:**
+- **Sony E 18-135mm f/3.5-5.6 OSS** (~$550) — future walk-around zoom to fill the 11mm → 70mm gap
+
+**Image format:** RAW only (.ARW). Maximum editing flexibility. You'll edit in Lightroom/Capture One/similar.
+
+---
+
 ## The Core Concept: Memory Recall Modes
 
 Your Sony A6700 can memorize complete camera configurations and recall them instantly:
 
-- **3 dial positions** (MR1, MR2, MR3) — turn the mode dial to recall. These are stored in the camera permanently.
-- **4 card slots** (M1–M4) — recalled via menu. These are stored on the SD card (lost if you format the card).
+- **3 dial positions** (MR1, MR2, MR3) — turn the mode dial to recall. Stored permanently in the camera.
+- **4 card slots** (M1–M4) — recalled via menu. Stored on the SD card (lost if you format the card — always keep a JSON backup).
 
-**Total: 7 custom configurations.** You need to choose your 7 most important scenarios. The 3 most-used ones go on the dial for instant access.
+**Total: 7 custom configurations.**
 
 ### What Gets Saved in a Memory Slot
 
@@ -39,147 +55,140 @@ Everything: exposure mode (A/S/M), aperture, shutter speed, ISO settings, autofo
 
 Some things require your hands:
 - **Which lens** is mounted
-- **The focus mode switch** on the lens (AF/MF)
+- **The focus mode switch** on the lens (AF/MF) — if applicable
 - **The OSS switch** on the lens (stabilization ON/OFF)
-- **Flash** mounted or not, on or off
-- **Tripod** or handheld
+- **Tripod** mounted or not
 
 The field cards will remind you of these physical steps.
 
 ---
 
-## The Scenarios
+## Your 7 Scenarios
 
-Below are the shooting scenarios, described in photography terms (not camera-menu language). You and Claude will translate these into Sony A6700 menu settings together.
+Below are your chosen scenarios, described in photography terms (not camera-menu language). You and Claude will translate these into specific Sony A6700 menu settings together.
 
-### Tier 1 — Mode Dial (MR1, MR2, MR3)
+### Tier 1 — Mode Dial (instant access)
 
 These are your most-used scenarios. One click on the dial and you're ready.
 
-#### MR1: Street / General (Walk-Around)
-- **What:** Markets, towns, beaches, travel, sightseeing. Unpredictable subjects.
-- **Approach:** Aperture Priority. You control depth of field, camera handles the rest.
-- **Starting aperture:** f/5.6 (sharp, versatile, good DoF)
-- **ISO:** Auto (let the camera choose)
-- **Autofocus:** Single-shot AF, single area (you point, it focuses, no surprises)
+#### MR1: Landscapes
+- **What:** Vistas, mountains, waterfalls, forests, architecture, sweeping scenes
+- **Lens:** 11mm f/1.8 (primary) or 70-350mm for compressed distant shots
+- **Approach:** Aperture Priority. You control depth of field.
+- **Starting aperture:** f/8 (sweet spot — maximum sharpness, deep DoF)
+- **ISO:** 100 (base ISO, cleanest image)
+- **Autofocus:** Single-shot AF (AF-S), single area
+- **Drive:** Single shot
+- **Stabilization:** ON if handheld, OFF if on tripod
+- **Why f/8?** Most lenses are sharpest at f/5.6-f/11. Going narrower (f/16+) causes diffraction blur. Going wider loses depth of field.
+
+#### MR2: Wildlife
+- **What:** Birds (perched or flying), mammals, reptiles — anything with animal behavior
+- **Lens:** 70-350mm
+- **Approach:** Manual exposure with Auto ISO. Lock the two critical variables (aperture and shutter), let ISO float.
+- **Starting aperture:** f/6.3 (max aperture at 350mm on your lens)
+- **Starting shutter speed:** 1/1000s. Enough for most perched or walking animals. In the field, dial UP to 1/2000-1/4000 for birds in flight or fast action.
+- **ISO:** Auto, no upper limit. A noisy sharp photo beats a clean blurry one.
+- **Autofocus:** Continuous AF (AF-C), Zone or Wide area, Bird/Animal subject recognition ON
+- **Drive:** High-speed burst (Hi / Hi+)
+- **Stabilization:** ON (Mode 2 if panning)
+- **Why Manual + Auto ISO?** You need to guarantee BOTH enough DoF (aperture) AND frozen motion (shutter speed). ISO is the flexible variable.
+
+#### MR3: General / Street
+- **What:** Walk-around photography — markets, towns, travel, sightseeing, anything unplanned
+- **Lens:** Any (11mm, 70-350mm, or future 18-135mm)
+- **Approach:** Aperture Priority. The "pick up and shoot" mode.
+- **Starting aperture:** f/5.6 (good all-around — sharp, versatile, decent DoF)
+- **ISO:** Auto
+- **Autofocus:** Single-shot AF (AF-S), Wide area with face detection
 - **Drive:** Single shot
 - **Stabilization:** ON
-- **Why Aperture Priority?** In a walk-around context, shutter speed rarely matters — you're not freezing fast action. Aperture controls depth of field, which IS a creative decision. Let the camera handle the rest.
+- **Why Aperture Priority?** Walk-around situations don't need fast shutter. Aperture is the creative decision (how much background blur). Let the camera handle the rest.
 
-#### MR2: Wildlife / Action
-- **What:** Birds, mammals, reptiles, anything that moves. Your primary interest.
-- **Approach:** Manual exposure with Auto ISO. You lock aperture (for DoF control) and shutter speed (to freeze motion). ISO floats to compensate.
-- **Starting aperture:** Wide open (f/4.5–6.3 depending on zoom — your 70-350mm varies). Open = more light + background blur.
-- **Starting shutter speed:** 1/1000s. Enough for most perched or walking animals. In the field, dial UP to 1/2000–1/4000 for birds in flight.
-- **ISO:** Auto, no upper limit. Modern sensors handle high ISO well. A noisy sharp photo beats a clean blurry one.
-- **Autofocus:** Continuous AF (AF-C), Zone or Wide area, Animal/Bird detection ON.
-- **Drive:** High-speed burst (you want many frames to catch the right moment)
-- **Stabilization:** ON, Mode 2 if available (stabilizes vertically only — better for panning)
-- **Why Manual + Auto ISO?** You need to guarantee BOTH enough DoF (aperture) AND frozen motion (shutter speed). Those are non-negotiable. ISO is the flexible variable — let the camera figure it out.
+### Tier 2 — Card Slots (menu recall)
 
-#### MR3: Landscape
-- **What:** Vistas, mountains, waterfalls, forests, architecture. Static scenes where sharpness and depth of field are everything.
-- **Approach:** Aperture Priority. You set a narrow aperture for deep DoF.
-- **Starting aperture:** f/8–f/11 (sharpest range of most lenses, deep DoF)
-- **ISO:** 100 (base ISO, cleanest image). Can be Auto if handheld.
-- **Autofocus:** Single-shot AF, single area, focus on the scene's key element
-- **Drive:** Single shot
-- **Stabilization:** OFF if on tripod, ON if handheld
-- **Why f/8–f/11?** This is the "sweet spot" for most lenses — maximum optical sharpness. Narrower (f/16+) causes diffraction blur. Wider loses depth of field.
-
-### Tier 2 — Card Slots (M1–M4)
-
-Recalled from the menu. Slightly slower to access, but still instant compared to setting up from scratch.
+Recalled via menu. Slightly slower than the dial but still fast.
 
 #### M1: Portrait / People
-- **What:** People, posed or candid. Emphasis on subject separation from background.
+- **What:** Posed or candid photos of people
+- **Lens:** 70-350mm at 70mm f/4.5, or 18-135mm (when acquired) at 85mm+
 - **Approach:** Aperture Priority. Wide aperture for background blur (bokeh).
-- **Starting aperture:** Widest your lens allows. With the 70-350mm, shoot at 70mm f/4.5 for portraits.
+- **Starting aperture:** Widest your current focal length allows
 - **ISO:** Auto
-- **Autofocus:** Single-shot AF, Eye AF / Face detection ON
+- **Autofocus:** AF-S with **Eye AF** ON (Human priority)
 - **Drive:** Single shot
-- **Note:** A dedicated portrait lens (e.g., Sony 50mm f/1.8 or Sigma 56mm f/1.4) would transform your portrait photography. The 70-350mm works but doesn't blur the background as much.
+- **Stabilization:** ON
+- **Note:** A dedicated fast portrait lens (Sigma 56mm f/1.4 ~$400) would transform your portraits — much stronger bokeh and low-light ability. Consider for the future.
 
-#### M2: Macro / Close-Up
-- **What:** Insects, flowers, small details. Requires a macro lens (you don't have one yet — see lens recommendations below).
-- **Approach:** Manual exposure. At macro distances, depth of field is razor-thin. You need full control.
-- **Starting aperture:** f/11–f/20 (maximize DoF at close range)
-- **Shutter speed:** 1/200s (if using flash) or 1/250s+ (if natural light, handheld)
-- **ISO:** 200 fixed (if using flash) or Auto (natural light)
-- **Autofocus:** Manual Focus. At macro magnification, AF hunts too much. Use the focus ring or rock your body forward/backward.
-- **Flash:** External flash strongly recommended for macro. Provides all the light, lets you use low ISO and narrow aperture.
-- **Note:** This slot is a placeholder until you get a macro lens. Skip it for now or use it for another scenario you prefer.
+#### M2: Low Light / Dusk-Dawn
+- **What:** Handheld shooting at golden/blue hour, indoors, evening scenes — enough light to see, not enough for fast shutter speeds
+- **Lens:** 11mm f/1.8 (best for low light — fast aperture), or 70-350mm for compressed dusk scenes
+- **Approach:** Aperture Priority, wide open, high ISO ceiling
+- **Starting aperture:** Widest possible (f/1.8 with 11mm, f/4.5 with 70-350mm at 70mm)
+- **Min shutter speed:** 1/60s (handheld limit)
+- **ISO:** Auto, no upper limit
+- **Autofocus:** AF-S, Wide area
+- **Stabilization:** ON
+- **Why wide open?** In low light, gathering maximum light is priority #1. Depth of field becomes secondary.
 
-#### M3: Birds in Flight (BIF)
-- **What:** Dedicated to the hardest wildlife challenge — birds flying across the frame.
-- **Approach:** Manual + Auto ISO, but faster shutter than general wildlife.
-- **Starting shutter speed:** 1/2000–1/4000s (freeze wing beats)
-- **Aperture:** Wide open (maximum light)
-- **ISO:** Auto, no limit
-- **Autofocus:** Continuous AF (AF-C), Wide area or Tracking, Bird detection ON
-- **Drive:** Maximum burst speed
-- **Why a separate mode from MR2?** BIF needs significantly faster shutter speed and different AF area settings. Having a dedicated slot means you can switch instantly when a bird takes off.
+#### M3: Night Sky / Stars ⭐
+- **What:** Milky Way, star fields, night landscapes
+- **Lens:** 11mm f/1.8 (mandatory — this is what the gift is for)
+- **Tripod:** REQUIRED
+- **Approach:** Full Manual. Every parameter chosen by you.
+- **Aperture:** f/1.8 (wide open — gather all available starlight)
+- **Shutter speed:** 20 seconds ("500 rule": 500 / 11mm = 45s max, but 20s is safer for sharp stars)
+- **ISO:** 3200 (starting point — adjust 1600-6400 based on sky darkness)
+- **Focus:** **Manual, set to infinity** — zoom in on a bright star in live view, adjust until pinpoint sharp, then don't touch
+- **White balance:** Daylight (or ~3800K) — gives neutral stars, not orange
+- **Long Exposure NR:** OFF (would block camera for 20+ seconds between shots)
+- **Stabilization:** OFF (on tripod — IS causes drift)
+- **Drive:** 2-second timer (avoid shake from pressing the shutter button)
+- **Why these values?** At f/1.8 for 20s at ISO 3200, you gather enough light for the Milky Way while stars stay as points. Longer than 20s at 11mm and stars start trailing.
 
-#### M4: Night / Low Light
-- **What:** Cityscapes at night, stars, low-light handheld.
-- **Approach:** Depends on scenario:
-  - Handheld night: Aperture Priority, wide open, Auto ISO (high), stabilization ON
-  - Tripod night: Manual, f/8, low ISO, long exposure (2–30s)
-  - Stars: Manual, widest aperture, highest usable ISO, 15–20s exposure, MF on infinity
-- **Starting config (handheld night):** Wide open, Auto ISO, single-shot AF
-- **Note:** You'll adjust this in the field depending on the specific situation.
+#### M4: Video — Wildlife
+- **What:** Moving animal/bird video footage
+- **Lens:** 70-350mm
+- **Approach:** Manual video, prioritize smooth footage
+- **Record format:** 4K 30p or 60p (your preference — 60p gives slow-motion option)
+- **Shutter speed:** 1/60s (180° shutter rule for 30p) or 1/125s (for 60p)
+- **Aperture:** f/6.3 (max at 350mm)
+- **ISO:** Auto, no upper limit
+- **Autofocus:** AF-C with Bird/Animal subject recognition
+- **Stabilization:** ON with **Active SteadyShot** for extra smoothness
+- **Picture Profile:** Standard (or S-Log3 if you want to color-grade in post)
+- **Why different from MR2 (photo wildlife)?** Video has different shutter speed needs (match to frame rate), benefits from stronger stabilization, and needs video-specific AF settings.
 
 ---
 
 ## Global "Set and Forget" Settings
 
-These are settings you configure ONCE and never touch again. They apply across all modes. Claude will help you find each one in the Sony menus.
+Settings you configure ONCE and never touch. They apply across all modes.
 
 ### Image Quality
-- **File format:** RAW + JPEG (RAW for editing flexibility, JPEG for quick sharing)
-- **JPEG quality:** Fine or Extra Fine
-- **Aspect ratio:** 3:2 (native sensor ratio — don't crop in-camera)
+- **File format:** RAW only (.ARW)
+- **Compression:** Lossless Compressed (smaller files, no quality loss) or Uncompressed
+- **Aspect ratio:** 3:2 (native sensor ratio)
 
 ### Display
 - **Grid lines:** Rule of thirds (helps composition)
-- **Histogram:** ON (shows exposure distribution — learn to read it)
+- **Histogram:** ON (learn to read it — it never lies about exposure)
 - **Level gauge:** ON (keeps horizons straight)
+- **Peaking (MF assist):** ON, Red, Medium level (critical for astro focus)
 
 ### Autofocus
-- **Face/Eye priority:** ON (globally — individual modes can override)
-- **AF illuminator:** ON (helps focus in dark environments)
+- **Subject recognition:** ON globally (individual modes override)
+- **AF assist illuminator:** ON
+- **Eye priority:** ON
 
 ### Playback
-- **Auto review:** 2 seconds (see the shot, then back to shooting)
+- **Auto review:** 2 seconds
 
-### Custom buttons
-- Assign frequently-changed functions to physical buttons so you never need the menu in the field. Common assignments:
-  - **C1 button:** ISO
-  - **C2 button:** White Balance
-  - **C3 button:** Focus Mode (AF-S/AF-C/MF)
-  - **AEL button:** Eye AF (half-press to track eyes)
-
----
-
-## Lens Recommendations
-
-You currently have:
-
-### Sony E 70-350mm f/4.5-6.3 G OSS
-- **Great for:** Wildlife, birds, distant subjects
-- **Limitations:** Cannot focus close (macro), not wide enough for landscapes/street, not fast enough for strong background blur in portraits
-
-### Suggested additions (in priority order):
-
-1. **Sony E 18-135mm f/3.5-5.6 OSS** (~$550) — The walk-around lens. Covers street, landscape, travel, casual portraits. With this + the 70-350mm you cover 18-350mm (27-525mm equivalent). This is the most impactful single addition.
-
-2. **Sigma 56mm f/1.4 DC DN** (~$400) — Portrait lens. Beautiful background blur, great for people and pets in low light. Dramatic improvement over the zoom for portraits.
-
-3. **Sony E 30mm f/3.5 Macro** (~$280) — Entry macro lens. True 1:1 magnification. Opens up the insect/flower world. Budget-friendly. (Or the Sigma 70mm f/2.8 Macro for better working distance with insects.)
-
-4. **Sony E 11mm f/1.8** (~$300) — Ultra-wide. Dramatic landscapes, architecture, astrophotography, night sky.
-
-**For starting out: Lens #1 (18-135mm) is the priority.** Two lenses (18-135 + 70-350) will cover 90% of situations.
+### Custom Buttons (initial assignments — refine with Claude)
+- **C1:** ISO
+- **C2:** White Balance
+- **C3:** Focus Mode toggle (AF-S / AF-C / MF)
+- **AEL:** Eye AF (hold to track eyes)
 
 ---
 
@@ -187,99 +196,80 @@ You currently have:
 
 ### Step 1: Get the Camera Manual
 
-1. Search Google for: **"Sony A6700 help guide PDF"** or go directly to Sony's support page
-2. Download the **full PDF manual** for the ILCE-6700 (make sure it matches your current firmware version)
+1. Go to **https://helpguide.sony.net/ilc/2320/v1/en/** (Sony A6700 online help guide) — or search "Sony A6700 help guide PDF"
+2. Download the full PDF manual for the ILCE-6700
 3. Check your firmware: **Menu → Setup → Version** on the camera
 4. Save the PDF in your project folder under `reference/manuals/`
-5. Ask Claude to read it — this gives Claude the exact menu structure, setting names, and available options for YOUR camera
+5. Ask Claude to read it — this gives Claude the exact menu structure for YOUR camera
 
 ### Step 2: Set Up the Project
 
-1. Create a GitHub repository (Claude can help)
-2. Create the folder structure:
-   ```
-   your-project/
-   ├── data/                  # Single source of truth
-   │   └── camera-config-a6700.json
-   ├── docs/                  # PWA (GitHub Pages)
-   ├── tools/                 # Card generators, utilities
-   ├── guides/                # Written guides, walkthroughs
-   ├── reference/             # Manuals (gitignored — too large)
-   │   └── manuals/
-   ├── output/                # Generated PDFs
-   └── review/                # Sample photos for analysis (gitignored)
-   ```
+Create a GitHub repository and this folder structure:
+
+```
+your-project/
+├── data/                  # Single source of truth
+│   └── camera-config-a6700.json
+├── docs/                  # PWA (GitHub Pages)
+├── tools/                 # Card generators, utilities
+├── guides/                # Written guides, walkthroughs
+├── reference/             # Manuals (gitignored — too large)
+│   └── manuals/
+├── output/                # Generated PDFs
+└── review/                # Sample photos for analysis (gitignored)
+```
+
+Claude will help you set this up.
 
 ### Step 3: Global Settings ("Set and Forget")
 
 Go through the camera menu systematically with Claude:
 1. Claude reads the manual and identifies every menu item
-2. For each setting, discuss: What does it do? Should we set it once and forget? Or does it change per scenario?
-3. Configure the "set and forget" ones on the camera
-4. Document everything in the JSON file
+2. For each setting, discuss: What does it do? Set-and-forget or per-scenario?
+3. Configure the set-and-forget ones on the camera
+4. Document everything in the JSON file with rationale
 
-**This is the longest step.** It takes time but you only do it once. Every decision gets documented with its rationale.
+**This is the longest step.** Takes time, but you only do it once.
 
-### Step 4: Define Your Scenarios
+### Step 4: Program the 7 Scenarios
 
-1. Look at the scenarios listed above
-2. Discuss with Claude: Do they match your shooting interests? Want to add, remove, or modify any?
-3. For each scenario, Claude will recommend specific Sony A6700 settings based on the photography goals
-4. YOU make the final decision on every value — Claude explains the tradeoffs, you choose
+For each memory slot (MR1, MR2, MR3, M1, M2, M3, M4):
+1. Set all values on the camera manually
+2. Save: **Menu → Shooting → Camera Set. Memory** (select slot)
+3. Test by recalling and verifying
 
-### Step 5: Program the Camera
+### Step 5: Create Field Reference Cards
 
-1. For each Memory Recall slot (MR1-3, M1-4):
-   - Set the camera to all the correct values manually
-   - Save to the memory slot: **Menu → Shooting → Camera Set. Memory**
-2. Test each slot by recalling it and verifying the settings loaded correctly
+Claude builds `field-cards.json`, a Python script generates printable PDF cards.
 
-### Step 6: Create Field Reference Cards
+### Step 6: Build the iPhone App (PWA)
 
-1. Claude builds a `field-cards.json` with all the scenario data
-2. A Python script generates printable PDF cards (iPhone-sized, front/back)
-3. Print, laminate, carry in the field
+Claude creates an HTML app that reads from the JSON. Enable GitHub Pages, add to home screen in Safari, done.
 
-### Step 7: Build the iPhone App (PWA)
+### Step 7: Field Test and Iterate
 
-1. Claude creates an `index.html` that reads from the JSON
-2. Enable GitHub Pages on your repo
-3. Open in Safari → Add to Home Screen → done
+**Most important step.** Shoot, come back, tell Claude what didn't work:
+- "Birds were blurry at 1/1000 — need faster"
+- "Landscapes at f/8 weren't sharp enough in the corners"
+- "Night sky ISO 3200 was too noisy"
 
-### Step 8: Field Test and Iterate
-
-**This is the most important step.** Go shoot. Come back. Tell Claude:
-- "The shutter speed for wildlife was too slow, birds were blurry"
-- "I couldn't focus fast enough on the monkey"
-- "The landscape photos were overexposed"
-
-Claude updates the JSON, regenerates the cards, the app updates. Iterate until every mode feels right.
+Claude updates the JSON, regenerates cards, updates the app. Iterate until every mode feels right.
 
 ---
 
 ## Key Principles
 
-1. **Understand before configuring.** Don't just copy settings. For every value, ask "why?" until you understand.
+1. **Understand before configuring.** For every value, ask "why?" until you understand. Nelson spent hours debating every parameter with Claude. That's the process.
 
-2. **Settings are a starting point, not a religion.** The saved mode gets you 80% there. The last 20% is adjusting in the field with the dials.
+2. **Settings are a starting point, not a religion.** The saved mode gets you 80% there. The last 20% is adjusting dials in the field.
 
-3. **Physical setup is as important as software.** A perfectly configured mode is useless if the lens stabilization switch is in the wrong position.
+3. **Physical setup is as important as software.** Perfect mode + wrong lens switch = bad photo.
 
-4. **Test in real conditions.** Indoor testing tells you almost nothing. Go outside, find subjects, shoot, review, adjust.
+4. **Test in real conditions.** Indoor testing is mostly useless. Go outside, find subjects, shoot, review, adjust.
 
-5. **Start simple, add complexity.** Begin with MR1 (Street) and MR2 (Wildlife). Get comfortable. Then add the others one at a time.
+5. **Start with your biggest interest.** Wildlife is probably it — get MR2 (Wildlife) dialed in first, then expand.
 
-6. **The JSON is your single source of truth.** If you change a setting on the camera, update the JSON. If you forget what a mode is configured to, read the JSON. Everything else (cards, app) is generated FROM the JSON.
-
----
-
-## What This Project Does NOT Cover
-
-- **Post-processing** (Lightroom, Capture One, etc.) — that's a separate skill
-- **Composition and artistic vision** — no settings can teach you where to point the camera
-- **Advanced flash photography** — can be added later as a module
-- **Video** — can be added as additional memory slots later
-- **Lightning/storm alerts** — can be added later if interested
+6. **The JSON is your single source of truth.** Change a camera setting? Update the JSON. Forget a value? Read the JSON. Everything else (cards, app) regenerates from the JSON.
 
 ---
 
@@ -287,10 +277,10 @@ Claude updates the JSON, regenerates the cards, the app updates. Iterate until e
 
 Open Claude Code (or Claude in your IDE), paste this document, and say:
 
-> "I want to start this project for my Sony A6700. Here's the project description my uncle wrote. Let's begin with Step 1 — I need to find and download the camera manual."
+> "I'm Marina, starting a Sony A6700 configuration project. My uncle Nelson did the same with his Lumix G9 cameras. Here's the project description he wrote for me. I understand the exposure triangle and have shot in Manual mode before. Let's begin with Step 1 — finding and downloading the camera manual."
 
 Claude will guide you from there. Have fun and good shooting!
 
 ---
 
-*This project template was created by Nelson Salgado based on his experience configuring two Lumix G9 cameras. The methodology is camera-agnostic — the photography principles are universal.*
+*This project template was created by Nelson Salgado based on his experience configuring two Lumix G9 cameras. The methodology is camera-agnostic — photography principles are universal. Reference project: https://github.com/nksalgado-proton/LumixCameraSettingsProject*
