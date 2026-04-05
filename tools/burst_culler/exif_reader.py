@@ -120,20 +120,28 @@ def _extract_shutter(raw_val: str) -> float:
 
 
 def read_exif_batch(files: list[Path]) -> list[PhotoExif]:
-    """Read EXIF from many files in a single exiftool call (fast)."""
+    """Read EXIF from many files using an exiftool argfile (fast, no
+    command-line length limits)."""
     if not files:
         return []
+
+    import tempfile
+    # Write file list to temp argfile (avoids Windows cmd-line length limit)
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',
+                                     suffix='.txt', delete=False) as tf:
+        argfile_path = tf.name
+        for f in files:
+            tf.write(f'{f}\n')
 
     cmd = [
         str(EXIFTOOL_PATH),
         '-json',
+        '-charset', 'filename=UTF8',
         '-charset', 'UTF8',
+        '-@', argfile_path,
     ]
-    # Add tags
     for tag in TAGS:
         cmd.append(f'-{tag}')
-    # Add files
-    cmd.extend(str(f) for f in files)
 
     try:
         result = subprocess.run(
@@ -141,12 +149,17 @@ def read_exif_batch(files: list[Path]) -> list[PhotoExif]:
             check=False
         )
         if result.returncode != 0 and not result.stdout:
-            print(f'ExifTool error: {result.stderr[:200]}')
+            print(f'ExifTool error: {result.stderr[:500]}')
             return []
         data = json.loads(result.stdout or '[]')
     except (subprocess.SubprocessError, json.JSONDecodeError) as e:
         print(f'ExifTool failed: {e}')
         return []
+    finally:
+        try:
+            Path(argfile_path).unlink()
+        except Exception:
+            pass
 
     photos = []
     for entry in data:

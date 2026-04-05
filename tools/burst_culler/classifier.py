@@ -29,9 +29,8 @@ SCENARIOS = {
     'stacks': 'Focus stacks (keep all frames)',
     'macro': 'Handheld macro with flash',
     'tripod-macro': 'Tripod macro with flash bracket',
-    'wildlife': 'Wildlife / Action',
+    'wildlife': 'Wildlife / Birds / Action',
     'birds-crop': 'Birds with Crop Zoom',
-    'bif': 'Birds in Flight',
     'landscape': 'Landscape',
     'portrait': 'Portrait / People',
     'street': 'Street / General',
@@ -58,28 +57,46 @@ def classify(p: PhotoExif) -> Classification:
                               [f'Long exposure {p.shutter_speed:.0f}s',
                                f'low ISO {p.iso}'], 95)
 
-    # RULE 3: Flash fired + Manual focus + Macro aperture → Macro handheld
-    if p.flash_fired and p.focus_mode.lower().startswith('manual'):
-        ap_ok = p.aperture >= 8.0  # f/8, f/11, f/20 etc.
-        if ap_ok:
-            reasons = ['Flash fired', 'Manual focus',
-                       f'Narrow aperture f/{p.aperture}']
-            # Distinguish tripod macro by shutter delay / IS off is harder
-            # — if we see focus bracket it's tripod macro, otherwise handheld
-            return Classification('macro', Confidence.HIGH, reasons, 90)
+    # RULE 3: Flash fired + Macro lens → Macro (Nelson only uses macro lens
+    # for macro, so this is definitive)
+    lens_lower = p.lens.lower()
+    # Match known macro lens patterns across branding variations:
+    # Olympus/OM: "60mm F2.8", "90mm F3.5" are always macro
+    # "Macro" in name (Panasonic Leica, Sigma, Tamron)
+    is_macro_lens = (
+        'macro' in lens_lower
+        or '60mm f2.8' in lens_lower
+        or '60mm f/2.8' in lens_lower
+        or '90mm f3.5' in lens_lower
+        or '90mm f/3.5' in lens_lower
+        or '105mm' in lens_lower  # Sigma 105 Macro, etc.
+    )
+    # Fallback: if lens field is empty (common on G9 MkI JPEGs),
+    # infer from focal length — 60mm/90mm on MFT is almost always a macro lens
+    if not lens_lower and p.focal_length in (60.0, 90.0, 105.0):
+        is_macro_lens = True
+    if p.flash_fired and is_macro_lens:
+        return Classification('macro', Confidence.HIGH,
+                              ['Flash + Macro lens'], 95)
+
+    # RULE 3a: Macro lens + narrow aperture (no flash) → natural-light macro
+    if is_macro_lens and p.aperture >= 8.0:
+        return Classification('macro', Confidence.MEDIUM,
+                              ['Macro lens', f'Narrow f/{p.aperture}'], 80)
+
+    # RULE 3b: Flash + MF + narrow aperture = textbook macro
+    # (catches cases where lens model is missing from EXIF)
+    if (p.flash_fired
+            and p.focus_mode.lower().startswith('manual')
+            and p.aperture >= 8.0):
+        return Classification('macro', Confidence.HIGH,
+                              ['Flash', 'MF', f'Narrow f/{p.aperture}'], 95)
 
     # RULE 4: Animal detection → Wildlife family
     subject_lower = p.af_subject.lower()
     if 'animal' in subject_lower:
         reasons.append(f'Subject detect: {p.af_subject}')
-        # Distinguish BIF vs Wildlife vs Birds+Crop
-        if p.shutter_speed > 0 and p.shutter_speed <= 1/3000:
-            reasons.append(f'Very fast SS {1/p.shutter_speed:.0f}/s')
-            return Classification('bif', Confidence.HIGH, reasons, 90)
-        if 'tracking' in p.af_area_mode.lower():
-            reasons.append(f'AF area: Tracking')
-            return Classification('bif', Confidence.MEDIUM, reasons, 75)
-        # Check if JPEG-only output (indicates Crop Zoom)
+        # Check if JPEG-only output on G9M2 (indicates Crop Zoom mode)
         if p.path.suffix.lower() in ('.jpg', '.jpeg') and p.model == 'DC-G9M2':
             reasons.append('JPEG-only (Crop Zoom)')
             return Classification('birds-crop', Confidence.MEDIUM, reasons, 80)
@@ -100,8 +117,11 @@ def classify(p: PhotoExif) -> Classification:
         return Classification('portrait', Confidence.MEDIUM, reasons, 70)
 
     # RULE 6: No subject detect + narrow aperture + AFS → Landscape
+    # Panasonic stores "Auto" for AFS, "Auto, Continuous" for AFC
     focus_mode_lower = p.focus_mode.lower()
-    if 'single' in focus_mode_lower or 'afs' in focus_mode_lower:
+    is_afs = ('single' in focus_mode_lower or 'afs' in focus_mode_lower
+              or focus_mode_lower.strip() == 'auto')
+    if is_afs:
         if p.aperture >= 7.0:
             reasons.append(f'AFS + narrow f/{p.aperture}')
             # Photo style Scenery = landscape
@@ -113,20 +133,25 @@ def classify(p: PhotoExif) -> Classification:
         reasons.append(f'AFS + f/{p.aperture}')
         return Classification('street', Confidence.MEDIUM, reasons, 60)
 
+    # RULE 6b: Tracking AF + fast SS + no flash → wildlife
+    # (Tracking AF is only used for moving subjects)
+    if (not p.flash_fired and 'tracking' in p.af_area_mode.lower()
+            and p.shutter_speed > 0 and 1 / p.shutter_speed >= 500):
+        ss_recip = 1 / p.shutter_speed
+        reasons = [f'Tracking AF + 1/{ss_recip:.0f}s']
+        return Classification('wildlife', Confidence.MEDIUM, reasons, 72)
+
     # RULE 7: Telephoto + fast shutter + no flash → likely wildlife
     # (covers MF-on-moving-subject case where subject detect is n/a)
     if (not p.flash_fired and p.focal_length >= 100
             and p.shutter_speed > 0):
         ss_recip = 1 / p.shutter_speed
-        if ss_recip >= 1000:  # 1/1000s or faster
+        if ss_recip >= 500:  # 1/500s or faster
             reasons.append(f'Tele {p.focal_length:.0f}mm + 1/{ss_recip:.0f}s')
-            if ss_recip >= 3000:
-                reasons.append('Very fast SS')
-                return Classification('bif', Confidence.MEDIUM, reasons, 70)
             if 'tracking' in p.af_area_mode.lower():
                 reasons.append('Tracking AF')
                 return Classification('wildlife', Confidence.MEDIUM,
-                                      reasons, 70)
+                                      reasons, 72)
             return Classification('wildlife', Confidence.LOW, reasons, 55)
 
     # RULE 8: Manual focus, no flash, no long exposure → likely macro w/o flash
@@ -137,7 +162,11 @@ def classify(p: PhotoExif) -> Classification:
             return Classification('macro', Confidence.LOW, reasons, 50)
 
     # RULE 9: AFC without subject detect → guess based on focal length
-    if 'continuous' in focus_mode_lower or 'afc' in focus_mode_lower:
+    # Panasonic uses "AF-C" or "Auto, Continuous" for continuous AF
+    is_afc = ('continuous' in focus_mode_lower
+              or 'afc' in focus_mode_lower
+              or 'af-c' in focus_mode_lower)
+    if is_afc:
         if p.focal_35mm >= 200:  # 100mm+ on MFT
             reasons.append(f'AFC + tele {p.focal_length:.0f}mm')
             return Classification('wildlife', Confidence.LOW, reasons, 45)

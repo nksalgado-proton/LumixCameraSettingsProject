@@ -54,11 +54,20 @@ class Burst:
 
 
 def scan_folder(folder: Path) -> list[PhotoExif]:
-    print(f'Scanning {folder}...')
-    files = [p for p in folder.iterdir()
-             if p.is_file() and p.suffix.lower() in PHOTO_EXT
-             and 'preview' not in p.name.lower()
-             and 'keepers' not in str(p).lower()]
+    """Recursively scan folder for photo files (excluding keepers/)."""
+    print(f'Scanning {folder} (recursive)...')
+    files = []
+    for p in folder.rglob('*'):
+        if not p.is_file():
+            continue
+        if p.suffix.lower() not in PHOTO_EXT:
+            continue
+        if 'preview' in p.name.lower():
+            continue
+        # Exclude anything under a "keepers" folder
+        if any(part.lower() == 'keepers' for part in p.parts):
+            continue
+        files.append(p)
     print(f'Found {len(files)} photo files. Reading EXIF...')
     photos = read_exif_batch(files)
     # Drop photos without timestamps
@@ -96,6 +105,8 @@ def classify_bursts(bursts: list[Burst]) -> None:
 
 
 def extract_thumbnail(path: Path, target_size: int = 600) -> Image.Image | None:
+    if target_size < 50:
+        target_size = 200  # guard against bad sizing
     try:
         if path.suffix.lower() in JPEG_EXT:
             img = Image.open(path)
@@ -230,7 +241,27 @@ class CullerApp:
         clear_btn.pack(side='right', padx=5, pady=12)
 
         self.root.bind('<Key>', self._on_key)
-        self.root.bind('<Configure>', lambda e: None)
+        self._last_width = 0
+        self._resize_after = None
+        self.root.bind('<Configure>', self._on_resize)
+
+    def _on_resize(self, event):
+        """Re-render grid when window width changes significantly."""
+        if event.widget is not self.root:
+            return
+        if abs(event.width - self._last_width) < 50:
+            return
+        self._last_width = event.width
+        # Debounce: wait 300ms after user stops resizing
+        if self._resize_after:
+            self.root.after_cancel(self._resize_after)
+        self._resize_after = self.root.after(300, self._do_resize)
+
+    def _do_resize(self):
+        self._resize_after = None
+        self.thumb_cache.clear()  # different sizes now
+        if self.mode == 'grid':
+            self._show_burst()
 
     def _make_button(self, parent, text, cmd, color, width=16):
         btn = tk.Button(
@@ -325,9 +356,12 @@ class CullerApp:
     def _show_grid(self, b: Burst):
         n = len(b.photos)
         cols = min(n, 5) if n <= 5 else 4
-        # Calculate thumbnail width
-        avail_w = self.content.winfo_width() or 1580
-        thumb_w = min(500, (avail_w // cols) - 25)
+        self._grid_cells = {}  # photo_idx -> cell widget for in-place updates
+        # Calculate thumbnail width (guard against tiny initial window)
+        avail_w = self.content.winfo_width()
+        if avail_w < 400:  # not yet rendered, use default
+            avail_w = 1580
+        thumb_w = max(200, min(500, (avail_w // cols) - 25))
 
         for i, photo in enumerate(b.photos):
             row = i // cols
@@ -339,6 +373,7 @@ class CullerApp:
                             highlightbackground=ACCENT if is_selected else BG,
                             highlightthickness=3, padx=4, pady=4)
             cell.grid(row=row, column=col, padx=4, pady=4, sticky='nsew')
+            self._grid_cells[i] = cell
 
             # Filename + number badge
             num_text = f'[{i + 1}]  {photo.path.name}'
@@ -348,12 +383,15 @@ class CullerApp:
                 cell, text=num_text, bg=bg_color, fg=ACCENT,
                 font=('Consolas', 9, 'bold'), anchor='w')
             num_lbl.pack(fill='x')
+            cell._num_lbl = num_lbl  # keep reference for in-place updates
 
             # EXIF info
             exif_lbl = tk.Label(
                 cell, text=format_exposure(photo), bg=bg_color, fg=FG_DIM,
                 font=('Segoe UI', 8), anchor='w')
             exif_lbl.pack(fill='x')
+            cell._exif_lbl = exif_lbl
+            cell._photo_ref = photo
 
             # Thumbnail
             tk_img = self._get_thumb(photo.path, thumb_w)
@@ -361,9 +399,12 @@ class CullerApp:
                 img_lbl = tk.Label(cell, image=tk_img, bg=bg_color,
                                    cursor='hand2')
                 img_lbl.pack()
-                # Click = toggle select
+                # Single-click = toggle select
                 img_lbl.bind('<Button-1>',
                              lambda e, idx=i: self._toggle_select(idx))
+                # Double-click = select this one and commit
+                img_lbl.bind('<Double-Button-1>',
+                             lambda e, idx=i: self._double_click_commit(idx))
                 # Right-click = zoom
                 img_lbl.bind('<Button-3>',
                              lambda e, p=photo: self._zoom_photo(p))
@@ -395,20 +436,27 @@ class CullerApp:
             return
         b = state['burst']
 
-        # Check if tournament is done
         if state['winner'] is not None:
             self._tour_finish()
             return
-        if len(state['queue']) < 2:
-            if len(state['queue']) == 1 and not state['next_round']:
-                # Only one left → winner
+
+        # Keep merging rounds until we have 2+ photos or a winner
+        while len(state['queue']) < 2:
+            if state['next_round']:
+                # End of round: merge next_round winners into queue
+                state['queue'] = state['next_round'] + state['queue']
+                state['next_round'] = []
+                state['round_num'] += 1
+            elif len(state['queue']) == 1:
+                # Only one photo left overall → winner
                 state['winner'] = state['queue'][0]
                 self._tour_finish()
                 return
-            # End of round
-            state['queue'] = state['next_round'] + state['queue']
-            state['next_round'] = []
-            state['round_num'] += 1
+            else:
+                # Empty — no winner (user skipped everything)
+                state['winner'] = None
+                self._tour_finish()
+                return
 
         # Show current pair
         for w in self.content.winfo_children():
@@ -492,8 +540,10 @@ class CullerApp:
         winner = state['winner']
         runner_up = state['winner_beat']
 
-        # Ask about runner-up
-        if runner_up is not None:
+        if winner is None:
+            # No winner (all skipped) — commit empty
+            b.selected = set()
+        elif runner_up is not None and runner_up != winner:
             keep_runner = messagebox.askyesno(
                 'Tournament winner',
                 f'Winner: photo [{winner + 1}]\n'
@@ -536,13 +586,46 @@ class CullerApp:
             b.scenario = scenario
             self._update_header()
 
+    def _double_click_commit(self, idx: int):
+        """Double-click: select only this one and commit immediately."""
+        b = self._current_burst()
+        if not b:
+            return
+        b.selected = {idx}
+        self._commit_grid()
+
     def _toggle_select(self, idx: int):
         b = self._current_burst()
         if idx in b.selected:
             b.selected.remove(idx)
         else:
             b.selected.add(idx)
-        self._show_grid(b)  # refresh
+        # Update cell in place (don't rebuild — preserves double-click events)
+        self._refresh_cell(idx)
+
+    def _refresh_cell(self, idx: int):
+        """Update one cell's selection state visually without rebuilding."""
+        cell = self._grid_cells.get(idx)
+        if cell is None:
+            return
+        b = self._current_burst()
+        is_selected = idx in b.selected
+        bg_color = SELECTED if is_selected else BG
+        cell.config(bg=bg_color,
+                    relief='solid' if is_selected else 'flat',
+                    highlightbackground=ACCENT if is_selected else BG)
+        # Update children backgrounds
+        for child in cell.winfo_children():
+            try:
+                child.config(bg=bg_color)
+            except tk.TclError:
+                pass
+        # Update filename label text with checkmark
+        photo = cell._photo_ref
+        num_text = f'[{idx + 1}]  {photo.path.name}'
+        if is_selected:
+            num_text = '✓ ' + num_text
+        cell._num_lbl.config(text=num_text)
 
     def _zoom_photo(self, photo: PhotoExif):
         """Open a fullscreen preview of one photo."""
@@ -805,6 +888,52 @@ class CullerApp:
         self.root.destroy()
 
 
+def run_classify_only(photos: list[PhotoExif], keepers: Path,
+                      dry_run: bool = False) -> None:
+    """Classify each photo individually and copy to scenario folder.
+
+    No GUI, no burst grouping, no user interaction. Useful when culling
+    is already done and you just want to organize by scenario.
+    """
+    from collections import Counter
+    print(f'\nClassify-only mode: {len(photos)} photos\n')
+    if not dry_run:
+        keepers.mkdir(parents=True, exist_ok=True)
+
+    counts = Counter()
+    low_conf = []
+    for p in photos:
+        c = classify(p)
+        counts[c.scenario] += 1
+        if c.confidence.value == 'LOW':
+            low_conf.append((p, c))
+        if not dry_run:
+            dest_dir = keepers / c.scenario
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            dest = dest_dir / p.path.name
+            if dest.exists():
+                stem, suffix = dest.stem, dest.suffix
+                i = 1
+                while dest.exists():
+                    dest = dest_dir / f'{stem}_dup{i}{suffix}'
+                    i += 1
+            shutil.copy2(p.path, dest)
+
+    print('\n=== CLASSIFICATION SUMMARY ===')
+    for scen, n in counts.most_common():
+        print(f'  {scen}: {n}')
+    if low_conf:
+        print(f'\n{len(low_conf)} photos with LOW confidence:')
+        for p, c in low_conf[:10]:
+            print(f'  {p.path.name} -> {c.scenario} ({"; ".join(c.reasons)})')
+        if len(low_conf) > 10:
+            print(f'  ... and {len(low_conf) - 10} more')
+    if not dry_run:
+        print(f'\nCopied to: {keepers}')
+    else:
+        print('\n(DRY RUN — no files copied)')
+
+
 def main():
     parser = argparse.ArgumentParser(description='Burst Culler')
     parser.add_argument('folder', help='Folder containing photos')
@@ -812,6 +941,12 @@ def main():
                         help='Max seconds between burst members (default 3)')
     parser.add_argument('--out', default=None,
                         help='Output folder (default: <folder>/keepers)')
+    parser.add_argument('--classify-only', action='store_true',
+                        help='Skip GUI — just classify + copy all photos '
+                             'to scenario folders (no burst grouping)')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='With --classify-only: show counts without '
+                             'copying files')
     args = parser.parse_args()
 
     src = Path(args.folder).resolve()
@@ -826,6 +961,10 @@ def main():
     if not photos:
         print('No photos with timestamps found.')
         sys.exit(0)
+
+    if args.classify_only:
+        run_classify_only(photos, keepers, dry_run=args.dry_run)
+        return
 
     bursts = group_bursts(photos, args.gap)
     classify_bursts(bursts)
