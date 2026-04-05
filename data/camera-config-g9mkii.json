@@ -1,21 +1,44 @@
 {
   "camera": "Panasonic Lumix G9 MkII (DC-G9M2)",
   "firmware": "2.5",
-  "last_updated": "2026-03-21",
+  "last_updated": "2026-04-05",
   "owner": "Nelson",
   "role": "PRIMARY: Wildlife/Birds + Video",
   "notes": "Nelson's main camera. Shoots RAW. Has Crop Zoom (fw 2.3+), Live View Composite, Creative Video mode, full subject detection suite.",
-
   "gear": {
     "lenses": [
-      {"name": "Leica DG Vario-Elmar 100-400mm f/4-6.3 II ASPH", "primary_use": "Wildlife, birds, BIF", "max_aperture": "f/4-6.3"},
-      {"name": "Olympus M.Zuiko 90mm f/3.5 Macro IS PRO", "primary_use": "Tripod macro, focus bracketing", "max_aperture": "f/3.5"},
-      {"name": "Olympus M.Zuiko 60mm f/2.8 Macro", "primary_use": "Handheld macro (Costa Rica)", "max_aperture": "f/2.8"},
-      {"name": "Lumix G Vario 12-35mm f/2.8 II ASPH Power OIS", "primary_use": "Wide/General, video travel", "max_aperture": "f/2.8"},
-      {"name": "Lumix G Vario 35-100mm f/2.8 II ASPH Power OIS", "primary_use": "Portrait/Tele (shared)", "max_aperture": "f/2.8"}
+      {
+        "name": "Leica DG Vario-Elmar 100-400mm f/4-6.3 II ASPH",
+        "primary_use": "Wildlife, birds, BIF",
+        "max_aperture": "f/4-6.3"
+      },
+      {
+        "name": "Olympus M.Zuiko 90mm f/3.5 Macro IS PRO",
+        "primary_use": "Tripod macro, focus bracketing",
+        "max_aperture": "f/3.5"
+      },
+      {
+        "name": "Olympus M.Zuiko 60mm f/2.8 Macro",
+        "primary_use": "Handheld macro (Costa Rica)",
+        "max_aperture": "f/2.8"
+      },
+      {
+        "name": "Lumix G Vario 12-35mm f/2.8 II ASPH Power OIS",
+        "primary_use": "Wide/General, video travel",
+        "max_aperture": "f/2.8"
+      },
+      {
+        "name": "Lumix G Vario 35-100mm f/2.8 II ASPH Power OIS",
+        "primary_use": "Portrait/Tele (shared)",
+        "max_aperture": "f/2.8"
+      }
     ],
     "teleconverter": [
-      {"name": "Olympus MC-20 2x Teleconverter", "primary_use": "Macro magnification with 90mm", "note": "Effective 180mm f/7 macro"}
+      {
+        "name": "Olympus MC-20 2x Teleconverter",
+        "primary_use": "Macro magnification with 90mm",
+        "note": "Effective 180mm f/7 macro"
+      }
     ],
     "flash": [
       {
@@ -65,11 +88,18 @@
       }
     ],
     "accessories": [
-      {"name": "Raynox DCR-250", "type": "Diopter", "use": "Extra magnification with 60mm"},
-      {"name": "MIOPS Trigger", "type": "Lightning trigger", "use": "Alternative to LVC for lightning"}
+      {
+        "name": "Raynox DCR-250",
+        "type": "Diopter",
+        "use": "Extra magnification with 60mm"
+      },
+      {
+        "name": "MIOPS Trigger",
+        "type": "Lightning trigger",
+        "use": "Alternative to LVC for lightning"
+      }
     ]
   },
-
   "global_settings": {
     "double_card_slot_function": "Relay",
     "usb_ssd": "OFF",
@@ -94,51 +124,168 @@
     "network_connection_light": "OFF",
     "system_frequency": "59.94Hz NTSC"
   },
-
   "qmenu": {
     "_description": "12 slots, MODE1 fixed grid — IDENTICAL across ALL modes, NEVER changes per mode. Only items with NO dedicated button.",
     "layout_style": "MODE1 (12-item fixed grid)",
     "slots": [
-      {"slot": 1, "item": "AF Detection Setting", "rationale": "Master switch for subject detection ON/OFF"},
-      {"slot": 2, "item": "Detecting Subject", "rationale": "Select Human/Animal/Car/Airplane/Train"},
-      {"slot": 3, "item": "Image Stabilizer", "rationale": "Toggle ON/OFF, Mode 1/2. No dedicated button"},
-      {"slot": 4, "item": "Metering Mode", "rationale": "Switch Multi/Spot/Center. No dedicated button"},
-      {"slot": 5, "item": "Picture Quality", "rationale": "RAW/RAW+JPEG/JPEG. No dedicated button"},
-      {"slot": 6, "item": "Shutter Type", "rationale": "Mech/EFC/Electronic. No dedicated button"},
-      {"slot": 7, "item": "Bracketing", "rationale": "Focus/Exposure bracket ON/OFF. No dedicated button"},
-      {"slot": 8, "item": "Flash Mode", "rationale": "ON/OFF, Forced, Slow Sync. No dedicated button"},
-      {"slot": 9, "item": "Flash Adjust.", "rationale": "Flash exposure compensation. Critical for macro"},
-      {"slot": 10, "item": "Min. Shutter Speed", "rationale": "Safety net for Auto ISO. No dedicated button"},
-      {"slot": 11, "item": "Photo Style", "rationale": "Switch Standard/Vivid/Natural/Portrait. No dedicated button"},
-      {"slot": 12, "item": "Aspect Ratio", "rationale": "Switch 4:3/3:2/16:9/1:1. No dedicated button"}
+      {
+        "slot": 1,
+        "item": "AF Detection Setting",
+        "rationale": "Master switch for subject detection ON/OFF"
+      },
+      {
+        "slot": 2,
+        "item": "Detecting Subject",
+        "rationale": "Select Human/Animal/Car/Airplane/Train"
+      },
+      {
+        "slot": 3,
+        "item": "Image Stabilizer",
+        "rationale": "Toggle ON/OFF, Mode 1/2. No dedicated button"
+      },
+      {
+        "slot": 4,
+        "item": "Metering Mode",
+        "rationale": "Switch Multi/Spot/Center. No dedicated button"
+      },
+      {
+        "slot": 5,
+        "item": "Picture Quality",
+        "rationale": "RAW/RAW+JPEG/JPEG. No dedicated button"
+      },
+      {
+        "slot": 6,
+        "item": "Shutter Type",
+        "rationale": "Mech/EFC/Electronic. No dedicated button"
+      },
+      {
+        "slot": 7,
+        "item": "Bracketing",
+        "rationale": "Focus/Exposure bracket ON/OFF. No dedicated button"
+      },
+      {
+        "slot": 8,
+        "item": "Flash Mode",
+        "rationale": "ON/OFF, Forced, Slow Sync. No dedicated button"
+      },
+      {
+        "slot": 9,
+        "item": "Flash Adjust.",
+        "rationale": "Flash exposure compensation. Critical for macro"
+      },
+      {
+        "slot": 10,
+        "item": "Min. Shutter Speed",
+        "rationale": "Safety net for Auto ISO. No dedicated button"
+      },
+      {
+        "slot": 11,
+        "item": "Photo Style",
+        "rationale": "Switch Standard/Vivid/Natural/Portrait. No dedicated button"
+      },
+      {
+        "slot": 12,
+        "item": "Aspect Ratio",
+        "rationale": "Switch 4:3/3:2/16:9/1:1. No dedicated button"
+      }
     ],
     "excluded_rationale": "AF Mode, ISO, WB, Exposure Comp all have dedicated buttons on MkII — stay OUT of Q.Menu"
   },
-
   "my_menu": {
     "_description": "Unified maintenance toolbox — same across all modes",
     "items": [
-      {"slot": 1, "item": "Save to Custom Mode", "rationale": "Re-save modes after tweaks"},
-      {"slot": 2, "item": "Card Format", "rationale": "Quick format between shooting days"},
-      {"slot": 3, "item": "AF Custom Setting (Photo)", "rationale": "Switch tracking behavior Set 1-4"},
-      {"slot": 4, "item": "Focus Limiter", "rationale": "Prevent lens hunting to infinity during macro"},
-      {"slot": 5, "item": "Burst Shot Setting", "rationale": "Change burst speed H/M/L or SH burst"},
-      {"slot": 6, "item": "Bracket (detailed settings)", "rationale": "Configure Step, Count, Type for Focus Bracketing"},
-      {"slot": 7, "item": "Ex. Tele Conv.", "rationale": "Digital crop 1.4x/2.0x"},
-      {"slot": 8, "item": "Long Exposure NR", "rationale": "Toggle ON/OFF"},
-      {"slot": 9, "item": "Fn Button Set", "rationale": "Reassign function buttons"},
-      {"slot": 10, "item": "Shutter Delay", "rationale": "Add 1-8s delay for tripod vibration"},
-      {"slot": 11, "item": "Sensor Cleaning", "rationale": "Quick field maintenance"},
-      {"slot": 12, "item": "Focus Peaking SET", "rationale": "Adjust sensitivity/color"},
-      {"slot": 13, "item": "Zebra Pattern SET", "rationale": "Adjust threshold"},
-      {"slot": 14, "item": "Rec Quality", "rationale": "Change video resolution/framerate"},
-      {"slot": 15, "item": "Sound Rec Level Adj.", "rationale": "Adjust mic input levels for video"},
-      {"slot": 16, "item": "Time Lapse/Animation", "rationale": "Configure time lapse and stop motion"},
-      {"slot": 17, "item": "ISO Sensitivity (photo)", "rationale": "Access Auto ISO Upper Limit"},
-      {"slot": 18, "item": "Custom Mode Settings", "rationale": "Edit Title, Limit No., How to Reload"}
+      {
+        "slot": 1,
+        "item": "Save to Custom Mode",
+        "rationale": "Re-save modes after tweaks"
+      },
+      {
+        "slot": 2,
+        "item": "Card Format",
+        "rationale": "Quick format between shooting days"
+      },
+      {
+        "slot": 3,
+        "item": "AF Custom Setting (Photo)",
+        "rationale": "Switch tracking behavior Set 1-4"
+      },
+      {
+        "slot": 4,
+        "item": "Focus Limiter",
+        "rationale": "Prevent lens hunting to infinity during macro"
+      },
+      {
+        "slot": 5,
+        "item": "Burst Shot Setting",
+        "rationale": "Change burst speed H/M/L or SH burst"
+      },
+      {
+        "slot": 6,
+        "item": "Bracket (detailed settings)",
+        "rationale": "Configure Step, Count, Type for Focus Bracketing"
+      },
+      {
+        "slot": 7,
+        "item": "Ex. Tele Conv.",
+        "rationale": "Digital crop 1.4x/2.0x"
+      },
+      {
+        "slot": 8,
+        "item": "Long Exposure NR",
+        "rationale": "Toggle ON/OFF"
+      },
+      {
+        "slot": 9,
+        "item": "Fn Button Set",
+        "rationale": "Reassign function buttons"
+      },
+      {
+        "slot": 10,
+        "item": "Shutter Delay",
+        "rationale": "Add 1-8s delay for tripod vibration"
+      },
+      {
+        "slot": 11,
+        "item": "Sensor Cleaning",
+        "rationale": "Quick field maintenance"
+      },
+      {
+        "slot": 12,
+        "item": "Focus Peaking SET",
+        "rationale": "Adjust sensitivity/color"
+      },
+      {
+        "slot": 13,
+        "item": "Zebra Pattern SET",
+        "rationale": "Adjust threshold"
+      },
+      {
+        "slot": 14,
+        "item": "Rec Quality",
+        "rationale": "Change video resolution/framerate"
+      },
+      {
+        "slot": 15,
+        "item": "Sound Rec Level Adj.",
+        "rationale": "Adjust mic input levels for video"
+      },
+      {
+        "slot": 16,
+        "item": "Time Lapse/Animation",
+        "rationale": "Configure time lapse and stop motion"
+      },
+      {
+        "slot": 17,
+        "item": "ISO Sensitivity (photo)",
+        "rationale": "Access Auto ISO Upper Limit"
+      },
+      {
+        "slot": 18,
+        "item": "Custom Mode Settings",
+        "rationale": "Edit Title, Limit No., How to Reload"
+      }
     ]
   },
-
   "fn_buttons": {
     "_description": "Only 1 button changed from default. Touch Tab OFF = Fn4-Fn8 disabled.",
     "changed": [
@@ -150,26 +297,77 @@
       }
     ],
     "defaults_kept": [
-      {"button": "Fn2 (44)", "assignment": "AF-Point Scope", "rationale": "Zooms into AF point for precise focus check"},
-      {"button": "Fn3 (46)", "assignment": "Preview", "rationale": "Depth-of-field preview"},
-      {"button": "WB (6)", "assignment": "White Balance", "rationale": "Dedicated button"},
-      {"button": "ISO (7)", "assignment": "Sensitivity", "rationale": "Dedicated button"},
-      {"button": "+/- (8)", "assignment": "Exposure Comp.", "rationale": "Dedicated button"},
-      {"button": "Video rec (10)", "assignment": "Video Record", "rationale": "Dedicated button"},
-      {"button": "LVF (15)", "assignment": "LVF/Monitor Switch", "rationale": "Dedicated button"},
-      {"button": "AF Mode (18)", "assignment": "AF Mode", "rationale": "Dedicated button"},
-      {"button": "AF ON (20)", "assignment": "AF-ON", "rationale": "Back-button focus backbone"},
-      {"button": "Q (22)", "assignment": "Q.MENU", "rationale": "Dedicated button"},
-      {"button": "Fn9-Fn12 (23)", "assignment": "Cursor / Crop Zoom controls", "rationale": "Auto-assigned by Crop Zoom when active"},
-      {"button": "Fn13-Fn17 (21)", "assignment": "D.FOCUS Movement", "rationale": "Joystick moves AF point"},
-      {"button": "Lens Fn (100-400mm)", "assignment": "AF-ON", "rationale": "For monopod shooting when thumb can't reach back AF-ON"}
+      {
+        "button": "Fn2 (44)",
+        "assignment": "AF-Point Scope",
+        "rationale": "Zooms into AF point for precise focus check"
+      },
+      {
+        "button": "Fn3 (46)",
+        "assignment": "Preview",
+        "rationale": "Depth-of-field preview"
+      },
+      {
+        "button": "WB (6)",
+        "assignment": "White Balance",
+        "rationale": "Dedicated button"
+      },
+      {
+        "button": "ISO (7)",
+        "assignment": "Sensitivity",
+        "rationale": "Dedicated button"
+      },
+      {
+        "button": "+/- (8)",
+        "assignment": "Exposure Comp.",
+        "rationale": "Dedicated button"
+      },
+      {
+        "button": "Video rec (10)",
+        "assignment": "Video Record",
+        "rationale": "Dedicated button"
+      },
+      {
+        "button": "LVF (15)",
+        "assignment": "LVF/Monitor Switch",
+        "rationale": "Dedicated button"
+      },
+      {
+        "button": "AF Mode (18)",
+        "assignment": "AF Mode",
+        "rationale": "Dedicated button"
+      },
+      {
+        "button": "AF ON (20)",
+        "assignment": "AF-ON",
+        "rationale": "Back-button focus backbone"
+      },
+      {
+        "button": "Q (22)",
+        "assignment": "Q.MENU",
+        "rationale": "Dedicated button"
+      },
+      {
+        "button": "Fn9-Fn12 (23)",
+        "assignment": "Cursor / Crop Zoom controls",
+        "rationale": "Auto-assigned by Crop Zoom when active"
+      },
+      {
+        "button": "Fn13-Fn17 (21)",
+        "assignment": "D.FOCUS Movement",
+        "rationale": "Joystick moves AF point"
+      },
+      {
+        "button": "Lens Fn (100-400mm)",
+        "assignment": "AF-ON",
+        "rationale": "For monopod shooting when thumb can't reach back AF-ON"
+      }
     ],
     "notes": [
       "Touch Tab is OFF — Fn4-Fn8 (touch icons) not accessible",
       "G9 MkII has dedicated AF-ON, Q, AF Mode buttons (unlike MkI)"
     ]
   },
-
   "baseline_settings": {
     "_description": "These values are shared across all modes unless overridden. Each mode lists ONLY what differs from this baseline.",
     "photo": {
@@ -475,7 +673,7 @@
       "drive_dial": "Single Shot (S)",
       "overrides": {
         "photo_style": "Natural",
-        "aperture": "f/20",
+        "aperture": "f/16",
         "shutter_speed": "1/200s",
         "iso_sensitivity": {
           "mode": "Fixed",
@@ -505,7 +703,7 @@
         "shutter_speed": "1/1000s",
         "iso_sensitivity": {
           "mode": "AUTO",
-          "upper_limit": "No Limit"
+          "upper_limit": "AUTO"
         },
         "af_detection_setting": "ON",
         "detecting_subject": "Animal",
@@ -556,7 +754,7 @@
         "shutter_speed": "1/1000s",
         "iso_sensitivity": {
           "mode": "AUTO",
-          "upper_limit": "No Limit"
+          "upper_limit": "AUTO"
         },
         "af_detection_setting": "ON",
         "detecting_subject": "Animal",
@@ -613,7 +811,7 @@
         "shutter_speed": "1/125s",
         "iso_sensitivity": {
           "mode": "AUTO",
-          "upper_limit": 12800
+          "upper_limit": "AUTO"
         },
         "af_detection_setting": "ON",
         "detecting_subject": "Human",
@@ -640,7 +838,7 @@
         "shutter_speed": "1/4000s",
         "iso_sensitivity": {
           "mode": "AUTO",
-          "upper_limit": "No Limit"
+          "upper_limit": "AUTO"
         },
         "af_detection_setting": "ON",
         "detecting_subject": "Animal",
