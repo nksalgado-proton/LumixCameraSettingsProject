@@ -41,5 +41,20 @@ reference/legacy/**/*.pptx
 *.lib
 *.exe
 
+# ExifTool bin folder is downloaded by setup script, not committed
+tools/burst_culler/bin/
+
+# Photo review samples (large files, local only)
+review/
+
+# Log files
+*.log
+
+# Nuitka build artifacts
+tools/burst_culler/dist/
+tools/burst_culler/*.build/
+tools/burst_culler/*.onefile-build/
+tools/burst_culler/*.dist/
+
 # CACHEDIR tags
 CACHEDIR.TAG
