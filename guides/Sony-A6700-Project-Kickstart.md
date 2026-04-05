@@ -27,12 +27,15 @@ By the end, you will have:
 **Cameras:**
 - **Sony A6700** (ILCE-6700) — 26MP APS-C, the camera you're configuring
 
-**Lenses:**
-- **Sony E 70-350mm f/4.5-6.3 G OSS** — your wildlife/telephoto lens (105-525mm equivalent)
-- **Sony E 11mm f/1.8** — your ultra-wide prime (gift from Nelson). 16mm equivalent. Fast f/1.8 aperture perfect for astrophotography, landscapes, and interiors
+**Lenses (in order of focal length):**
+- **Sony E 11mm f/1.8** — ultra-wide prime (gift from Nelson). 16.5mm equivalent. Extremely fast f/1.8 for astrophotography, low-light interiors, dramatic wide scenes.
+- **Sigma 10-18mm f/2.8 DC DN Contemporary** — ultra-wide zoom (15-27mm equivalent). Versatile for landscapes and architecture.
+- **Sigma 18-50mm f/2.8 DC DN Contemporary** — standard zoom (27-75mm equivalent). Your everyday walk-around lens. Constant f/2.8 across the range.
+- **Sony E 70-350mm f/4.5-6.3 G OSS** — telephoto zoom (105-525mm equivalent). Wildlife, birds, distant subjects.
 
-**Planned addition:**
-- **Sony E 18-135mm f/3.5-5.6 OSS** (~$550) — future walk-around zoom to fill the 11mm → 70mm gap
+**Coverage:** 10mm → 350mm (effectively 15mm → 525mm) with a small gap between 50mm and 70mm. Strong, balanced kit.
+
+**Why the 11mm f/1.8 gift matters:** You already have the 10-18mm covering this focal range. The 11mm prime wins for **astrophotography**: f/1.8 vs f/2.8 means it gathers 2.25× more light, which lets you keep ISO lower or shutter shorter — critical for sharp stars.
 
 **Image format:** RAW only (.ARW). Maximum editing flexibility. You'll edit in Lightroom/Capture One/similar.
 
@@ -73,7 +76,7 @@ These are your most-used scenarios. One click on the dial and you're ready.
 
 #### MR1: Landscapes
 - **What:** Vistas, mountains, waterfalls, forests, architecture, sweeping scenes
-- **Lens:** 11mm f/1.8 (primary) or 70-350mm for compressed distant shots
+- **Lens:** Sigma 10-18mm f/2.8 (primary — versatile wide zoom), or 70-350mm for compressed distant shots
 - **Approach:** Aperture Priority. You control depth of field.
 - **Starting aperture:** f/8 (sweet spot — maximum sharpness, deep DoF)
 - **ISO:** 100 (base ISO, cleanest image)
@@ -96,7 +99,7 @@ These are your most-used scenarios. One click on the dial and you're ready.
 
 #### MR3: General / Street
 - **What:** Walk-around photography — markets, towns, travel, sightseeing, anything unplanned
-- **Lens:** Any (11mm, 70-350mm, or future 18-135mm)
+- **Lens:** Sigma 18-50mm f/2.8 (primary — this is the "everyday" lens)
 - **Approach:** Aperture Priority. The "pick up and shoot" mode.
 - **Starting aperture:** f/5.6 (good all-around — sharp, versatile, decent DoF)
 - **ISO:** Auto
@@ -111,20 +114,20 @@ Recalled via menu. Slightly slower than the dial but still fast.
 
 #### M1: Portrait / People
 - **What:** Posed or candid photos of people
-- **Lens:** 70-350mm at 70mm f/4.5, or 18-135mm (when acquired) at 85mm+
+- **Lens:** Sigma 18-50mm f/2.8 at 50mm (best current option — constant f/2.8), or 70-350mm at 70mm for tighter framing
 - **Approach:** Aperture Priority. Wide aperture for background blur (bokeh).
-- **Starting aperture:** Widest your current focal length allows
+- **Starting aperture:** f/2.8 (with the 18-50mm) — widest available
 - **ISO:** Auto
 - **Autofocus:** AF-S with **Eye AF** ON (Human priority)
 - **Drive:** Single shot
 - **Stabilization:** ON
-- **Note:** A dedicated fast portrait lens (Sigma 56mm f/1.4 ~$400) would transform your portraits — much stronger bokeh and low-light ability. Consider for the future.
+- **Future upgrade:** A dedicated fast portrait prime (Sigma 56mm f/1.4 ~$400, or Sony 50mm f/1.8 ~$250) would give stronger bokeh and better low-light. The 18-50mm at f/2.8 is already very capable though.
 
 #### M2: Low Light / Dusk-Dawn
 - **What:** Handheld shooting at golden/blue hour, indoors, evening scenes — enough light to see, not enough for fast shutter speeds
-- **Lens:** 11mm f/1.8 (best for low light — fast aperture), or 70-350mm for compressed dusk scenes
+- **Lens:** 11mm f/1.8 (widest + fastest), or Sigma 18-50mm f/2.8 (everyday low light), or 10-18mm f/2.8 (wide scenes)
 - **Approach:** Aperture Priority, wide open, high ISO ceiling
-- **Starting aperture:** Widest possible (f/1.8 with 11mm, f/4.5 with 70-350mm at 70mm)
+- **Starting aperture:** Widest of whatever lens is mounted (f/1.8 with 11mm, f/2.8 with Sigmas, f/4.5 with 70-350mm at 70mm)
 - **Min shutter speed:** 1/60s (handheld limit)
 - **ISO:** Auto, no upper limit
 - **Autofocus:** AF-S, Wide area
@@ -133,7 +136,7 @@ Recalled via menu. Slightly slower than the dial but still fast.
 
 #### M3: Night Sky / Stars ⭐
 - **What:** Milky Way, star fields, night landscapes
-- **Lens:** 11mm f/1.8 (mandatory — this is what the gift is for)
+- **Lens:** 11mm f/1.8 strongly preferred (gathers 2.25× more light than the Sigma 10-18mm f/2.8). The 10-18mm is a backup option if you want a different focal length.
 - **Tripod:** REQUIRED
 - **Approach:** Full Manual. Every parameter chosen by you.
 - **Aperture:** f/1.8 (wide open — gather all available starlight)
