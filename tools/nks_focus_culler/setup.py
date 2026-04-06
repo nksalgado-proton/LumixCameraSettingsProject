@@ -68,7 +68,7 @@ def main():
     if EXIFTOOL_EXE.exists():
         print(f'\nInstalled: {EXIFTOOL_EXE}')
         print(f'Size: {EXIFTOOL_EXE.stat().st_size // 1024} KB')
-        print('\nReady. Run: python burst_culler.py <folder>')
+        print('\nReady. Run: python nks_focus_culler.py <folder>')
     else:
         print(f'\nERROR: exiftool.exe not found at {EXIFTOOL_EXE}')
         print(f'Contents of bin/: {list(BIN_DIR.iterdir())}')

@@ -1,15 +1,15 @@
 """
-Burst Culler v3 — Universal visual culling tool for photography.
+NKS Focus Culler v3 — Universal visual culling tool for photography.
 
 Layout: Left panel | Center workspace | Right panel
 Each panel has 4 logical blocks: Dirs, Counts, Photo Info, Actions.
 All decisions deferred — files copied only on Commit.
-Session auto-saved to %LOCALAPPDATA%/BurstCuller/.
+Session auto-saved to %LOCALAPPDATA%/NKSFocusCuller/.
 
 Usage:
-    python burst_culler.py               # interactive
-    python burst_culler.py <src> --out <dst>
-    python burst_culler.py <src> --classify-only --dry-run
+    python nks_focus_culler.py               # interactive
+    python nks_focus_culler.py <src> --out <dst>
+    python nks_focus_culler.py <src> --classify-only --dry-run
 """
 
 import argparse
@@ -274,12 +274,18 @@ class CullerApp:
         self._settings = load_settings()
         self._peaking_on = self._settings['peaking_on']
         self._peak_color_name = self._settings['peaking_color']
-        self._peak_threshold = int(80 - self._settings['peaking_sensitivity'] * 65)
+        # Convert sensitivity: could be old float 0-1 or new int 1-7
+        sens = self._settings.get('peaking_sensitivity', 4)
+        if isinstance(sens, float) and sens <= 1.0:
+            level = max(1, min(7, round(sens * 6) + 1))
+        else:
+            level = max(1, min(7, int(sens)))
+        self._peak_threshold = 90 - level * 10
         self._font_scale = self._settings['font_scale']
         self._anim_speed = self._settings['stack_anim_speed']
 
         self.root = tk.Tk()
-        self.root.title('Burst Culler')
+        self.root.title('NKS Focus Culler')
         self.root.geometry('1600x960')
         self.root.configure(bg=BG)
         self.root.state('zoomed')
@@ -384,7 +390,7 @@ class CullerApp:
                 lbl.pack(expand=True, pady=20)
             except Exception:
                 pass
-        tk.Label(self.center, text='Burst Culler', bg=BG, fg=FG_SUBTLE,
+        tk.Label(self.center, text='NKS Focus Culler', bg=BG, fg=FG_SUBTLE,
                  font=('Segoe UI', 28, 'bold')).pack(pady=(10, 4))
         tk.Label(self.center,
                  text='Select source and destination to begin',
@@ -464,20 +470,18 @@ class CullerApp:
                             f'{existing.pending_count} pending\n\n'
                             f'Resume?'):
                         self.session = existing
-                        self._set_busy(True)
+                        self._show_loading('Resuming session...')
                         self.root.update()
                         photos = scan_folder(Path(src))
                         self.photos_cache = {str(p.path): p
                                              for p in photos}
-                        self._set_busy(False)
                         self._start_culling()
                         return
 
-            self._set_busy(True)
+            self._show_loading('Reading photos...')
             self.root.update()
 
             if selected_files:
-                # Read EXIF only for selected files
                 file_paths = [Path(f) for f in selected_files]
                 print(f'Reading EXIF for {len(file_paths)} selected files...')
                 photos = read_exif_batch(file_paths)
@@ -486,8 +490,8 @@ class CullerApp:
             else:
                 photos = scan_folder(Path(src))
 
-            self._set_busy(False)
             if not photos:
+                self._set_busy(False)
                 messagebox.showinfo('Empty', 'No photos found.')
                 return
             self.photos_cache = {str(p.path): p for p in photos}
@@ -506,9 +510,74 @@ class CullerApp:
         self._set_busy(True)
         self.root.update()
         self._clear_all_panels()
-        self._build_left()
-        self._build_right()
-        self._build_center()
+
+        # Rebuild the main frame as a unified grid:
+        # Row 0: Settings/tools bar (full width)
+        # Row 1: Mode banner (center only)
+        # Row 2: Burst info (center only)
+        # Row 3: Sidebar blocks + workspace (main content)
+        # Row 4: Action bar (center only)
+        # Columns: 0=left(220px), 1=center(expand), 2=right(240px)
+
+        # Destroy old main and rebuild
+        self.main.destroy()
+        self.main = tk.Frame(self.root, bg=BG)
+        self.main.pack(fill='both', expand=True)
+
+        self.main.grid_columnconfigure(0, weight=0, minsize=220)
+        self.main.grid_columnconfigure(1, weight=1)
+        self.main.grid_columnconfigure(2, weight=0, minsize=240)
+
+        # Row 0: Settings/tools bar — full width
+        self.main.grid_rowconfigure(0, weight=0)
+        settings_bar = tk.Frame(self.main, bg=BG_PANEL, height=44)
+        settings_bar.grid(row=0, column=0, columnspan=3, sticky='ew')
+        settings_bar.grid_propagate(False)
+        self._build_settings_bar(settings_bar)
+
+        # Row 1: Mode banner — center column
+        self.main.grid_rowconfigure(1, weight=0)
+        self.mode_banner = tk.Label(
+            self.main, text='', bg=INFO, fg='white',
+            font=('Segoe UI', 18, 'bold'), pady=8)
+        self.mode_banner.grid(row=1, column=0, columnspan=3, sticky='ew')
+
+        # Row 2: Burst info — center column
+        self.main.grid_rowconfigure(2, weight=0)
+        self.burst_info = tk.Label(
+            self.main, text='', bg=BG, fg=FG_DIM,
+            font=('Segoe UI', 11), pady=4)
+        self.burst_info.grid(row=2, column=1, sticky='ew')
+
+        # Row 3: Main content — sidebars + workspace
+        self.main.grid_rowconfigure(3, weight=1)
+
+        # Left sidebar container (uses internal grid for 5 blocks)
+        self.left = tk.Frame(self.main, bg=BG_SIDE, width=220)
+        self.left.grid(row=3, column=0, sticky='nsew')
+        self.left.grid_propagate(False)
+
+        # Center workspace
+        self.workspace = tk.Frame(self.main, bg=BG)
+        self.workspace.grid(row=3, column=1, sticky='nsew', padx=8, pady=4)
+
+        # Right sidebar container
+        self.right = tk.Frame(self.main, bg=BG_SIDE, width=240)
+        self.right.grid(row=3, column=2, sticky='nsew')
+        self.right.grid_propagate(False)
+
+        # Row 4: Action bar — center column
+        self.main.grid_rowconfigure(4, weight=0)
+        self.action_bar = tk.Frame(self.main, bg=BG_PANEL, height=64)
+        self.action_bar.grid(row=4, column=0, columnspan=3, sticky='ew')
+        self.action_bar.grid_propagate(False)
+
+        # Build sidebar contents
+        self._build_sidebar_blocks()
+
+        # Build action bar contents
+        self._build_action_buttons()
+
         self.root.update_idletasks()
         self.root.update()
 
@@ -518,8 +587,108 @@ class CullerApp:
 
         self.root.after(100, _first_render)
 
-    def _build_left(self):
-        """Left panel: Block 1 (dir), Block 2 (counts), Block 3 (EXIF), Block 4 (actions)."""
+    def _build_settings_bar(self, parent):
+        """Top bar: Settings | Peaking toggle | Color | Sensitivity."""
+        # Center the controls
+        inner = tk.Frame(parent, bg=BG_PANEL)
+        inner.place(relx=0.5, rely=0.5, anchor='center')
+
+        self._mkbtn_inline(inner, '⚙ Settings', self._show_settings,
+                           fg=FG_DIM)
+
+        tk.Frame(inner, bg=FG_SUBTLE, width=1).pack(
+            side='left', fill='y', padx=8, pady=6)
+
+        # Peaking toggle
+        self._peak_colors = {
+            'Red': (255, 50, 50),
+            'Yellow': (255, 230, 0),
+            'Green': (100, 255, 80),
+            'Cyan': (0, 220, 255),
+            'White': (255, 255, 255),
+        }
+        peak_text = '🔍 Peaking: ON' if self._peaking_on else '🔍 Peaking: OFF'
+        peak_bg = DANGER if self._peaking_on else BTN_BG
+        peak_fg = 'white' if self._peaking_on else FG_DIM
+        self.peak_btn = tk.Button(
+            inner, text=peak_text, command=self._toggle_peaking,
+            bg=peak_bg, fg=peak_fg,
+            activebackground=BTN_HOVER, activeforeground=FG,
+            font=('Segoe UI', 10, 'bold'), bd=0, padx=12, pady=6,
+            cursor='hand2')
+        self.peak_btn.pack(side='left', padx=4)
+
+        # Color selector
+        rgb = self._peak_colors.get(self._peak_color_name, (255, 50, 50))
+        hex_c = f'#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}'
+        self.peak_color_btn = tk.Button(
+            inner, text=f'{self._peak_color_name} ▾',
+            command=self._cycle_peak_color,
+            bg=BTN_BG, fg=hex_c,
+            activebackground=BTN_HOVER, activeforeground=FG,
+            font=('Segoe UI', 9, 'bold'), bd=0, padx=10, pady=6,
+            cursor='hand2')
+        self.peak_color_btn.pack(side='left', padx=4)
+
+        # Sensitivity: 7 discrete levels (1=strict ... 4=default ... 7=loose)
+        # Maps: 1→80, 2→70, 3→60, 4→50, 5→40, 6→30, 7→20 threshold
+        tk.Label(inner, text='Sensitivity:', bg=BG_PANEL, fg=FG,
+                 font=('Segoe UI', 9)).pack(side='left', padx=(10, 4))
+        sens_val = self._settings.get('peaking_sensitivity', 4)
+        # Convert old 0-1 float to 1-7 int if needed
+        if isinstance(sens_val, float) and sens_val <= 1.0:
+            initial_level = max(1, min(7, round(sens_val * 6) + 1))
+        else:
+            initial_level = max(1, min(7, int(sens_val)))
+        self._peak_sens_var = tk.IntVar(value=initial_level)
+        # Use a custom frame with buttons instead of Scale for visible knob
+        sens_frame = tk.Frame(inner, bg=BG_PANEL)
+        sens_frame.pack(side='left', padx=4)
+        self._sens_buttons = []
+        for i in range(1, 8):
+            is_sel = (i == initial_level)
+            btn = tk.Button(
+                sens_frame, text=str(i), width=3,
+                command=lambda v=i: self._set_sensitivity(v),
+                bg=ACCENT if is_sel else BG_CELL,
+                fg='white' if is_sel else FG_DIM,
+                activebackground=ACCENT_HOVER,
+                activeforeground='white',
+                font=('Segoe UI', 9, 'bold'), bd=0, pady=4,
+                cursor='hand2')
+            btn.pack(side='left', padx=1)
+            self._sens_buttons.append(btn)
+
+    def _spacer_btn(self, parent):
+        """Invisible placeholder button — same height as _mkbtn."""
+        spacer = tk.Frame(parent, bg=parent['bg'], height=42)
+        spacer.pack(fill='x', padx=12, pady=3)
+        spacer.pack_propagate(False)
+        return spacer
+
+    def _mkbtn_inline(self, parent, text, cmd, fg=None):
+        """Small inline button for settings bar."""
+        btn = tk.Button(
+            parent, text=text, command=cmd,
+            bg=BTN_BG, fg=fg or FG,
+            activebackground=BTN_HOVER, activeforeground=FG,
+            font=('Segoe UI', 10), bd=0, padx=12, pady=6,
+            cursor='hand2')
+        btn.pack(side='left', padx=4)
+        return btn
+
+    def _build_sidebar_blocks(self):
+        """Build left + right sidebars with 5 aligned blocks each.
+        Uses matching grid rows so blocks align horizontally."""
+
+        # Both sidebars use pack with uniform-height frames.
+        # We calculate the max needed height for each block pair
+        # and apply it to both sides.
+        self._build_left_content()
+        self._build_right_content()
+
+    def _build_left_content(self):
+        """Left sidebar content — 5 blocks packed vertically."""
         # Block 1 — Directory
         self._section(self.left, 'SOURCE')
         self.src_lbl = tk.Label(
@@ -539,32 +708,37 @@ class CullerApp:
         self.l_stacks = self._info_label(self.left)
         self._divider(self.left)
 
-        # Block 3 — Photo Info (EXIF)
+        # Block 3 — Photo Info (EXIF) — expands to fill
         self._section(self.left, 'PHOTO INFO')
         self.exif_lbl = tk.Label(
             self.left, text='Click a photo to see details',
             bg=BG_SIDE, fg=FG_DIM,
             font=('Segoe UI', 9), anchor='nw', padx=14,
             wraplength=200, justify='left')
-        self.exif_lbl.pack(fill='x')
-
-        # Block 5 — Previous burst preview
-        tk.Frame(self.left, bg=BG_SIDE).pack(fill='both', expand=True)
+        self.exif_lbl.pack(fill='both', expand=True)
         self._divider(self.left)
+
+        # Block 4 — Previous burst preview
         tk.Label(self.left, text='← PREVIOUS', bg=BG_SIDE, fg=FG_SUBTLE,
                  font=('Segoe UI', 8, 'bold'), padx=14).pack(fill='x')
         self.prev_thumb_lbl = tk.Label(
             self.left, bg=BG_SIDE, cursor='hand2')
         self.prev_thumb_lbl.pack(padx=14, pady=4)
         self.prev_thumb_lbl.bind('<Button-1>', lambda e: self._back())
-
-        # Block 4 — Actions (at bottom)
         self._divider(self.left)
+
+        # Block 5 — Actions at bottom (padded with spacers to match right)
+        self._spacer_btn(self.left)
+        self._spacer_btn(self.left)
+        self._spacer_btn(self.left)
         self._mkbtn(self.left, '🗑  Clear Source…',
                      self._clear_source, fg=DANGER)
+        self._spacer_btn(self.left)
+        self._spacer_btn(self.left)
+        self._spacer_btn(self.left)
 
-    def _build_right(self):
-        """Right panel: Block 1 (dir), Block 2 (dest counts), Block 3 (scenario), Block 4 (actions)."""
+    def _build_right_content(self):
+        """Right sidebar content — 5 blocks packed vertically."""
         # Block 1 — Directory
         self._section(self.right, 'DESTINATION')
         self.dst_lbl = tk.Label(
@@ -576,7 +750,7 @@ class CullerApp:
                      self._change_destination, fg=FG_DIM)
         self._divider(self.right)
 
-        # Block 2 — Destination counts
+        # Block 2 — Decision counts
         self._section(self.right, 'DECISIONS')
         self.r_keep = tk.Label(
             self.right, text='', bg=BG_SIDE, fg=SUCCESS,
@@ -592,10 +766,10 @@ class CullerApp:
         self.r_pending.pack(fill='x')
         self._divider(self.right)
 
-        # Block 3 — Scenario (classification)
+        # Block 3 — Scenario classification — expands to fill
         self._section(self.right, 'CLASSIFICATION')
         self.scenario_list = tk.Frame(self.right, bg=BG_SIDE)
-        self.scenario_list.pack(fill='x', padx=10)
+        self.scenario_list.pack(fill='both', expand=True, padx=10)
         self._scenario_labels = {}
         for key in SCENARIO_ORDER:
             desc = SCENARIOS[key]
@@ -610,19 +784,16 @@ class CullerApp:
             self._scenario_labels[key] = lbl
         self._divider(self.right)
 
-        # Block 4 — Actions (at bottom)
-        # Block 5 — Next burst preview
-        tk.Frame(self.right, bg=BG_SIDE).pack(fill='both', expand=True)
-        self._divider(self.right)
+        # Block 4 — Next burst preview
         tk.Label(self.right, text='NEXT →', bg=BG_SIDE, fg=FG_SUBTLE,
                  font=('Segoe UI', 8, 'bold'), padx=14).pack(fill='x')
         self.next_thumb_lbl = tk.Label(
             self.right, bg=BG_SIDE, cursor='hand2')
         self.next_thumb_lbl.pack(padx=14, pady=4)
         self.next_thumb_lbl.bind('<Button-1>', lambda e: self._skip_burst())
-
-        # Block 4 — Actions at bottom
         self._divider(self.right)
+
+        # Block 5 — Actions at bottom
         self._mkbtn(self.right, 'Accept All Remaining',
                      self._accept_all, fg=SUCCESS)
         self._mkbtn(self.right, 'Reject All Remaining',
@@ -632,11 +803,71 @@ class CullerApp:
         self._divider(self.right)
         self._mkbtn(self.right, '✓  Commit & Copy',
                      self._commit, bg=SUCCESS, fg='white', bold=True)
-        self._mkbtn(self.right, '⚙  Settings…', self._show_settings,
-                     fg=FG_DIM)
         self._mkbtn(self.right, 'Quit', self._quit, fg=DANGER)
+        self._spacer_btn(self.right)
 
-    def _build_center(self):
+    def _build_action_buttons(self):
+        """Build all swappable action bars inside self.action_bar.
+        Every bar has uniform layout: [Previous] [Discard] [Accept] [Next]"""
+
+        # Solo: Previous | Discard | Keep | Next
+        self.solo_bar = tk.Frame(self.action_bar, bg=BG_PANEL)
+        self._action_btn(self.solo_bar, '←  Previous', self._back,
+                         bg=BTN_BG, fg=FG_DIM)
+        self._action_btn(self.solo_bar, '✗  Discard', self._solo_discard,
+                         bg=DANGER, fg='white')
+        self._action_btn(self.solo_bar, '✓  Keep', self._solo_keep,
+                         bg=SUCCESS, fg='white')
+        self._action_btn(self.solo_bar, 'Next  →', self._skip_burst,
+                         bg=BTN_BG, fg=FG_DIM)
+
+        # Grid: Previous | Discard All | Keep All | Next
+        self.grid_bar = tk.Frame(self.action_bar, bg=BG_PANEL)
+        self._action_btn(self.grid_bar, '←  Previous', self._back,
+                         bg=BTN_BG, fg=FG_DIM)
+        self._action_btn(self.grid_bar, '✗  Discard All',
+                         self._burst_discard_all, bg=DANGER, fg='white')
+        self._action_btn(self.grid_bar, '✓  Keep All',
+                         self._burst_keep_all, bg=SUCCESS, fg='white')
+        self._action_btn(self.grid_bar, 'Next  →', self._skip_burst,
+                         bg=BTN_BG, fg=FG_DIM)
+
+        # Tournament: Previous | Discard Both | Keep Both | Grid View
+        self.tour_bar = tk.Frame(self.action_bar, bg=BG_PANEL)
+        self._action_btn(self.tour_bar, '←  Previous', self._back,
+                         bg=BTN_BG, fg=FG_DIM)
+        self._action_btn(self.tour_bar, '✗  Discard Both',
+                         self._tour_discard, bg=DANGER, fg='white')
+        self._action_btn(self.tour_bar, '✓  Keep Both',
+                         self._tour_both, bg=SUCCESS, fg='white')
+        self._action_btn(self.tour_bar, 'Grid View  →',
+                         self._tour_to_grid, bg=BTN_BG, fg=FG_DIM)
+
+        # Winner: Previous | Reject | Accept | Keep All | Next
+        self.winner_bar = tk.Frame(self.action_bar, bg=BG_PANEL)
+        self._action_btn(self.winner_bar, '←  Previous', self._back,
+                         bg=BTN_BG, fg=FG_DIM)
+        self._action_btn(self.winner_bar, '✗  Reject',
+                         self._winner_reject, bg=DANGER, fg='white')
+        self._action_btn(self.winner_bar, '✓  Accept',
+                         self._winner_accept, bg=SUCCESS, fg='white')
+        self._action_btn(self.winner_bar, '✓  Keep All',
+                         self._burst_keep_all, bg='#0a7a5a', fg='white')
+        self._action_btn(self.winner_bar, 'Next  →', self._skip_burst,
+                         bg=BTN_BG, fg=FG_DIM)
+
+        # Stack: Previous | Discard Stack | Keep Frames | Next
+        self.stack_bar = tk.Frame(self.action_bar, bg=BG_PANEL)
+        self._action_btn(self.stack_bar, '←  Previous', self._back,
+                         bg=BTN_BG, fg=FG_DIM)
+        self._action_btn(self.stack_bar, '✗  Discard Stack',
+                         self._stack_discard, bg=DANGER, fg='white')
+        self._action_btn(self.stack_bar, '✓  Keep Frames',
+                         self._stack_keep, bg=SUCCESS, fg='white')
+        self._action_btn(self.stack_bar, 'Next  →', self._skip_burst,
+                         bg=BTN_BG, fg=FG_DIM)
+
+    def _build_center_UNUSED(self):
         """Center: mode banner, burst info, workspace, action bar."""
         self.mode_banner = tk.Label(
             self.center, text='', bg=INFO, fg='white',
@@ -823,11 +1054,25 @@ class CullerApp:
         if self.session:
             self._render_burst()
 
+    def _set_sensitivity(self, level: int):
+        """Set peaking sensitivity from button click (1-7)."""
+        self._peak_sens_var.set(level)
+        self._peak_threshold = 90 - level * 10
+        # Update button highlights
+        for i, btn in enumerate(self._sens_buttons):
+            is_sel = (i + 1 == level)
+            btn.config(bg=ACCENT if is_sel else BG_CELL,
+                       fg='white' if is_sel else FG_DIM)
+        if self._peaking_on:
+            self.thumb_cache.clear()
+            self.photo_refs.clear()
+            if self.session:
+                self._render_burst()
+
     def _on_peak_slider(self, _value=None):
-        """Update peaking threshold from slider position."""
-        # Map 0.0 (strict) → threshold 80, 1.0 (loose) → threshold 15
-        sens = self._peak_sens_var.get()
-        self._peak_threshold = int(80 - sens * 65)
+        """Update peaking threshold (called from settings dialog slider)."""
+        level = self._peak_sens_var.get()
+        self._peak_threshold = 90 - level * 10
         if self._peaking_on:
             self.thumb_cache.clear()
             self.photo_refs.clear()
@@ -858,6 +1103,23 @@ class CullerApp:
             self._sharpness_cache[key] = sharpness_score(img) if img else 0
         return self._sharpness_cache[key]
 
+    def _show_loading(self, text: str = 'Loading...'):
+        """Show busy cursor + loading message in center panel."""
+        self._set_busy(True)
+        # Clear center and show loading text
+        if hasattr(self, 'center') and self.center.winfo_exists():
+            for w in self.center.winfo_children():
+                w.destroy()
+        # Also clear workspace if it exists in the main grid
+        if hasattr(self, 'workspace') and self.workspace.winfo_exists():
+            for w in self.workspace.winfo_children():
+                w.destroy()
+            tk.Label(self.workspace, text=text, bg=BG, fg=FG_DIM,
+                     font=('Segoe UI', 14)).pack(expand=True)
+        else:
+            tk.Label(self.center, text=text, bg=BG, fg=FG_DIM,
+                     font=('Segoe UI', 14)).pack(expand=True)
+
     def _set_busy(self, busy: bool):
         """Toggle busy/normal cursor for the entire app."""
         cursor = 'wait' if busy else ''
@@ -865,9 +1127,11 @@ class CullerApp:
         self.root.update_idletasks()
 
     def _clear_all_panels(self):
-        for panel in (self.left, self.right, self.center):
-            for w in panel.winfo_children():
-                w.destroy()
+        for attr in ('left', 'right', 'center'):
+            panel = getattr(self, attr, None)
+            if panel and panel.winfo_exists():
+                for w in panel.winfo_children():
+                    w.destroy()
 
     # ── Navigation ───────────────────────────────────────────────────
 
@@ -949,9 +1213,6 @@ class CullerApp:
         indices = burst.photo_indices
         n = len(indices)
 
-        print(f'_render_stack: {n} frames, workspace size='
-              f'{self.workspace.winfo_width()}x{self.workspace.winfo_height()}')
-
         # Get bracket info from first frame's EXIF
         exif0 = self.photos_cache.get(p0.path)
         step_count = exif0.focus_step_count if exif0 else 0
@@ -982,83 +1243,69 @@ class CullerApp:
         self._anim_label = tk.Label(anim_frame, bg=BG_CELL)
         self._anim_label.pack()
 
-        # Controls row 1: playback
-        ctrl = tk.Frame(self.workspace, bg=BG)
-        ctrl.pack(pady=4)
+        # Single control row: Play | Start | End | Speed — centered
+        ctrl_outer = tk.Frame(self.workspace, bg=BG_PANEL)
+        ctrl_outer.pack(fill='x', pady=4)
+        ctrl = tk.Frame(ctrl_outer, bg=BG_PANEL, pady=6)
+        ctrl.pack(anchor='center')  # center horizontally
+
+        BTN_H = 10  # uniform button height (pady)
 
         self._anim_play_btn = tk.Button(
             ctrl, text='▶  Play', command=self._anim_toggle,
             bg=SUCCESS, fg='white', activebackground='#0da373',
-            font=('Segoe UI', 11, 'bold'), bd=0, padx=20, pady=8,
+            font=('Segoe UI', 11, 'bold'), bd=0, padx=20, pady=BTN_H,
             cursor='hand2')
         self._anim_play_btn.pack(side='left', padx=6)
 
-        tk.Button(ctrl, text='◀', command=self._anim_prev,
-                  bg=BTN_BG, fg=FG, font=('Segoe UI', 12, 'bold'),
-                  bd=0, padx=14, pady=8, cursor='hand2').pack(
-            side='left', padx=2)
-        tk.Button(ctrl, text='▶', command=self._anim_next_frame,
-                  bg=BTN_BG, fg=FG, font=('Segoe UI', 12, 'bold'),
-                  bd=0, padx=14, pady=8, cursor='hand2').pack(
-            side='left', padx=2)
+        # Separator
+        tk.Frame(ctrl, bg=FG_SUBTLE, width=1).pack(
+            side='left', fill='y', padx=8, pady=4)
 
-        # Speed control
-        tk.Label(ctrl, text='Speed:', bg=BG, fg=FG_DIM,
-                 font=('Segoe UI', 10)).pack(side='left', padx=(16, 4))
-        self._speed_var = tk.IntVar(value=5)
-        speeds = [(1, 'Slow'), (3, 'Med'), (5, 'Fast'), (10, 'Max')]
-        for val, label in speeds:
-            tk.Radiobutton(
-                ctrl, text=label, variable=self._speed_var, value=val,
-                bg=BG, fg=FG_DIM, selectcolor=BG_CELL,
-                activebackground=BG, activeforeground=FG,
-                font=('Segoe UI', 9),
-                command=self._anim_speed_changed).pack(side='left', padx=2)
-
-        # Controls row 2: frame range selector
-        range_row = tk.Frame(self.workspace, bg=BG)
-        range_row.pack(pady=4)
-
-        tk.Label(range_row, text='Keep frames:', bg=BG, fg=FG,
-                 font=('Segoe UI', 10)).pack(side='left', padx=(0, 8))
-
+        # Start frame
         self._stack_start_var = tk.IntVar(value=1)
         self._stack_end_var = tk.IntVar(value=n)
 
-        tk.Label(range_row, text='from', bg=BG, fg=FG_DIM,
-                 font=('Segoe UI', 10)).pack(side='left', padx=(0, 4))
+        tk.Label(ctrl, text='Start:', bg=BG_PANEL, fg=FG,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(4, 2))
         self._start_spin = tk.Spinbox(
-            range_row, from_=1, to=n, width=4,
+            ctrl, from_=1, to=n, width=4,
             textvariable=self._stack_start_var,
             font=('Consolas', 11), bg=BG_CELL, fg=FG,
             buttonbackground=BTN_BG, insertbackground=FG,
             command=self._on_range_change)
         self._start_spin.pack(side='left', padx=2)
 
-        tk.Label(range_row, text='to', bg=BG, fg=FG_DIM,
-                 font=('Segoe UI', 10)).pack(side='left', padx=(8, 4))
+        # End frame
+        tk.Label(ctrl, text='End:', bg=BG_PANEL, fg=FG,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(12, 2))
         self._end_spin = tk.Spinbox(
-            range_row, from_=1, to=n, width=4,
+            ctrl, from_=1, to=n, width=4,
             textvariable=self._stack_end_var,
             font=('Consolas', 11), bg=BG_CELL, fg=FG,
             buttonbackground=BTN_BG, insertbackground=FG,
             command=self._on_range_change)
         self._end_spin.pack(side='left', padx=2)
 
-        tk.Label(range_row, text=f'of {n}', bg=BG, fg=FG_DIM,
-                 font=('Segoe UI', 10)).pack(side='left', padx=(8, 0))
+        tk.Label(ctrl, text=f'of {n}', bg=BG_PANEL, fg=FG_DIM,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(4, 0))
 
-        # Set Start / Set End buttons (set from current frame)
-        tk.Button(range_row, text='Set Start ◀',
-                  command=self._set_range_start,
-                  bg=BTN_BG, fg=FG_DIM, font=('Segoe UI', 9),
-                  bd=0, padx=10, pady=4, cursor='hand2').pack(
-            side='left', padx=(16, 2))
-        tk.Button(range_row, text='Set End ▶',
-                  command=self._set_range_end,
-                  bg=BTN_BG, fg=FG_DIM, font=('Segoe UI', 9),
-                  bd=0, padx=10, pady=4, cursor='hand2').pack(
-            side='left', padx=2)
+        # Separator
+        tk.Frame(ctrl, bg=FG_SUBTLE, width=1).pack(
+            side='left', fill='y', padx=8, pady=4)
+
+        # Speed: 3 radio buttons
+        tk.Label(ctrl, text='Speed:', bg=BG_PANEL, fg=FG,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(4, 4))
+        self._speed_var = tk.IntVar(value=3)
+        for val, label in [(1, 'Slow'), (3, 'Normal'), (8, 'Fast')]:
+            tk.Radiobutton(
+                ctrl, text=label, variable=self._speed_var, value=val,
+                bg=BG_PANEL, fg=FG_DIM, selectcolor=BG_CELL,
+                activebackground=BG_PANEL, activeforeground=FG,
+                font=('Segoe UI', 9),
+                command=self._anim_speed_changed).pack(
+                side='left', padx=2)
 
         # Calculate thumbnail size
         aw = self.workspace.winfo_width() or 1200
@@ -1111,8 +1358,15 @@ class CullerApp:
         n = len(self._anim_tk_frames)
         self._anim_counter.config(text=f'Frame {idx+1} of {n}')
 
+    def _anim_range(self) -> tuple[int, int]:
+        """Get current frame range (0-based, inclusive)."""
+        start = max(0, self._stack_start_var.get() - 1)
+        end = min(len(self._anim_tk_frames) - 1,
+                  self._stack_end_var.get() - 1)
+        return start, end
+
     def _anim_toggle(self):
-        """Play/pause animation. Restarts from beginning if at end."""
+        """Play/pause animation within the selected range."""
         if self._anim_playing:
             self._anim_playing = False
             self._anim_play_btn.config(text='▶  Play', bg=SUCCESS)
@@ -1120,20 +1374,21 @@ class CullerApp:
                 self.root.after_cancel(self._anim_after_id)
                 self._anim_after_id = None
         else:
-            # If at the end, restart from beginning
-            if self._anim_idx >= len(self._anim_tk_frames) - 1:
-                self._anim_idx = 0
+            start, end = self._anim_range()
+            # If at or past end, restart from start
+            if self._anim_idx >= end:
+                self._anim_idx = start
                 self._anim_show_frame()
             self._anim_playing = True
             self._anim_play_btn.config(text='⏸  Pause', bg=WARNING)
             self._anim_advance()
 
     def _anim_advance(self):
-        """Advance to next frame (called by timer). Stops at end."""
+        """Advance to next frame within range. Stops at end."""
         if not self._anim_playing or not self._anim_tk_frames:
             return
-        if self._anim_idx >= len(self._anim_tk_frames) - 1:
-            # Reached the end — stop playing
+        _, end = self._anim_range()
+        if self._anim_idx >= end:
             self._anim_playing = False
             self._anim_play_btn.config(text='▶  Play', bg=SUCCESS)
             return
@@ -1143,47 +1398,22 @@ class CullerApp:
         delay = max(50, 1000 // speed_fps)
         self._anim_after_id = self.root.after(delay, self._anim_advance)
 
-    def _anim_next_frame(self):
-        """Step forward one frame."""
-        if self._anim_tk_frames:
-            self._anim_idx = (self._anim_idx + 1) % len(self._anim_tk_frames)
-            self._anim_show_frame()
-
-    def _anim_prev(self):
-        """Step backward one frame."""
-        if self._anim_tk_frames:
-            self._anim_idx = (self._anim_idx - 1) % len(self._anim_tk_frames)
-            self._anim_show_frame()
-
     def _anim_speed_changed(self):
-        """Update animation speed without restart."""
-        pass  # next _anim_advance call will use new speed
+        pass  # next _anim_advance uses new speed
 
     def _on_range_change(self):
-        """Update animation counter to reflect range."""
+        """Update display to reflect range."""
         start = self._stack_start_var.get()
         end = self._stack_end_var.get()
-        # Clamp values
         n = len(self._anim_tk_frames)
         start = max(1, min(start, n))
         end = max(start, min(end, n))
         self._stack_start_var.set(start)
         self._stack_end_var.set(end)
         kept = end - start + 1
-        total = n
         self._anim_counter.config(
-            text=f'Frame {self._anim_idx+1} of {total}  '
+            text=f'Frame {self._anim_idx+1} of {n}  '
                  f'·  Keeping {kept} frames ({start}-{end})')
-
-    def _set_range_start(self):
-        """Set start frame to current animation position."""
-        self._stack_start_var.set(self._anim_idx + 1)
-        self._on_range_change()
-
-    def _set_range_end(self):
-        """Set end frame to current animation position."""
-        self._stack_end_var.set(self._anim_idx + 1)
-        self._on_range_change()
 
     def _stack_keep(self):
         idx = self.session.current_burst_idx
@@ -1641,19 +1871,30 @@ class CullerApp:
         row3 = tk.Frame(win, bg=BG_PANEL)
         row3.pack(fill='x', padx=16, pady=4)
         tk.Label(row3, text='Sensitivity:', bg=BG_PANEL, fg=FG,
-                 font=('Segoe UI', 10)).pack(side='left')
-        tk.Label(row3, text='Strict', bg=BG_PANEL, fg=FG_SUBTLE,
-                 font=('Segoe UI', 8)).pack(side='left', padx=(8, 2))
-        sens_var = tk.DoubleVar(
-            value=self._settings['peaking_sensitivity'])
-        tk.Scale(row3, from_=0.0, to=1.0, resolution=0.05,
-                 orient='horizontal', length=150,
-                 variable=sens_var, bg=BG_PANEL, fg=FG,
-                 troughcolor=BG_CELL, activebackground=ACCENT,
-                 highlightthickness=0, bd=0, showvalue=False,
-                 font=('Segoe UI', 8)).pack(side='left', padx=2)
-        tk.Label(row3, text='Loose', bg=BG_PANEL, fg=FG_SUBTLE,
-                 font=('Segoe UI', 8)).pack(side='left', padx=(2, 0))
+                 font=('Segoe UI', 10)).pack(side='left', padx=(0, 8))
+        current_level = self._peak_sens_var.get()
+        sens_var = tk.IntVar(value=current_level)
+        dlg_sens_btns = []
+        for i in range(1, 8):
+            is_sel = (i == current_level)
+            btn = tk.Button(
+                row3, text=str(i), width=3,
+                command=lambda v=i: _update_sens(v),
+                bg=ACCENT if is_sel else BG_CELL,
+                fg='white' if is_sel else FG_DIM,
+                activebackground=ACCENT_HOVER,
+                activeforeground='white',
+                font=('Segoe UI', 9, 'bold'), bd=0, pady=4,
+                cursor='hand2')
+            btn.pack(side='left', padx=1)
+            dlg_sens_btns.append(btn)
+
+        def _update_sens(v):
+            sens_var.set(v)
+            for j, b in enumerate(dlg_sens_btns):
+                sel = (j + 1 == v)
+                b.config(bg=ACCENT if sel else BG_CELL,
+                         fg='white' if sel else FG_DIM)
 
         # ── Stack Animation ──
         self._divider(win)
@@ -1710,7 +1951,8 @@ class CullerApp:
             # Apply immediately
             self._peaking_on = peak_var.get()
             self._peak_color_name = color_var.get()
-            self._peak_threshold = int(80 - sens_var.get() * 65)
+            level = sens_var.get()
+            self._peak_threshold = 90 - level * 10
             self._font_scale = font_var.get()
             self._anim_speed = speed_var.get()
 
@@ -1794,12 +2036,7 @@ class CullerApp:
         self.photos_cache = {str(p.path): p for p in photos}
         self.thumb_cache.clear()
         save_session(self.session)
-        self._clear_all_panels()
-        self._build_left()
-        self._build_right()
-        self._build_center()
-        self.root.update_idletasks()
-        self._navigate_to(0)
+        self._start_culling()
 
     def _change_destination(self):
         path = filedialog.askdirectory(title='Select new destination')
@@ -2160,7 +2397,7 @@ def run_classify_only(photos, dest, dry_run=False):
 # ── Entry point ──────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description='Burst Culler v3')
+    parser = argparse.ArgumentParser(description='NKS Focus Culler v3')
     parser.add_argument('folder', nargs='?', default=None)
     parser.add_argument('--gap', type=float, default=0.5)
     parser.add_argument('--out', default=None)

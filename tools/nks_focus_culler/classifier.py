@@ -27,7 +27,7 @@ class Classification:
 # 7 universal categories — ordered for display
 SCENARIOS = {
     'macro':            'Macro / Close-up',
-    'stacks':           'Focus Stacks (keep all)',
+    'stacks':           'Focus Stacks',
     'wildlife-action':  'Wildlife in Action',
     'wildlife-static':  'Wildlife Static / Perched',
     'people':           'People / Portraits',

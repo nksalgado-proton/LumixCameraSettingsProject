@@ -1,6 +1,6 @@
 """
-Persistent settings for Burst Culler.
-Stored as JSON in %LOCALAPPDATA%/BurstCuller/settings.json.
+Persistent settings for NKS Focus Culler.
+Stored as JSON in %LOCALAPPDATA%/NKSFocusCuller/settings.json.
 """
 
 import json
@@ -12,9 +12,9 @@ from pathlib import Path
 def _settings_path() -> Path:
     if platform.system() == 'Windows':
         base = os.environ.get('LOCALAPPDATA', os.path.expanduser('~'))
-        d = Path(base) / 'BurstCuller'
+        d = Path(base) / 'NKSFocusCuller'
     else:
-        d = Path.home() / '.local' / 'share' / 'burst_culler'
+        d = Path.home() / '.local' / 'share' / 'nks_focus_culler'
     d.mkdir(parents=True, exist_ok=True)
     return d / 'settings.json'
 
@@ -22,7 +22,7 @@ def _settings_path() -> Path:
 DEFAULT_SETTINGS = {
     'peaking_on': False,
     'peaking_color': 'Red',
-    'peaking_sensitivity': 0.4,  # 0=strict, 1=loose
+    'peaking_sensitivity': 4,    # 1=strict, 4=default, 7=loose
     'font_scale': 1.0,           # 0.8, 0.9, 1.0, 1.1, 1.2
     'stack_anim_speed': 5,       # fps: 1=slow, 3=med, 5=fast, 10=max
     'last_source': '',

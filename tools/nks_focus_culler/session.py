@@ -1,6 +1,6 @@
 """
-Session management for Burst Culler v3.
-Sessions stored in %LOCALAPPDATA%/BurstCuller/sessions/.
+Session management for NKS Focus Culler v3.
+Sessions stored in %LOCALAPPDATA%/NKSFocusCuller/sessions/.
 All decisions are deferred — files copied only on explicit Commit.
 """
 
@@ -18,9 +18,9 @@ def _sessions_dir() -> Path:
     if platform.system() == 'Windows':
         base = os.environ.get('LOCALAPPDATA',
                               os.path.expanduser('~'))
-        d = Path(base) / 'BurstCuller' / 'sessions'
+        d = Path(base) / 'NKSFocusCuller' / 'sessions'
     else:
-        d = Path.home() / '.local' / 'share' / 'burst_culler' / 'sessions'
+        d = Path.home() / '.local' / 'share' / 'nks_focus_culler' / 'sessions'
     d.mkdir(parents=True, exist_ok=True)
     return d
 

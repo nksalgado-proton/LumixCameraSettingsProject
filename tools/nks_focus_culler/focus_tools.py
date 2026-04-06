@@ -1,5 +1,5 @@
 """
-Focus analysis tools for Burst Culler.
+Focus analysis tools for NKS Focus Culler.
 
 1. Focus peaking — highlight sharp edges with colored overlay
 2. Sharpness scoring — numeric score for comparing burst frames

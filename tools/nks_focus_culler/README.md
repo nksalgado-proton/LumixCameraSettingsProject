@@ -1,4 +1,4 @@
-# Burst Culler
+# NKS Focus Culler
 
 Fast visual culling tool for travel photography. Groups photos by timestamp into bursts, auto-classifies each burst by scenario (macro, wildlife, BIF, etc.) using EXIF + Panasonic maker notes, and copies your keepers into scenario subfolders.
 
@@ -19,7 +19,7 @@ Designed for the workflow: dump SD cards → run tool → walk away with organiz
 ## Usage
 
 ```bash
-python burst_culler.py <folder> [--gap SECONDS] [--out FOLDER]
+python nks_focus_culler.py <folder> [--gap SECONDS] [--out FOLDER]
 ```
 
 **Arguments:**
@@ -29,7 +29,7 @@ python burst_culler.py <folder> [--gap SECONDS] [--out FOLDER]
 
 **Example:**
 ```bash
-python burst_culler.py "D:/Photos/Costa-Rica/2026-04-15"
+python nks_focus_culler.py "D:/Photos/Costa-Rica/2026-04-15"
 ```
 
 Opens a GUI. When you close it, keepers are in `D:/Photos/Costa-Rica/2026-04-15/keepers/<scenario>/`.
@@ -112,7 +112,7 @@ ExifTool is downloaded automatically by `setup.py` on first run (~11 MB).
 
 ## Files
 
-- `burst_culler.py` — main tool with GUI
+- `nks_focus_culler.py` — main tool with GUI
 - `exif_reader.py` — EXIF extraction via ExifTool
 - `classifier.py` — heuristic mode classifier
 - `bin/exiftool.exe` — bundled ExifTool binary (v13.54)
@@ -127,12 +127,12 @@ pip install nuitka
 build.bat
 ```
 
-Output: `dist\burst_culler.exe` (single file, ~80-100 MB — includes Python runtime, rawpy, Pillow, tkinter, and the bundled exiftool).
+Output: `dist\nks_focus_culler.exe` (single file, ~80-100 MB — includes Python runtime, rawpy, Pillow, tkinter, and the bundled exiftool).
 
 The exe is self-contained. Copy it anywhere and run:
 
 ```bash
-burst_culler.exe "C:\path\to\photos"
+nks_focus_culler.exe "C:\path\to\photos"
 ```
 
 No Python installation needed on the target machine. First run is slightly slower because Nuitka extracts bundled files to a temp folder.
