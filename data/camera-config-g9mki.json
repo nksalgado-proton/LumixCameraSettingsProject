@@ -1,10 +1,10 @@
 {
   "camera": "Panasonic Lumix G9 MkI (DC-G9)",
   "firmware": "Latest (with Animal Detection)",
-  "last_updated": "2026-04-05",
+  "last_updated": "2026-04-06",
   "owner": "Nelson (wife carries it in Costa Rica)",
   "role": "PRIMARY: Macro (Nelson) + General (Wife)",
-  "notes": "Wife will carry this camera — modes must be simple and intuitive. G9 MkI has animal detection on latest firmware. Shoots JPEG Fine. Menu uses [Rec] and [Motion Picture] (not [Photo]/[Video]). Has Function Lever for Silent Mode toggle.",
+  "notes": "Wife will carry this camera — modes must be simple and intuitive. G9 MkI has animal detection on latest firmware. Shoots RAW. Menu uses [Rec] and [Motion Picture] (not [Photo]/[Video]). Has Function Lever for Silent Mode toggle.",
   "gear": {
     "lenses": [
       {
@@ -299,7 +299,7 @@
       "image_quality": {
         "aspect_ratio": "4:3",
         "picture_size": "L",
-        "quality": "FINE",
+        "quality": "RAW",
         "photo_style": "Standard",
         "filter_settings": "OFF",
         "color_space": "sRGB",
