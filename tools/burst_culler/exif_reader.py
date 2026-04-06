@@ -20,6 +20,7 @@ TAGS = [
     'PhotoStyle', 'ImageStabilization', 'ShutterType',
     'ExtTeleConv', 'MacroMode', 'SilentMode', 'ColorEffect',
     'ExposureMode', 'WhiteBalance', 'Orientation',
+    'FocusStepCount', 'FocusBracket', 'SequenceNumber',
 ]
 
 
@@ -44,6 +45,9 @@ class PhotoExif:
     shutter_type: str = ''
     ext_tele_conv: str = ''
     silent_mode: bool = False
+    focus_step_count: int = 0  # total frames in focus bracket
+    focus_bracket_step: int = -1  # which step this frame is
+    sequence_number: int = 0
     raw: dict = field(default_factory=dict)
 
     @property
@@ -186,6 +190,9 @@ def read_exif_batch(files: list[Path]) -> list[PhotoExif]:
             shutter_type=str(entry.get('ShutterType', '')),
             ext_tele_conv=str(entry.get('ExtTeleConv', '')),
             silent_mode='on' in str(entry.get('SilentMode', '')).lower(),
+            focus_step_count=_parse_int(entry.get('FocusStepCount', 0)),
+            focus_bracket_step=_parse_int(entry.get('FocusBracket', -1)),
+            sequence_number=_parse_int(entry.get('SequenceNumber', 0)),
             raw=entry,
         )
         photos.append(photo)

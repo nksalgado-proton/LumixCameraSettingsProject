@@ -113,22 +113,22 @@ def build_session(photos: list[PhotoExif], source: str,
     # Focus bracket frames are spaced 1-2s apart (mechanical shutter),
     # so use a wider gap (10s) for consecutive focus-bracket photos.
     # Regular bursts use the tight gap (0.5s default).
-    STACK_GAP = 10.0  # seconds between focus bracket frames
-
     burst_id = 0
     current = [0] if session.photos else []
     for i in range(1, len(session.photos)):
         curr_p = _find_exif(session.photos[i], photos)
         prev_p = _find_exif(session.photos[current[-1]], photos)
         if curr_p and prev_p:
-            delta = (curr_p.timestamp - prev_p.timestamp).total_seconds()
-            both_bracket = curr_p.is_focus_bracket and prev_p.is_focus_bracket
             same_lens = curr_p.lens == prev_p.lens
+            both_bracket = curr_p.is_focus_bracket and prev_p.is_focus_bracket
             if both_bracket:
-                # Focus bracket: wider gap, lens must match
-                ok = delta <= STACK_GAP and same_lens
+                # Focus bracket: split when SequenceNumber resets to 1
+                # (camera restarts sequence for each new stack)
+                seq_continues = curr_p.sequence_number > prev_p.sequence_number
+                ok = same_lens and seq_continues
             else:
                 # Regular burst: tight gap, both must be burst mode
+                delta = (curr_p.timestamp - prev_p.timestamp).total_seconds()
                 ok = (delta <= gap and same_lens
                       and curr_p.burst_mode and prev_p.burst_mode)
         else:
@@ -356,15 +356,13 @@ class CullerApp:
         self._startup_dest = None
         self._startup_source_files = None
 
-        # Pre-fill from last session
+        # Pre-fill paths from last session (display only, don't auto-start)
         if self._settings.get('last_source'):
-            self._startup_source = self._settings['last_source']
             self.src_startup_lbl.config(
-                text=self._settings['last_source'], fg=FG)
+                text=self._settings['last_source'], fg=FG_DIM)
         if self._settings.get('last_destination'):
-            self._startup_dest = self._settings['last_destination']
             self.dst_startup_lbl.config(
-                text=self._settings['last_destination'], fg=FG)
+                text=self._settings['last_destination'], fg=FG_DIM)
 
     def _show_splash(self):
         for w in self.center.winfo_children():
@@ -505,14 +503,20 @@ class CullerApp:
         self._settings['last_destination'] = self.session.destination
         save_settings(self._settings)
 
+        self._set_busy(True)
+        self.root.update()
         self._clear_all_panels()
         self._build_left()
         self._build_right()
         self._build_center()
         self.root.update_idletasks()
         self.root.update()
-        self.root.after(100, lambda: self._navigate_to(
-            self.session.current_burst_idx))
+
+        def _first_render():
+            self._set_busy(False)
+            self._navigate_to(self.session.current_burst_idx)
+
+        self.root.after(100, _first_render)
 
     def _build_left(self):
         """Left panel: Block 1 (dir), Block 2 (counts), Block 3 (EXIF), Block 4 (actions)."""
@@ -652,7 +656,7 @@ class CullerApp:
         peak_frame = tk.Frame(info_row, bg=BG)
         peak_frame.pack(side='right', padx=16)
 
-        # Color selector
+        # Color selector (values loaded from settings in __init__)
         self._peak_colors = {
             'Red': (255, 50, 50),
             'Yellow': (255, 230, 0),
@@ -660,13 +664,14 @@ class CullerApp:
             'Cyan': (0, 220, 255),
             'White': (255, 255, 255),
         }
-        self._peak_color_name = 'Red'
-        self._peak_threshold = 50  # stricter default
 
-        # Peaking toggle
+        # Peaking toggle — sync with current state
+        peak_text = '🔍 Peaking: ON' if self._peaking_on else '🔍 Peaking: OFF'
+        peak_bg = DANGER if self._peaking_on else BTN_BG
+        peak_fg = 'white' if self._peaking_on else FG_DIM
         self.peak_btn = tk.Button(
-            peak_frame, text='🔍 Peaking: OFF', command=self._toggle_peaking,
-            bg=BTN_BG, fg=FG_DIM,
+            peak_frame, text=peak_text, command=self._toggle_peaking,
+            bg=peak_bg, fg=peak_fg,
             activebackground=BTN_HOVER, activeforeground=FG,
             font=('Segoe UI', 10, 'bold'), bd=0, padx=14, pady=6,
             cursor='hand2')
@@ -704,7 +709,10 @@ class CullerApp:
         self.action_bar.pack(fill='x', side='bottom')
         self.action_bar.pack_propagate(False)
 
-        # Workspace fills remaining space
+        # Workspace fills remaining space between info row and action bar
+        self.workspace = tk.Frame(self.center, bg=BG)
+        self.workspace.pack(fill='both', expand=True, padx=8, pady=4)
+
         # Solo: [Discard] [Back] [Next] [Keep]
         self.solo_bar = tk.Frame(self.action_bar, bg=BG_PANEL)
         self._action_btn(self.solo_bar, '✗  Discard', self._solo_discard,
@@ -749,13 +757,13 @@ class CullerApp:
         self._action_btn(self.winner_bar, '✓  Keep All',
                          self._burst_keep_all, bg='#0a7a5a', fg='white')
 
-        # Stack review: [Discard Stack] [Back] [Keep Stack]
+        # Stack review: [Discard Stack] [Back] [Keep Selected Range]
         self.stack_bar = tk.Frame(self.action_bar, bg=BG_PANEL)
         self._action_btn(self.stack_bar, '✗  Discard Stack',
                          self._stack_discard, bg=DANGER, fg='white')
         self._action_btn(self.stack_bar, '←  Back',
                          self._back, bg=BTN_BG, fg=FG_DIM)
-        self._action_btn(self.stack_bar, '✓  Keep Stack',
+        self._action_btn(self.stack_bar, '✓  Keep Selected Frames',
                          self._stack_keep, bg=SUCCESS, fg='white')
 
     # ── Widget helpers ───────────────────────────────────────────────
@@ -941,9 +949,19 @@ class CullerApp:
         indices = burst.photo_indices
         n = len(indices)
 
-        # Header
+        print(f'_render_stack: {n} frames, workspace size='
+              f'{self.workspace.winfo_width()}x{self.workspace.winfo_height()}')
+
+        # Get bracket info from first frame's EXIF
+        exif0 = self.photos_cache.get(p0.path)
+        step_count = exif0.focus_step_count if exif0 else 0
+        info_parts = [f'Focus Stack — {n} frames']
+        if step_count:
+            info_parts.append(f'(planned: {step_count})')
+        header_text = '  '.join(info_parts)
+
         tk.Label(self.workspace,
-                 text=f'Focus Stack — {n} frames',
+                 text=header_text,
                  bg=BG, fg=FG_DIM,
                  font=('Segoe UI', 11)).pack(pady=(4, 4))
 
@@ -964,9 +982,9 @@ class CullerApp:
         self._anim_label = tk.Label(anim_frame, bg=BG_CELL)
         self._anim_label.pack()
 
-        # Controls row
+        # Controls row 1: playback
         ctrl = tk.Frame(self.workspace, bg=BG)
-        ctrl.pack(pady=6)
+        ctrl.pack(pady=4)
 
         self._anim_play_btn = tk.Button(
             ctrl, text='▶  Play', command=self._anim_toggle,
@@ -997,14 +1015,67 @@ class CullerApp:
                 font=('Segoe UI', 9),
                 command=self._anim_speed_changed).pack(side='left', padx=2)
 
-        # Load all frames
+        # Controls row 2: frame range selector
+        range_row = tk.Frame(self.workspace, bg=BG)
+        range_row.pack(pady=4)
+
+        tk.Label(range_row, text='Keep frames:', bg=BG, fg=FG,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(0, 8))
+
+        self._stack_start_var = tk.IntVar(value=1)
+        self._stack_end_var = tk.IntVar(value=n)
+
+        tk.Label(range_row, text='from', bg=BG, fg=FG_DIM,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(0, 4))
+        self._start_spin = tk.Spinbox(
+            range_row, from_=1, to=n, width=4,
+            textvariable=self._stack_start_var,
+            font=('Consolas', 11), bg=BG_CELL, fg=FG,
+            buttonbackground=BTN_BG, insertbackground=FG,
+            command=self._on_range_change)
+        self._start_spin.pack(side='left', padx=2)
+
+        tk.Label(range_row, text='to', bg=BG, fg=FG_DIM,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(8, 4))
+        self._end_spin = tk.Spinbox(
+            range_row, from_=1, to=n, width=4,
+            textvariable=self._stack_end_var,
+            font=('Consolas', 11), bg=BG_CELL, fg=FG,
+            buttonbackground=BTN_BG, insertbackground=FG,
+            command=self._on_range_change)
+        self._end_spin.pack(side='left', padx=2)
+
+        tk.Label(range_row, text=f'of {n}', bg=BG, fg=FG_DIM,
+                 font=('Segoe UI', 10)).pack(side='left', padx=(8, 0))
+
+        # Set Start / Set End buttons (set from current frame)
+        tk.Button(range_row, text='Set Start ◀',
+                  command=self._set_range_start,
+                  bg=BTN_BG, fg=FG_DIM, font=('Segoe UI', 9),
+                  bd=0, padx=10, pady=4, cursor='hand2').pack(
+            side='left', padx=(16, 2))
+        tk.Button(range_row, text='Set End ▶',
+                  command=self._set_range_end,
+                  bg=BTN_BG, fg=FG_DIM, font=('Segoe UI', 9),
+                  bd=0, padx=10, pady=4, cursor='hand2').pack(
+            side='left', padx=2)
+
+        # Calculate thumbnail size
         aw = self.workspace.winfo_width() or 1200
         ah = self.workspace.winfo_height() or 700
         thumb_size = max(300, min(aw - 100, ah - 200, 900))
 
         self._anim_frames = []
         self._anim_tk_frames = []
-        for pi in indices:
+        self._anim_idx = 0
+        self._anim_playing = False
+
+        # Show first frame immediately, then load rest with progress
+        self._set_busy(True)
+        self._anim_counter.config(text=f'Loading {n} frames...')
+        self.root.update()
+
+        for i, pi in enumerate(indices):
             photo = self.session.photos[pi]
             img = load_preview(Path(photo.path), thumb_size)
             if img:
@@ -1018,8 +1089,17 @@ class CullerApp:
                 self._anim_tk_frames.append(tk_img)
                 self.photo_refs.append(tk_img)
 
-        self._anim_idx = 0
-        self._anim_playing = False
+                # Show first frame as soon as it loads
+                if i == 0:
+                    self._anim_show_frame()
+
+                # Update progress every 10 frames
+                if (i + 1) % 10 == 0:
+                    self._anim_counter.config(
+                        text=f'Loading frames... {i+1}/{n}')
+                    self.root.update_idletasks()
+
+        self._set_busy(False)
         self._anim_show_frame()
 
     def _anim_show_frame(self):
@@ -1029,10 +1109,10 @@ class CullerApp:
         idx = self._anim_idx % len(self._anim_tk_frames)
         self._anim_label.config(image=self._anim_tk_frames[idx])
         n = len(self._anim_tk_frames)
-        self._anim_counter.config(text=f'Frame {idx + 1} / {n}')
+        self._anim_counter.config(text=f'Frame {idx+1} of {n}')
 
     def _anim_toggle(self):
-        """Play/pause animation."""
+        """Play/pause animation. Restarts from beginning if at end."""
         if self._anim_playing:
             self._anim_playing = False
             self._anim_play_btn.config(text='▶  Play', bg=SUCCESS)
@@ -1040,15 +1120,24 @@ class CullerApp:
                 self.root.after_cancel(self._anim_after_id)
                 self._anim_after_id = None
         else:
+            # If at the end, restart from beginning
+            if self._anim_idx >= len(self._anim_tk_frames) - 1:
+                self._anim_idx = 0
+                self._anim_show_frame()
             self._anim_playing = True
             self._anim_play_btn.config(text='⏸  Pause', bg=WARNING)
             self._anim_advance()
 
     def _anim_advance(self):
-        """Advance to next frame (called by timer)."""
+        """Advance to next frame (called by timer). Stops at end."""
         if not self._anim_playing or not self._anim_tk_frames:
             return
-        self._anim_idx = (self._anim_idx + 1) % len(self._anim_tk_frames)
+        if self._anim_idx >= len(self._anim_tk_frames) - 1:
+            # Reached the end — stop playing
+            self._anim_playing = False
+            self._anim_play_btn.config(text='▶  Play', bg=SUCCESS)
+            return
+        self._anim_idx += 1
         self._anim_show_frame()
         speed_fps = self._speed_var.get()
         delay = max(50, 1000 // speed_fps)
@@ -1070,11 +1159,40 @@ class CullerApp:
         """Update animation speed without restart."""
         pass  # next _anim_advance call will use new speed
 
+    def _on_range_change(self):
+        """Update animation counter to reflect range."""
+        start = self._stack_start_var.get()
+        end = self._stack_end_var.get()
+        # Clamp values
+        n = len(self._anim_tk_frames)
+        start = max(1, min(start, n))
+        end = max(start, min(end, n))
+        self._stack_start_var.set(start)
+        self._stack_end_var.set(end)
+        kept = end - start + 1
+        total = n
+        self._anim_counter.config(
+            text=f'Frame {self._anim_idx+1} of {total}  '
+                 f'·  Keeping {kept} frames ({start}-{end})')
+
+    def _set_range_start(self):
+        """Set start frame to current animation position."""
+        self._stack_start_var.set(self._anim_idx + 1)
+        self._on_range_change()
+
+    def _set_range_end(self):
+        """Set end frame to current animation position."""
+        self._stack_end_var.set(self._anim_idx + 1)
+        self._on_range_change()
+
     def _stack_keep(self):
         idx = self.session.current_burst_idx
         burst = self.session.bursts[idx]
-        all_sel = set(range(len(burst.photo_indices)))
-        self.session.mark_burst_photos(idx, all_sel, 'stacks')
+        # Use frame range (1-based in UI, 0-based internally)
+        start = self._stack_start_var.get() - 1
+        end = self._stack_end_var.get()  # exclusive end
+        selected = set(range(start, end))
+        self.session.mark_burst_photos(idx, selected, 'stacks')
         self._navigate_to(idx + 1)
 
     def _stack_discard(self):
@@ -1748,29 +1866,95 @@ class CullerApp:
                 f'Copy {len(files)} files to:\n'
                 f'{self.session.destination}\n\n{summary}\n\nProceed?'):
             return
+
+        # Progress dialog — modal, blocks interaction with main window
+        prog_win = tk.Toplevel(self.root)
+        prog_win.title('Copying files…')
+        prog_win.configure(bg=BG_PANEL)
+        prog_win.geometry('500x200')
+        prog_win.resizable(False, False)
+        prog_win.transient(self.root)
+        prog_win.grab_set()
+        # Center on screen
+        prog_win.update_idletasks()
+        x = (prog_win.winfo_screenwidth() - 500) // 2
+        y = (prog_win.winfo_screenheight() - 200) // 2
+        prog_win.geometry(f'+{x}+{y}')
+        prog_win.protocol('WM_DELETE_WINDOW', lambda: None)  # prevent close
+
+        tk.Label(prog_win, text='Copying files…', bg=BG_PANEL, fg=FG,
+                 font=('Segoe UI', 14, 'bold'), pady=12).pack()
+
+        prog_lbl = tk.Label(prog_win, text='Preparing…', bg=BG_PANEL,
+                            fg=FG_DIM, font=('Segoe UI', 10))
+        prog_lbl.pack(pady=(0, 8))
+
+        prog_bar = tk.Canvas(prog_win, bg=BG_CELL, height=20,
+                             highlightthickness=0)
+        prog_bar.pack(fill='x', padx=30, pady=4)
+
+        cancel_requested = [False]
+
+        def _cancel():
+            cancel_requested[0] = True
+            cancel_btn.config(state='disabled', text='Cancelling…')
+
+        cancel_btn = tk.Button(
+            prog_win, text='Cancel', command=_cancel,
+            bg=DANGER, fg='white', activebackground='#dc2626',
+            font=('Segoe UI', 11, 'bold'), bd=0, padx=20, pady=8,
+            cursor='hand2')
+        cancel_btn.pack(pady=10)
+
+        prog_win.update()
+
+        # Copy with progress
         dest = Path(self.session.destination)
+        total = len(files)
         copied, errors = 0, []
-        for src, scenario in files:
+
+        for i, (src_path, scenario) in enumerate(files):
+            if cancel_requested[0]:
+                break
             try:
                 d = dest / scenario
                 d.mkdir(parents=True, exist_ok=True)
-                t = d / Path(src).name
+                t = d / Path(src_path).name
                 if t.exists():
                     stem, suf = t.stem, t.suffix
-                    i = 1
+                    j = 1
                     while t.exists():
-                        t = d / f'{stem}_dup{i}{suf}'
-                        i += 1
-                shutil.copy2(src, t)
+                        t = d / f'{stem}_dup{j}{suf}'
+                        j += 1
+                shutil.copy2(src_path, t)
                 copied += 1
             except Exception as e:
-                errors.append(str(e))
+                errors.append(f'{Path(src_path).name}: {e}')
+
+            # Update progress every file
+            pct = (i + 1) / total
+            bar_w = prog_bar.winfo_width()
+            prog_bar.delete('all')
+            prog_bar.create_rectangle(
+                0, 0, int(bar_w * pct), 20, fill=ACCENT, outline='')
+            prog_lbl.config(
+                text=f'{i+1} / {total}  ({pct*100:.0f}%)  —  '
+                     f'{Path(src_path).name}')
+            prog_win.update()
+
+        prog_win.grab_release()
+        prog_win.destroy()
+
         self.session.committed = True
         save_session(self.session)
-        msg = f'Copied {copied} files.'
+
+        if cancel_requested[0]:
+            msg = f'Cancelled. Copied {copied} of {total} files.'
+        else:
+            msg = f'Copied {copied} files.'
         if errors:
-            msg += f'\n{len(errors)} errors.'
-        messagebox.showinfo('Done', msg)
+            msg += f'\n\n{len(errors)} errors:\n' + '\n'.join(errors[:5])
+        messagebox.showinfo('Commit Complete', msg)
         self._update_panels()
 
     def _quit(self):
