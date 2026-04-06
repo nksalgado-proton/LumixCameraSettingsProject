@@ -110,6 +110,11 @@ def build_session(photos: list[PhotoExif], source: str,
             confidence=c.confidence.value))
 
     # Group into bursts
+    # Focus bracket frames are spaced 1-2s apart (mechanical shutter),
+    # so use a wider gap (10s) for consecutive focus-bracket photos.
+    # Regular bursts use the tight gap (0.5s default).
+    STACK_GAP = 10.0  # seconds between focus bracket frames
+
     burst_id = 0
     current = [0] if session.photos else []
     for i in range(1, len(session.photos)):
@@ -117,8 +122,15 @@ def build_session(photos: list[PhotoExif], source: str,
         prev_p = _find_exif(session.photos[current[-1]], photos)
         if curr_p and prev_p:
             delta = (curr_p.timestamp - prev_p.timestamp).total_seconds()
-            ok = (delta <= gap and curr_p.lens == prev_p.lens
-                  and curr_p.burst_mode and prev_p.burst_mode)
+            both_bracket = curr_p.is_focus_bracket and prev_p.is_focus_bracket
+            same_lens = curr_p.lens == prev_p.lens
+            if both_bracket:
+                # Focus bracket: wider gap, lens must match
+                ok = delta <= STACK_GAP and same_lens
+            else:
+                # Regular burst: tight gap, both must be burst mode
+                ok = (delta <= gap and same_lens
+                      and curr_p.burst_mode and prev_p.burst_mode)
         else:
             ok = False
         if ok:

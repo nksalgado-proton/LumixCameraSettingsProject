@@ -179,8 +179,9 @@ def read_exif_batch(files: list[Path]) -> list[PhotoExif]:
             af_area_mode=str(entry.get('AFAreaMode', '')),
             af_subject=str(entry.get('AFSubjectDetection', '')),
             shooting_mode=str(entry.get('ShootingMode', '')),
-            burst_mode='on' in str(entry.get('BurstMode', '')).lower(),
-            bracketing=str(entry.get('Bracketing', '')),
+            burst_mode=str(entry.get('BurstMode', '')).lower() not in
+                      ('', 'off', 'none', '0'),
+            bracketing=str(entry.get('BurstMode', '')),
             photo_style=str(entry.get('PhotoStyle', '')),
             shutter_type=str(entry.get('ShutterType', '')),
             ext_tele_conv=str(entry.get('ExtTeleConv', '')),
