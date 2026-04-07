@@ -9,7 +9,31 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
-EXIFTOOL_PATH = Path(__file__).parent / 'bin' / 'exiftool.exe'
+import sys
+import os
+
+def _get_exiftool_path() -> Path:
+    """Find exiftool.exe — works both in dev and Nuitka onefile."""
+    # Nuitka onefile: files extracted to a temp dir. __file__ is there.
+    # But --include-data-dir=bin=bin puts bin/ relative to the exe or
+    # relative to the extraction root.
+    candidates = [
+        Path(__file__).parent / 'bin' / 'exiftool.exe',
+        # Nuitka onefile extraction root
+        Path(sys.argv[0]).parent / 'bin' / 'exiftool.exe',
+        # Next to the running exe
+        Path(os.path.dirname(os.path.abspath(sys.argv[0]))) / 'bin' / 'exiftool.exe',
+    ]
+    # Also check if NUITKA sets a special variable
+    if hasattr(sys, '_MEIPASS'):  # PyInstaller compat
+        candidates.append(Path(sys._MEIPASS) / 'bin' / 'exiftool.exe')
+    for c in candidates:
+        if c.exists():
+            return c
+    # Fallback: maybe exiftool is on PATH
+    return Path('exiftool')
+
+EXIFTOOL_PATH = _get_exiftool_path()
 
 # Tags we extract for classification (exiftool short names)
 TAGS = [
