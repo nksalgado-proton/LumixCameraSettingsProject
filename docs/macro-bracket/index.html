@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#16213e">
+<link rel="manifest" href="manifest.json">
+<title>Macro Bracket Calculator</title>
+<style>
+  :root {
+    --bg: #1a1a2e; --surface: #16213e; --card: #0f3460;
+    --accent: #e94560; --text: #eee; --muted: #8899aa;
+    --warn: #e74c3c; --ok: #2ecc71;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    padding: 0; min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+  }
+  header {
+    background: var(--surface); padding: 14px 16px;
+    text-align: center; font-size: 17px; font-weight: 600;
+    position: sticky; top: 0; z-index: 10;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .container { padding: 12px; max-width: 480px; margin: 0 auto; }
+
+  .card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 14px; margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .card h3 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--muted); margin-bottom: 10px;
+  }
+
+  .field { margin-bottom: 10px; }
+  .field label {
+    display: block; font-size: 13px; color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .field select, .field input[type=number] {
+    width: 100%; padding: 10px 12px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: var(--card); color: var(--text);
+    font-size: 16px; /* prevents iOS zoom */
+    -webkit-appearance: none; appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238899aa' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  .eff-label {
+    font-size: 12px; color: var(--accent); margin-top: 3px;
+  }
+
+  .radio-group {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .radio-group label {
+    flex: 1; min-width: 0;
+    padding: 8px 6px; border-radius: 8px;
+    background: var(--card); text-align: center;
+    font-size: 14px; cursor: pointer;
+    border: 2px solid transparent; transition: all 0.15s;
+    color: var(--muted);
+  }
+  .radio-group input { display: none; }
+  .radio-group input:checked + span {
+    color: var(--text);
+  }
+  .radio-group label:has(input:checked) {
+    border-color: var(--accent);
+    background: rgba(233,69,96,0.12);
+  }
+
+  /* Results */
+  .result-summary {
+    display: flex; gap: 10px; margin-bottom: 10px;
+  }
+  .result-summary .stat {
+    flex: 1; background: var(--card); border-radius: 8px;
+    padding: 10px; text-align: center;
+  }
+  .stat .value { font-size: 18px; font-weight: 700; }
+  .stat .label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .result-panel {
+    background: var(--card); border-radius: 8px;
+    padding: 12px; margin-bottom: 8px;
+  }
+  .result-panel h4 {
+    font-size: 13px; color: var(--accent); margin-bottom: 8px;
+  }
+  .result-row {
+    display: flex; justify-content: space-between;
+    padding: 4px 0; font-size: 14px;
+  }
+  .result-row .rlabel { color: var(--muted); }
+  .result-row .rvalue { font-weight: 600; }
+
+  .warning {
+    background: rgba(231,76,60,0.15); border: 1px solid var(--warn);
+    border-radius: 8px; padding: 8px 10px; margin-top: 8px;
+    font-size: 13px; color: #ff6b6b;
+  }
+  .hidden { display: none !important; }
+
+  /* safe area for notch devices */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    header { padding-top: calc(14px + env(safe-area-inset-top)); }
+    .container { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+  }
+</style>
+</head>
+<body>
+
+<header>Macro Bracket Calculator</header>
+
+<div class="container">
+
+  <!-- GEAR -->
+  <div class="card">
+    <h3>Gear</h3>
+    <div class="field">
+      <label>Camera</label>
+      <select id="camera"></select>
+    </div>
+    <div class="field">
+      <label>Lens</label>
+      <select id="lens"></select>
+    </div>
+    <div class="field">
+      <label>Accessory</label>
+      <select id="accessory"></select>
+    </div>
+  </div>
+
+  <!-- PARAMETERS -->
+  <div class="card">
+    <h3>Parameters</h3>
+    <div class="field">
+      <label>Magnification (dial)</label>
+      <input type="number" id="mag" min="0.1" max="5" step="0.1" value="1.0">
+      <div class="eff-label" id="magEff"></div>
+    </div>
+    <div class="field">
+      <label>Aperture</label>
+      <input type="number" id="aperture" min="1" max="22" step="0.1" value="5.6">
+      <div class="eff-label" id="fEff"></div>
+    </div>
+    <div class="field">
+      <label>Subject Depth (mm)</label>
+      <input type="number" id="depth" min="0.1" max="200" step="0.5" value="5.0">
+    </div>
+    <div class="field">
+      <label>Condition</label>
+      <div class="radio-group" id="condGroup">
+        <label><input type="radio" name="cond" value="0.55"><span>Studio</span></label>
+        <label><input type="radio" name="cond" value="0.40" checked><span>Field</span></label>
+        <label><input type="radio" name="cond" value="0.20"><span>Windy</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOOTING MODE -->
+  <div class="card">
+    <h3>Shooting Mode</h3>
+    <div class="field">
+      <div class="radio-group" id="modeGroup">
+        <label><input type="radio" name="mode" value="ambient" checked><span>Ambient</span></label>
+        <label><input type="radio" name="mode" value="flash"><span>Flash</span></label>
+      </div>
+    </div>
+    <div id="flashFields" class="hidden">
+      <div class="field">
+        <label>Flash Unit</label>
+        <select id="flashUnit"></select>
+      </div>
+      <div class="field">
+        <label>Recycle Time (s)</label>
+        <input type="number" id="recycle" min="0.1" max="10" step="0.1" value="1.5">
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="card" id="resultsCard">
+    <h3>Results</h3>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="value" id="rDof">—</div>
+        <div class="label">DoF / frame (mm)</div>
+      </div>
+      <div class="stat">
+        <div class="value" id="rStep">—</div>
+        <div class="label">Focus step (mm)</div>
+      </div>
+    </div>
+
+    <div id="diffWarn" class="warning hidden"></div>
+
+    <div class="result-panel">
+      <h4>In-Camera (Lumix)</h4>
+      <div class="result-row"><span class="rlabel">Step Setting</span><span class="rvalue" id="rLumixStep">—</span></div>
+      <div class="result-row"><span class="rlabel">Shots</span><span class="rvalue" id="rLumixShots">—</span></div>
+      <div class="result-row"><span class="rlabel">Sequence Time</span><span class="rvalue" id="rLumixTime">—</span></div>
+      <div id="gapWarn" class="warning hidden"></div>
+    </div>
+
+    <div class="result-panel">
+      <h4>Rail (Fotopro FT100 Pro)</h4>
+      <div class="result-row"><span class="rlabel">Step Size</span><span class="rvalue" id="rRailStep">—</span></div>
+      <div class="result-row"><span class="rlabel">Shots</span><span class="rvalue" id="rRailShots">—</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== GEAR DATA =====
+const SENSOR_FORMATS = {
+  "MFT":        { coc_mm: 0.015, crop_factor: 2.0 },
+  "APS-C":      { coc_mm: 0.019, crop_factor: 1.5 },
+  "Full Frame":  { coc_mm: 0.029, crop_factor: 1.0 },
+};
+
+const CAMERAS = {
+  "Lumix G9":    { sensor_format: "MFT", fps_bracket: 2.9 },
+  "Lumix G9 II": { sensor_format: "MFT", fps_bracket: 3.3 },
+};
+
+const LENSES = {
+  "Panasonic 30mm f/2.8 Macro": {
+    focal_length_mm: 30, max_aperture: 2.8,
+    mag_range: [0.1, 1.0],
+    compatible_accessories: ["None", "Raynox DCR-250"],
+  },
+  "OM System 60mm f/2.8 Macro": {
+    focal_length_mm: 60, max_aperture: 2.8,
+    mag_range: [0.1, 1.0],
+    compatible_accessories: ["None", "Raynox DCR-250"],
+  },
+  "OM System 90mm f/3.5 Macro": {
+    focal_length_mm: 90, max_aperture: 3.5,
+    mag_range: [0.1, 2.0],
+    compatible_accessories: ["None", "OM MC-20"],
+  },
+};
+
+const ACCESSORIES = {
+  "None":            { type: null },
+  "OM MC-20":        { type: "teleconverter", factor: 2.0, aperture_stops: 2 },
+  "Raynox DCR-250":  { type: "diopter", power_diopters: 8.0 },
+};
+
+const FLASH_UNITS = {
+  "Godox V-860 III":  { recycle_s: 1.5, diffuser: "AK diffuser" },
+  "Godox AD100Pro":   { recycle_s: 1.5, diffuser: "Godox ML-CD15" },
+};
+
+const DIFFRACTION_LIMIT_F = { "MFT": 8.0, "APS-C": 11.0, "Full Frame": 16.0 };
+
+const CONDITIONS = [
+  { name: "Studio", overlap: 0.55 },
+  { name: "Field",  overlap: 0.40 },
+  { name: "Windy",  overlap: 0.20 },
+];
+
+// Step tables keyed as "camera|lens|accessory"
+const STEP_TABLES = {
+  "Lumix G9|OM System 60mm f/2.8 Macro|None": {
+    1:0.0502, 2:0.1008, 3:0.1529, 4:0.2031, 5:0.2407,
+    6:0.2889, 7:0.3421, 8:0.3939, 9:0.4333, 10:0.4906
+  },
+  "Lumix G9 II|OM System 60mm f/2.8 Macro|None": {
+    1:0.0502, 2:0.0970, 3:0.1520, 4:0.1757, 5:0.2407,
+    6:0.3133, 7:0.3611, 8:0.4194, 9:0.4483, 10:0.4483
+  },
+  "Lumix G9 II|OM System 90mm f/3.5 Macro|None": {
+    1:0.0325, 2:0.0652, 3:0.0967, 4:0.1307, 5:0.1595,
+    6:0.2016, 7:0.2281, 8:0.2626, 9:0.2889, 10:0.3250
+  },
+  "Lumix G9 II|OM System 90mm f/3.5 Macro|OM MC-20": {
+    1:0.0169, 2:0.0341, 3:0.0503, 4:0.0683, 5:0.0829,
+    6:0.1048, 7:0.1186, 8:0.1349, 9:0.1502, 10:0.1690
+  },
+  "Lumix G9|OM System 90mm f/3.5 Macro|None": {
+    1:0.0217, 2:0.0434, 3:0.0637, 4:0.0844, 5:0.1048,
+    6:0.1262, 7:0.1477, 8:0.1677, 9:0.1884, 10:0.2063
+  },
+  "Lumix G9 II|Panasonic 30mm f/2.8 Macro|None": {
+    1:0.2407, 2:0.5098, 3:0.6667, 4:1.0400, 5:1.1818,
+    6:1.3684, 7:1.4444, 8:1.7333, 9:2.0000, 10:2.0000
+  },
+  "Lumix G9|Panasonic 30mm f/2.8 Macro|None": {
+    1:0.1667, 2:0.3333, 3:0.4815, 4:0.6667, 5:0.7879,
+    6:0.9286, 7:1.1304, 8:1.2381, 9:1.3684, 10:1.5294
+  },
+};
+
+// ===== CALCULATIONS =====
+function effectiveAperture(baseF, acc) {
+  if (acc.type === "teleconverter")
+    return baseF * Math.pow(2, acc.aperture_stops / 2);
+  return baseF;
+}
+
+function effectiveMagnification(baseMag, lens, acc) {
+  if (acc.type === "teleconverter")
+    return baseMag * acc.factor;
+  if (acc.type === "diopter")
+    return baseMag + lens.focal_length_mm / (1000 / acc.power_diopters);
+  return baseMag;
+}
+
+function depthOfField(N, coc, m) {
+  if (m <= 0) return Infinity;
+  return (2 * N * coc * (m + 1)) / (m * m);
+}
+
+function lumixStepForOverlap(desiredMm, table) {
+  let bestStep = 1, bestDiff = Infinity;
+  for (const [step, mm] of Object.entries(table)) {
+    const diff = Math.abs(mm - desiredMm);
+    if (diff < bestDiff) { bestDiff = diff; bestStep = parseInt(step); }
+  }
+  return bestStep;
+}
+
+function calculateAll() {
+  const camName = $('camera').value;
+  const lensName = $('lens').value;
+  const accName = $('accessory').value;
+  if (!camName || !lensName || !accName) return;
+
+  const camera = CAMERAS[camName];
+  const lens = LENSES[lensName];
+  const acc = ACCESSORIES[accName] || ACCESSORIES["None"];
+  const sensor = SENSOR_FORMATS[camera.sensor_format];
+  const coc = sensor.coc_mm;
+
+  const dialMag = parseFloat($('mag').value) || 1.0;
+  const dialF = parseFloat($('aperture').value) || 5.6;
+  const depthMm = parseFloat($('depth').value) || 5.0;
+  const overlap = parseFloat(document.querySelector('input[name=cond]:checked').value);
+  const isFlash = document.querySelector('input[name=mode]:checked').value === 'flash';
+  const recycleS = isFlash ? (parseFloat($('recycle').value) || 1.5) : null;
+
+  const effMag = effectiveMagnification(dialMag, lens, acc);
+  const effF = effectiveAperture(dialF, acc);
+  const dof = depthOfField(effF, coc, effMag);
+  const step = dof * (1 - overlap);
+  const numShots = step > 0 ? Math.ceil(depthMm / step) : 0;
+
+  const fps = camera.fps_bracket || 10;
+  const seqTime = (recycleS && recycleS > 0) ? numShots * recycleS : numShots / fps;
+
+  const diffLimit = DIFFRACTION_LIMIT_F[camera.sensor_format] || 8;
+  const diffWarn = effF >= diffLimit;
+
+  // Lumix step lookup
+  const key1 = `${camName}|${lensName}|${accName}`;
+  const key2 = `${camName}|${lensName}|None`;
+  const table = STEP_TABLES[key1] || STEP_TABLES[key2] || null;
+
+  let lumixStep = null, lumixFrac = null;
+  if (table) {
+    lumixStep = lumixStepForOverlap(step, table);
+    const lumixMm = table[lumixStep];
+    if (lumixMm !== undefined && dof > 0) lumixFrac = lumixMm / dof;
+  }
+
+  // === Update UI ===
+  $('magEff').textContent = `Effective: ${effMag.toFixed(2)}x`;
+  $('fEff').textContent = `Effective: f/${effF.toFixed(1)}`;
+
+  $('rDof').textContent = dof.toFixed(4);
+  $('rStep').textContent = step.toFixed(4);
+
+  // Diffraction
+  const dw = $('diffWarn');
+  if (diffWarn) {
+    dw.textContent = `Diffraction significant above f/${diffLimit} on this sensor`;
+    dw.classList.remove('hidden');
+  } else {
+    dw.classList.add('hidden');
+  }
+
+  // Lumix
+  $('rLumixStep').textContent = lumixStep !== null ? lumixStep : 'N/A';
+  $('rLumixShots').textContent = numShots;
+  $('rLumixTime').textContent = seqTime < 60
+    ? `${seqTime.toFixed(1)} s`
+    : `${(seqTime / 60).toFixed(1)} min`;
+
+  const gw = $('gapWarn');
+  if (lumixFrac !== null && lumixFrac > 1.0) {
+    gw.textContent = `Step ${lumixStep} skips ${lumixFrac.toFixed(2)}x DoF — focus gaps. Use rail or reduce step.`;
+    gw.classList.remove('hidden');
+  } else {
+    gw.classList.add('hidden');
+  }
+
+  // Rail
+  $('rRailStep').textContent = `${step.toFixed(4)} mm`;
+  $('rRailShots').textContent = numShots;
+}
+
+// ===== UI SETUP =====
+const $ = id => document.getElementById(id);
+
+function populateSelect(id, items) {
+  const sel = $(id);
+  sel.innerHTML = '';
+  for (const name of items) {
+    const opt = document.createElement('option');
+    opt.value = name; opt.textContent = name;
+    sel.appendChild(opt);
+  }
+}
+
+function onLensChanged() {
+  const lensName = $('lens').value;
+  const lens = LENSES[lensName];
+  if (!lens) return;
+
+  // Update accessories
+  populateSelect('accessory', lens.compatible_accessories);
+
+  // Clamp magnification
+  const magInput = $('mag');
+  magInput.min = lens.mag_range[0];
+  magInput.max = lens.mag_range[1];
+  if (parseFloat(magInput.value) > lens.mag_range[1])
+    magInput.value = lens.mag_range[1];
+  if (parseFloat(magInput.value) < lens.mag_range[0])
+    magInput.value = lens.mag_range[0];
+
+  // Clamp aperture
+  const fInput = $('aperture');
+  fInput.min = lens.max_aperture;
+  if (parseFloat(fInput.value) < lens.max_aperture)
+    fInput.value = lens.max_aperture;
+
+  calculateAll();
+}
+
+function onModeChanged() {
+  const isFlash = document.querySelector('input[name=mode]:checked').value === 'flash';
+  $('flashFields').classList.toggle('hidden', !isFlash);
+  calculateAll();
+}
+
+function onFlashUnitChanged() {
+  const unit = FLASH_UNITS[$('flashUnit').value];
+  if (unit) $('recycle').value = unit.recycle_s;
+  calculateAll();
+}
+
+// Init
+populateSelect('camera', Object.keys(CAMERAS));
+populateSelect('lens', Object.keys(LENSES));
+populateSelect('flashUnit', Object.keys(FLASH_UNITS));
+onLensChanged();
+
+// Events
+$('camera').addEventListener('change', calculateAll);
+$('lens').addEventListener('change', onLensChanged);
+$('accessory').addEventListener('change', calculateAll);
+$('mag').addEventListener('input', calculateAll);
+$('aperture').addEventListener('input', calculateAll);
+$('depth').addEventListener('input', calculateAll);
+document.querySelectorAll('input[name=cond]').forEach(r => r.addEventListener('change', calculateAll));
+document.querySelectorAll('input[name=mode]').forEach(r => r.addEventListener('change', onModeChanged));
+$('flashUnit').addEventListener('change', onFlashUnitChanged);
+$('recycle').addEventListener('input', calculateAll);
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
