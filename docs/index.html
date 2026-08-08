@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -59,6 +59,18 @@ body {
   margin-bottom: 10px;
   text-align: center;
 }
+.preview-badge {
+  width: fit-content;
+  margin: -3px auto 9px;
+  padding: 4px 9px;
+  border: 1px solid rgba(243,156,18,0.45);
+  border-radius: 999px;
+  background: rgba(243,156,18,0.12);
+  color: #f5b041;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+}
 .camera-tabs {
   display: flex;
   gap: 8px;
@@ -87,8 +99,15 @@ body {
   flex-direction: column;
   gap: 8px;
 }
+.camera-role {
+  margin: 2px 2px 5px;
+  color: var(--text-dim);
+  font-size: 11px;
+  line-height: 1.35;
+}
 .mode-item {
   background: var(--card-bg);
+  width: 100%;
   border-radius: 12px;
   padding: 14px 16px;
   cursor: pointer;
@@ -96,9 +115,17 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  border: 0;
   border-left: 4px solid var(--accent-blue);
+  color: inherit;
+  font: inherit;
+  text-align: left;
 }
 .mode-item:active { transform: scale(0.98); opacity: 0.9; }
+.mode-item:focus-visible, .tab-btn:focus-visible, .camera-tab:focus-visible, .back-btn:focus-visible {
+  outline: 3px solid var(--accent-teal);
+  outline-offset: 2px;
+}
 .mode-item[data-color="green"] { border-left-color: var(--accent-green); }
 .mode-item[data-color="red"] { border-left-color: var(--accent-red); }
 .mode-item[data-color="purple"] { border-left-color: var(--accent-purple); }
@@ -126,6 +153,16 @@ body {
 .mode-arrow {
   color: var(--text-dim);
   font-size: 18px;
+}
+.variant-count {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(26,188,156,0.12);
+  color: var(--accent-teal);
+  font-size: 10px;
+  font-weight: 700;
 }
 
 /* --- Card detail view --- */
@@ -187,7 +224,7 @@ body {
 }
 .tab-btn {
   flex: 1;
-  padding: 10px;
+  padding: 10px 5px;
   border: none;
   border-radius: 8px;
   font-size: 13px;
@@ -232,6 +269,10 @@ body {
   color: var(--warning);
 }
 .section-label.why {
+  background: rgba(26,188,156,0.15);
+  color: var(--accent-teal);
+}
+.section-label.alternatives {
   background: rgba(26,188,156,0.15);
   color: var(--accent-teal);
 }
@@ -378,6 +419,96 @@ body {
   padding: 4px 10px;
   border-radius: 20px;
 }
+.physical-intro {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(243,156,18,0.32);
+  border-radius: 10px;
+  background: rgba(243,156,18,0.09);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.physical-badge {
+  display: inline-block;
+  margin-bottom: 3px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(243,156,18,0.16);
+  color: #f5b041;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+}
+
+/* --- Alternative configurations --- */
+.alternative-intro {
+  background: rgba(26,188,156,0.09);
+  border: 1px solid rgba(26,188,156,0.25);
+  border-radius: 10px;
+  padding: 11px 12px;
+  margin: 12px 0;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.alternative-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid var(--accent-teal);
+  border-radius: 11px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.alternative-name {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.alternative-when {
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.alternative-change {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.8fr) 1.2fr;
+  gap: 2px 10px;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.alternative-change .item {
+  color: var(--text-dim);
+  font-size: 11px;
+}
+.alternative-change .value {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+.alternative-change .note {
+  grid-column: 2;
+  color: var(--text-dim);
+  font-size: 10px;
+  line-height: 1.35;
+}
+.alternative-warning {
+  margin-top: 7px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  background: rgba(243,156,18,0.11);
+  color: #f5b041;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.empty-alternatives {
+  color: var(--text-dim);
+  text-align: center;
+  font-size: 13px;
+  padding: 28px 12px;
+}
 
 /* --- Smooth scrollbar --- */
 ::-webkit-scrollbar { width: 0; }
@@ -387,6 +518,7 @@ body {
 
 <div class="topbar">
   <h1>Lumix Field Cards</h1>
+  <div class="preview-badge" id="previewBadge">US PARKS 2026</div>
   <div class="camera-tabs" id="cameraTabs"></div>
 </div>
 
@@ -399,7 +531,8 @@ let currentCamera = 0;
 
 const ICONS = {
   'Mode dial': '🎛️', 'Focus lever': '🔀', 'Drive dial': '⚡', 'Drive': '⚡',
-  'Lens': '🔭', 'Lens IS switch': '📐', 'Flash: X3 trigger': '📡',
+  'Function Lever': '🎚️', 'Lens': '🔭', 'Lens IS switch': '📐', 'Support': '📸',
+  'Filter': '🕶️', 'Trigger': '📡', 'Audio': '🎙️', 'Flash: X3 trigger': '📡',
   'Flash: AD100Pro': '⚡', 'Flash: ML-CD15': '💡', 'Flash': '⚡',
   'default': '⚙️'
 };
@@ -409,6 +542,7 @@ function getIcon(item) { return ICONS[item] || ICONS['default']; }
 async function init() {
   const resp = await fetch('field-cards.json');
   data = await resp.json();
+  document.getElementById('previewBadge').textContent = data._metadata.status || 'FIELD REFERENCE';
   renderCameraTabs();
   renderModes();
   if ('serviceWorker' in navigator) {
@@ -419,7 +553,7 @@ async function init() {
 function renderCameraTabs() {
   const el = document.getElementById('cameraTabs');
   el.innerHTML = data.cameras.map((cam, i) =>
-    `<button class="camera-tab ${i === currentCamera ? 'active' : ''}" onclick="switchCamera(${i})">${cam.camera_short}</button>`
+    `<button type="button" class="camera-tab ${i === currentCamera ? 'active' : ''}" aria-pressed="${i === currentCamera}" onclick="switchCamera(${i})">${cam.camera_short}</button>`
   ).join('');
 }
 
@@ -432,15 +566,18 @@ function switchCamera(i) {
 
 function renderModes() {
   const cam = data.cameras[currentCamera];
-  document.getElementById('modeList').innerHTML = cam.modes.map((m, i) =>
-    `<div class="mode-item" data-color="${m.color}" onclick="openCard(${i})">
+  document.getElementById('modeList').innerHTML =
+    `<div class="camera-role"><strong>${cam.camera}</strong> · ${cam.role || ''}<br>Camera settings and values are shown in English.</div>` +
+    cam.modes.map((m, i) =>
+    `<button type="button" class="mode-item" data-color="${m.color}" onclick="openCard(${i})" aria-label="Open ${m.code}: ${m.name}">
       <div class="mode-code">${m.code}</div>
       <div class="mode-info">
         <div class="mode-name">${m.name}</div>
         <div class="mode-desc">${m.description}</div>
+        <div class="variant-count">${(m.alternatives || []).length} alternative${(m.alternatives || []).length === 1 ? '' : 's'}</div>
       </div>
       <div class="mode-arrow">›</div>
-    </div>`
+    </button>`
   ).join('');
 }
 
@@ -456,8 +593,16 @@ function closeCard() {
 }
 
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.dataset.tab === tab));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    const active = b.dataset.tab === tab;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-selected', active);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => {
+    const active = c.dataset.tab === tab;
+    c.classList.toggle('active', active);
+    c.hidden = !active;
+  });
 }
 
 function buildCard(m) {
@@ -465,10 +610,12 @@ function buildCard(m) {
   const b = m.back;
 
   // Physical setup rows
+  const physicalControlPattern = /mode dial|focus lever|drive|function lever|lens is switch|focus range selector|zoom limit|o\.i\.s\. switch/i;
   const setupHtml = f.physical_setup.map(s =>
     `<div class="setup-row">
       <div class="setup-icon">${getIcon(s.item)}</div>
       <div class="setup-detail">
+        ${physicalControlPattern.test(s.item) ? '<div class="physical-badge">PHYSICAL CONTROL</div>' : ''}
         <div class="setup-item">${s.item}</div>
         <div class="setup-value">${s.value}</div>
         ${s.note ? `<div class="setup-note">${s.note}</div>` : ''}
@@ -504,35 +651,66 @@ function buildCard(m) {
     ? `<div class="equip-notes">${b.equipment_notes.map(n => `<span class="equip-tag">${n}</span>`).join('')}</div>`
     : '';
 
+  const alternatives = m.alternatives || [];
+  const alternativesHtml = alternatives.length
+    ? alternatives.map(a => {
+        const changes = (a.changes || []).map(c =>
+          `<div class="alternative-change">
+            <div class="item">${physicalControlPattern.test(c.item) ? '<span class="physical-badge">PHYSICAL CONTROL</span><br>' : ''}${c.item}</div>
+            <div class="value">${c.value}</div>
+            ${c.note ? `<div class="note">${c.note}</div>` : ''}
+          </div>`
+        ).join('');
+        const warnings = (a.warnings || []).map(w =>
+          `<div class="alternative-warning">⚠️ ${w}</div>`
+        ).join('');
+        return `<div class="alternative-card">
+          <div class="alternative-name">${a.name}</div>
+          <div class="alternative-when"><strong>Quando usar:</strong> ${a.when}</div>
+          ${changes}
+          ${warnings}
+        </div>`;
+      }).join('')
+    : `<div class="empty-alternatives">No alternative configurations defined.</div>`;
+
   return `
     <div class="card-header color-${m.color}">
       <button class="back-btn" onclick="closeCard()">‹</button>
       <div class="card-title">
         <div class="code">${m.code}</div>
         <div class="name">${m.name}</div>
+        ${m.display_title ? `<div class="name">Camera title: ${m.display_title}</div>` : ''}
       </div>
     </div>
 
-    <div class="tab-bar">
-      <button class="tab-btn active" data-tab="front" onclick="switchTab('front')">Frente — No Campo</button>
-      <button class="tab-btn" data-tab="back" onclick="switchTab('back')">Verso — Referência</button>
+    <div class="tab-bar" role="tablist" aria-label="Card sections">
+      <button id="tab-front" class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-front" data-tab="front" onclick="switchTab('front')">In the Field</button>
+      <button id="tab-back" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-back" data-tab="back" onclick="switchTab('back')">Saved Settings</button>
+      <button id="tab-alternatives" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-alternatives" data-tab="alternatives" onclick="switchTab('alternatives')">Alternatives</button>
     </div>
 
-    <div class="tab-content active" data-tab="front">
+    <div id="panel-front" class="tab-content active" role="tabpanel" aria-labelledby="tab-front" data-tab="front">
       <div class="desc-banner">${m.description}</div>
-      <div class="section-label must">⚙️ Setup Físico — Verificar antes de fotografar</div>
+      <div class="section-label must">⚙️ Physical Controls &amp; Setup</div>
+      <div class="physical-intro"><strong>Set before shooting.</strong> A recalled Custom Mode cannot move a physical dial, lever or lens switch. Confirm every position shown below.</div>
       <div class="setup-list">${setupHtml}</div>
       <div class="section-label adjust">🎚️ Ajustar no Campo</div>
       <div class="setup-list">${adjustHtml}</div>
       ${equipHtml}
     </div>
 
-    <div class="tab-content" data-tab="back">
-      <div class="section-label settings">📋 Configurações Salvas (Software)</div>
+    <div id="panel-back" class="tab-content" role="tabpanel" aria-labelledby="tab-back" data-tab="back" hidden>
+      <div class="section-label settings">📋 Saved Settings</div>
       <table class="settings-table">${settingsHtml}</table>
       <div class="section-label hints">💡 Dicas de Campo</div>
       <div class="setup-list">${hintsHtml}</div>
       ${b.why ? `<div class="section-label why">📖 Por Que Estas Configurações?</div><div class="why-text">${b.why}</div>` : ''}
+    </div>
+
+    <div id="panel-alternatives" class="tab-content" role="tabpanel" aria-labelledby="tab-alternatives" data-tab="alternatives" hidden>
+      <div class="alternative-intro"><strong>Temporary field variants.</strong> Use only under the stated conditions. Do not overwrite the saved Custom Mode unless a calibrated change is explicitly approved.</div>
+      <div class="section-label alternatives">🔀 Alternative Configurations</div>
+      ${alternativesHtml}
     </div>
   `;
 }

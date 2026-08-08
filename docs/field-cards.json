@@ -1,799 +1,1047 @@
 {
   "_metadata": {
-    "description": "Field reference cards for all custom modes — structured for iPhone app consumption",
-    "version": "1.1",
-    "last_updated": "2026-04-05",
-    "card_format": "Each card has a FRONT (physical setup + field adjustments) and BACK (saved software settings + rationale + hints + educational text)",
-    "source": "Derived from camera-config-g9mki.json and camera-config-g9mkii.json"
+    "description": "Field reference for the US National Parks 2026 camera configuration",
+    "version": "2.0",
+    "last_updated": "2026-08-08",
+    "status": "US PARKS 2026",
+    "card_format": "Each mode separates physical setup, temporary field adjustments, saved settings, and alternative configurations",
+    "source": "guides/Camera-Mode-Redesign-US-Parks-2026.md"
   },
-
   "cameras": [
     {
       "camera": "Lumix G9 MkI",
       "camera_short": "G9",
+      "role": "Macro, portrait and general/street",
       "modes": [
         {
           "code": "C1",
           "color": "blue",
-          "name": "Street / General",
-          "description": "Walk-around photography. Markets, parks, towns, beaches. The 'pick up and shoot' mode.",
-
+          "name": "General / Street",
+          "description": "Modo de prontidão para viagem, rua, detalhes e paisagem ocasional sem preparação.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C1", "note": "" },
-              { "item": "Focus lever", "value": "AFS", "note": "front of camera, top position" },
-              { "item": "Drive dial", "value": "Single Shot", "note": "top-left dial, first position" }
+              {"item": "Mode dial", "value": "C1", "note": "mesmo significado nas duas câmeras"},
+              {"item": "Focus lever", "value": "AFS", "note": "back-button focus; Shutter AF Off"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "primeira posição"},
+              {"item": "Lens", "value": "12–35mm II", "note": "35–100mm II para detalhes mais fechados"},
+              {"item": "Function Lever", "value": "Mode 1", "note": "usa o Image Stabilizer salvo"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Rear dial", "value": "= Aperture", "note": "the ONLY thing you adjust" },
-              { "type": "tip", "text": "f/2.8-4 \u2192 blurs background, isolates subject" },
-              { "type": "tip", "text": "f/8-11 \u2192 everything sharp (street scenes, architecture)" },
-              { "type": "tip", "text": "Bright sun: close down (f/8+). Shade: open up (f/2.8-4)" },
-              { "type": "tip", "text": "Camera sets shutter speed automatically \u2014 just shoot" }
+              {"type": "dial", "item": "Rear dial", "value": "Aperture", "note": "f/5.6 é o ponto de partida"},
+              {"type": "dial", "item": "Exposure Compensation", "value": "As needed", "note": "volta a 0 após desligar porque Exposure Comp. Reset está On"},
+              {"type": "tip", "text": "Use f/2.8–4 para isolar; f/5.6–8 para cenas gerais."},
+              {"type": "warning", "text": "Com Min. Shtr Speed 1/125s, pouca luz elevará o Auto ISO mais cedo."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "A (Aperture)", "rationale": "You pick DoF; camera handles speed" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Adapts to light automatically" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Camera picks best focus point" },
-              { "param": "AF Detection", "value": "ON", "rationale": "Auto subject detection" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Standard stabilization" },
-              { "param": "Shutter Type", "value": "Auto (ESHTR)", "rationale": "Electronic 1st curtain \u2014 sharper" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Neutral, balanced look" },
-              { "param": "WB", "value": "AWB", "rationale": "Adapts to mixed lighting" },
-              { "param": "Metering", "value": "Multi", "rationale": "Evaluative, whole frame" },
-              { "param": "Flash", "value": "Forced OFF", "rationale": "Available light only" }
+              {"param": "Exposure Mode", "value": "A", "rationale": "controle rápido de profundidade de campo"},
+              {"param": "Aperture", "value": "f/5.6", "rationale": "baseline versátil"},
+              {"param": "ISO Sensitivity", "value": "AUTO", "rationale": "resposta imediata"},
+              {"param": "Min. Shtr Speed", "value": "1/125s", "rationale": "protege contra movimento de pessoas e câmera"},
+              {"param": "Focus Mode / AF Area", "value": "AFS / Full Area", "rationale": "uso geral simples"},
+              {"param": "Face/Eye Detection", "value": "Off", "rationale": "comportamento previsível fora de retratos"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "um quadro deliberado"},
+              {"param": "Image Stabilizer", "value": "On / Mode 1", "rationale": "uso handheld"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque e resposta natural"},
+              {"param": "Quality / Aspect Ratio", "value": "RAW / 4:3", "rationale": "sensor completo e flexibilidade"},
+              {"param": "Photo Style / WB / Metering", "value": "Standard / AWB / Multi", "rationale": "baseline neutro"}
             ],
             "hints": [
-              "Tap touchscreen to move AF point to your subject",
-              "If SS drops below 1/60 in the viewfinder, brace camera or open aperture",
-              "For quick candids, leave at f/5.6 \u2014 good all-around sharpness"
+              "Use C1 como posição normal enquanto a G9 MkI estiver com a 12–35mm II.",
+              "Para paisagem preparada, use os modos especializados da G9 MkII."
             ],
-            "why": "Aperture Priority: aperture is the creative decision (how much blur?) while shutter speed is just technical (fast enough to avoid shake). Control the one thing that matters, let the camera handle the rest. In good light the camera will never pick a bad shutter speed."
-          }
+            "why": "C1 privilegia disponibilidade. A câmera decide ISO e velocidade, mas não deixa a velocidade cair abaixo de 1/125s."
+          },
+          "alternatives": [
+            {
+              "name": "Tighter Travel Details",
+              "when": "Quando a 35–100mm II já estiver montada.",
+              "changes": [
+                {"item": "Lens", "value": "35–100mm II", "note": "nenhuma mudança de câmera"}
+              ],
+              "warnings": ["Continue em C1; não regrave o modo."]
+            }
+          ]
         },
-
         {
           "code": "C2",
-          "color": "blue",
-          "name": "Portrait / People",
-          "description": "People, environmental portraits, group photos. Face/eye detection does the hard work.",
-
+          "color": "purple",
+          "name": "Portrait",
+          "description": "Retratos, pessoas e grupos com prioridade para rosto e olhos.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C2", "note": "" },
-              { "item": "Focus lever", "value": "AFS", "note": "front of camera, top position" },
-              { "item": "Drive dial", "value": "Single Shot", "note": "top-left dial, first position" }
+              {"item": "Mode dial", "value": "C2", "note": "mesmo significado nas duas câmeras"},
+              {"item": "Focus lever", "value": "AFS", "note": "Face/Eye Detection ativo"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "baseline"},
+              {"item": "Lens", "value": "35–100mm II", "note": "12–35mm II para retrato ambiental"},
+              {"item": "Function Lever", "value": "Mode 1", "note": "Image Stabilizer On"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Rear dial", "value": "= Aperture", "note": "controls background blur (bokeh)" },
-              { "type": "tip", "text": "f/1.7-2.8 \u2192 creamy blur for individual portraits" },
-              { "type": "tip", "text": "f/5.6-8 \u2192 group photos (everyone in focus)" },
-              { "type": "tip", "text": "Camera detects faces/eyes automatically \u2014 trust the AF" },
-              { "type": "tip", "text": "Move your feet, don't zoom \u2014 step back for full body, closer for headshot" }
+              {"type": "dial", "item": "Rear dial", "value": "Aperture", "note": "f/2.8 baseline"},
+              {"type": "dial", "item": "Exposure Compensation", "value": "As needed", "note": "observe pele clara/escura"},
+              {"type": "tip", "text": "Confirme que o quadro de foco está no olho mais próximo."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "A (Aperture)", "rationale": "Aperture controls bokeh" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Adapts to light" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Finds faces across frame" },
-              { "param": "AF Detection", "value": "ON \u2014 Human", "rationale": "Face/eye detection active" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Standard stabilization" },
-              { "param": "Shutter Type", "value": "Auto (ESHTR)", "rationale": "Sharper, no vibration" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Balanced skin tones" },
-              { "param": "WB", "value": "AWB", "rationale": "Adapts to scene" },
-              { "param": "Metering", "value": "Multi", "rationale": "Evaluative metering" },
-              { "param": "Flash", "value": "Forced OFF", "rationale": "Natural light" }
+              {"param": "Exposure Mode", "value": "A", "rationale": "controle de separação do fundo"},
+              {"param": "Aperture", "value": "f/2.8", "rationale": "máxima abertura das zooms principais"},
+              {"param": "ISO Sensitivity", "value": "AUTO", "rationale": "acompanha a luz"},
+              {"param": "Min. Shtr Speed", "value": "1/125s", "rationale": "reduz desfoque por movimento"},
+              {"param": "Focus Mode / AF Area", "value": "AFS / Full Area", "rationale": "seleção simples com detecção"},
+              {"param": "Face/Eye Detection", "value": "On", "rationale": "prioriza o olho"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "retrato deliberado"},
+              {"param": "Image Stabilizer", "value": "On / Mode 1", "rationale": "uso handheld"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque"},
+              {"param": "Quality / Aspect Ratio", "value": "RAW / 4:3", "rationale": "máxima flexibilidade"},
+              {"param": "Photo Style / WB / Metering", "value": "Portrait / AWB / Multi", "rationale": "visual e medição apropriados"}
             ],
             "hints": [
-              "Open shade gives the most flattering light on faces",
-              "Check eyes are sharp after each shot \u2014 re-shoot if AF missed",
-              "Avoid direct overhead sun \u2014 causes harsh shadows under eyes/nose"
+              "35–100mm: comece entre 50 e 100mm para perspectiva natural.",
+              "Em grupos, feche para f/4–5.6 conforme o número de planos."
             ],
-            "why": "Face/eye detection locks onto eyes with remarkable accuracy. Wide apertures (f/1.7-2.8) separate the person from the background \u2014 the classic portrait look. For groups, close down to f/5.6-8 so everyone is in the focal plane."
-          }
+            "why": "O modo fixa o comportamento de detecção de pessoas, evitando que mudanças globais prejudiquem retratos."
+          },
+          "alternatives": [
+            {
+              "name": "Environmental Portrait",
+              "when": "Pessoa e ambiente precisam ter importância semelhante.",
+              "changes": [
+                {"item": "Lens", "value": "12–35mm II", "note": "aproxime-se sem usar a extremidade muito ampla no rosto"},
+                {"item": "Aperture", "value": "f/4–5.6", "note": "mais contexto em foco"}
+              ],
+              "warnings": ["Mudanças temporárias; não regrave C2."]
+            },
+            {
+              "name": "60mm Macro Portrait",
+              "when": "Retrato fechado e deliberado com a 60mm já montada.",
+              "changes": [
+                {"item": "Lens", "value": "Olympus 60mm Macro", "note": "mantenha C2 e autofocus"}
+              ],
+              "warnings": ["A lente é muito nítida; observe pele e distância de trabalho."]
+            }
+          ]
         },
-
         {
           "code": "C3-1",
-          "color": "blue",
-          "name": "Landscape",
-          "description": "Scenery, vistas, nature. Maximum sharpness across the entire frame.",
-
+          "color": "green",
+          "name": "Single Macro — TTL",
+          "description": "Macro handheld de um quadro com foco manual e a segurança de exposição TTL.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-1" },
-              { "item": "Focus lever", "value": "AFS", "note": "front of camera, top position" },
-              { "item": "Drive dial", "value": "Single Shot", "note": "top-left dial, first position" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-1 — Single Macro — TTL"},
+              {"item": "Lens", "value": "Olympus 60mm Macro", "note": "seletor de distância conforme o assunto"},
+              {"item": "Focus lever", "value": "MF", "note": "foco por rocking"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "um disparo"},
+              {"item": "Flash: X3 trigger", "value": "TTL / ±0", "note": "controla dois MF12"},
+              {"item": "Flash", "value": "2× MF12 + diffusers", "note": "montados no ring"},
+              {"item": "Function Lever", "value": "Mode 1", "note": "Image Stabilizer Mode 1"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Rear dial", "value": "= Aperture", "note": "controls depth of field across scene" },
-              { "type": "tip", "text": "f/8-11 \u2192 SWEET SPOT for MFT \u2014 sharpest landscapes" },
-              { "type": "tip", "text": "Never go past f/16 \u2014 diffraction softens the image" },
-              { "type": "tip", "text": "Focus 1/3 into the scene, NOT on the horizon" },
-              { "type": "tip", "text": "Golden hour (sunrise/sunset) = best landscape light" }
+              {"type": "dial", "item": "Focus", "value": "Rock body", "note": "dispare quando o detalhe crítico entra no peaking"},
+              {"type": "dial", "item": "Flash Adjust.", "value": "As needed", "note": "comece em ±0"},
+              {"type": "tip", "text": "Faça várias tentativas individuais; não espere reciclagem de burst em TTL."},
+              {"type": "warning", "text": "Constant Preview deve permanecer Off para manter a visualização útil antes do flash."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "A (Aperture)", "rationale": "You control DoF across scene" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Stays at ISO 200 in good light" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Tap screen to pick focus point" },
-              { "param": "AF Detection", "value": "OFF", "rationale": "No subject to detect in scenery" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Stabilized handheld" },
-              { "param": "Shutter Type", "value": "Auto (ESHTR)", "rationale": "Sharper at slow speeds" },
-              { "param": "Photo Style", "value": "Scenery", "rationale": "Enhanced greens, blues, contrast" },
-              { "param": "WB", "value": "AWB", "rationale": "Or set Daylight for golden hour" },
-              { "param": "Metering", "value": "Multi", "rationale": "Evaluative, whole frame" },
-              { "param": "Flash", "value": "Forced OFF", "rationale": "Natural light only" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "exposição ambiente e flash previsíveis"},
+              {"param": "Aperture / Shutter Speed", "value": "f/16 / 1/200s", "rationale": "profundidade e sincronismo"},
+              {"param": "ISO Sensitivity", "value": "200", "rationale": "qualidade e margem TTL"},
+              {"param": "Focus Mode", "value": "MF", "rationale": "rocking manual"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "TTL com reciclagem segura"},
+              {"param": "Flash Mode / Control", "value": "Forced Flash On / TTL", "rationale": "porto seguro de exposição"},
+              {"param": "Flash Adjust.", "value": "±0", "rationale": "ponto neutro"},
+              {"param": "Image Stabilizer", "value": "On / Mode 1", "rationale": "handheld"},
+              {"param": "Shutter Type", "value": "Mechanical", "rationale": "compatibilidade com flash"},
+              {"param": "Constant Preview", "value": "Off", "rationale": "EVF utilizável antes do flash"},
+              {"param": "Focus Peaking", "value": "On / LOW / RED", "rationale": "confirma o plano crítico"},
+              {"param": "Quality / Photo Style / WB", "value": "RAW / Natural / AWB", "rationale": "arquivo flexível e visual moderado"}
             ],
             "hints": [
-              "If shutter drops below 1/60, use tripod or brace firmly",
-              "Photo Style Scenery boosts colors \u2014 great for nature",
-              "Use 2s timer to avoid camera shake on tripod at slow speeds"
+              "O objetivo é um quadro com o plano crítico correto, não uma pilha.",
+              "Mantenha os dois MF12 com baterias igualmente carregadas."
             ],
-            "why": "Landscapes need front-to-back sharpness. On MFT sensors, f/8-11 gives deep DoF without diffraction softening (which starts past f/16). Focus 1/3 into the scene to maximize DoF coverage \u2014 not on the horizon."
-          }
+            "why": "TTL é priorizado aqui porque oferece exposição consistente quando a distância muda rapidamente."
+          },
+          "alternatives": [
+            {
+              "name": "TTL Recycle Relief",
+              "when": "Quando o indicador de reciclagem demora ou flashes começam a falhar.",
+              "changes": [
+                {"item": "ISO Sensitivity", "value": "400", "note": "reduz em um stop a energia necessária"},
+                {"item": "Aperture", "value": "f/11", "note": "opcional; reduz mais a demanda e a difração"}
+              ],
+              "warnings": ["Ajuste temporário para avaliação; não regrave o baseline antes do teste controlado."]
+            },
+            {
+              "name": "AD100Pro Off-Camera",
+              "when": "Assunto estático ou composição que permite luz lateral/segurada.",
+              "changes": [
+                {"item": "Flash", "value": "AD100Pro + X3", "note": "TTL primeiro; difusor adequado"}
+              ],
+              "warnings": ["Mais volume e menos agilidade que o par MF12."]
+            }
+          ]
         },
-
         {
           "code": "C3-2",
           "color": "green",
-          "name": "Macro + Flash",
-          "description": "Handheld close-ups: insects, frogs, snakes, lizards. Off-camera flash is the light source.",
-
+          "name": "Macro Burst — Manual Flash",
+          "description": "Rajada curta de 3–5 quadros para aumentar a chance de um plano crítico correto.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-2" },
-              { "item": "Focus lever", "value": "MF", "note": "front of camera, bottom position" },
-              { "item": "Drive dial", "value": "Single Shot", "note": "top-left dial, first position" },
-              { "item": "Lens", "value": "90mm f/3.5 IS PRO", "note": "or swap: 60mm f/2.8 for small insects" },
-              { "item": "Lens IS switch", "value": "ON", "note": "on the lens barrel" },
-              { "item": "Flash: X3 trigger", "value": "Mount on hot shoe", "note": "turn ON, check channel" },
-              { "item": "Flash: AD100Pro", "value": "Turn ON", "note": "match channel/group with X3" },
-              { "item": "Flash: ML-CD15", "value": "Attach to AD100Pro", "note": "diffuser \u2014 softer light" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-2 — Macro Burst — Manual Flash"},
+              {"item": "Lens", "value": "Olympus 60mm Macro", "note": "handheld"},
+              {"item": "Focus lever", "value": "MF", "note": "rocking manual"},
+              {"item": "Drive dial", "value": "Burst I", "note": "a posição física não é movida pelo Custom Mode"},
+              {"item": "Flash: X3 trigger", "value": "Manual", "note": "Groups A/B = 1:1"},
+              {"item": "Flash", "value": "2× MF12 at 1/32", "note": "diffusers instalados"},
+              {"item": "Function Lever", "value": "Mode 1", "note": "Image Stabilizer Mode 1"}
             ],
             "field_adjustments": [
-              { "type": "warning", "text": "DO NOT TOUCH camera dials \u2014 all exposure settings are FIXED" },
-              { "type": "dial", "item": "Flash power", "value": "Adjust on X3 only", "note": "start Manual 1/128" },
-              { "type": "tip", "text": "Too bright \u2192 lower X3 power. Too dark \u2192 raise X3 power" },
-              { "type": "tip", "text": "TTL works 0.5x-1x on MkI. Above 1x: switch X3 to M 1/128" },
-              { "type": "tip", "text": "Focus: rock your body in/out. Focus ring for coarse adjust" }
+              {"type": "dial", "item": "Burst length", "value": "3–5 frames", "note": "segure por cerca de 1.5–2.5s em L / 2 fps"},
+              {"type": "dial", "item": "Focus", "value": "Smooth rocking", "note": "atravesse o plano crítico durante a sequência"},
+              {"type": "tip", "text": "Sucesso significa ao menos um quadro forte; uma pilha tratável é apenas um bônus."},
+              {"type": "warning", "text": "Se um quadro não receber flash, pare: não aumente a taxa de burst."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Flash is the light; ambient irrelevant" },
-              { "param": "Aperture", "value": "f/16", "rationale": "Deep DoF for tiny subjects. Open to f/11 if focus is easy" },
-              { "param": "Shutter Speed", "value": "1/200s", "rationale": "Max flash sync speed" },
-              { "param": "ISO", "value": "200 (fixed)", "rationale": "Low noise; flash provides light" },
-              { "param": "Focus", "value": "MF", "rationale": "AF hunts at macro \u2014 rock to focus" },
-              { "param": "Shutter Type", "value": "Mechanical", "rationale": "Required for flash sync" },
-              { "param": "Flash", "value": "ON / TTL", "rationale": "Flash fires every shot" },
-              { "param": "Flash Adjust", "value": "0 EV", "rationale": "Fine-tune per session" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Helps frame while rocking" },
-              { "param": "Photo Style", "value": "Natural", "rationale": "Accurate nature colors" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "consistência entre quadros"},
+              {"param": "Aperture / Shutter Speed", "value": "f/16 / 1/200s", "rationale": "profundidade e sincronismo"},
+              {"param": "ISO Sensitivity", "value": "400", "rationale": "poupa um stop de potência do flash"},
+              {"param": "Focus Mode", "value": "MF", "rationale": "rocking manual"},
+              {"param": "Drive Mode", "value": "Burst I / L / 2 fps", "rationale": "cadência inicial compatível com reciclagem"},
+              {"param": "Flash Control", "value": "Manual / A+B 1:1 / 1/32 each", "rationale": "exposição e reciclagem consistentes"},
+              {"param": "Image Stabilizer", "value": "On / Mode 1", "rationale": "handheld"},
+              {"param": "Shutter Type", "value": "Mechanical", "rationale": "flash"},
+              {"param": "Constant Preview", "value": "Off", "rationale": "visualização clara"},
+              {"param": "Focus Peaking", "value": "On / LOW / RED", "rationale": "feedback de foco"},
+              {"param": "Quality / Photo Style / WB", "value": "RAW / Natural / AWB", "rationale": "flexibilidade"}
             ],
             "hints": [
-              "90mm = safer working distance (frogs, snakes). 60mm = more magnification (insects)",
-              "Flash fires at ~1/10000s \u2014 freezes all motion regardless of shutter speed",
-              "At 1:1, DoF at f/16 is ~1.5mm. If focusing is easy, open to f/11 for sharper results (less diffraction)"
+              "Se estiver subexposto, aumente ISO para 640 ou 800 antes de elevar o flash para 1/16.",
+              "Deixe o flash reciclar e observe se ambos os lados iluminam todos os quadros."
             ],
-            "why": "In flash macro, the flash IS the light system. Ambient is irrelevant \u2014 the flash fires at ~1/10000s, freezing motion and providing all illumination. Everything is fixed: f/16 for deep DoF, 1/200 for sync, ISO 200 for clean files. Open to f/11 when you can nail focus. The only variable is flash power, adjusted on the X3 trigger.",
-            "equipment_notes": ["90mm baseline | 60mm swap", "AD100Pro + X3 + ML-CD15"]
-          }
+            "why": "Manual flash elimina variação TTL e L / 2 fps dá prioridade à consistência dos 3–5 quadros."
+          },
+          "alternatives": [
+            {
+              "name": "Faster Burst Test",
+              "when": "Somente após o baseline L / 2 fps iluminar todos os quadros repetidamente.",
+              "changes": [
+                {"item": "Burst Shot Setting", "value": "M / 7 fps", "note": "teste, não baseline"},
+                {"item": "MF12 Power", "value": "1/32, then 1/64", "note": "compare consistência"}
+              ],
+              "warnings": ["Promova para baseline apenas se todos os quadros receberem flash em várias rajadas."]
+            },
+            {
+              "name": "Exposure Recovery",
+              "when": "Sequência consistente, mas subexposta.",
+              "changes": [
+                {"item": "ISO Sensitivity", "value": "640 or 800", "note": "primeiro ajuste"},
+                {"item": "MF12 Power", "value": "1/16", "note": "somente se elevar ISO não bastar"}
+              ],
+              "warnings": ["Não aumente potência se isso causar frames sem flash."]
+            }
+          ]
         },
-
         {
           "code": "C3-3",
-          "color": "red",
-          "name": "Wildlife / Action",
-          "description": "Birds, animals in motion. Continuous tracking, high-speed burst.",
-
+          "color": "green",
+          "name": "Supported Macro Focus Bracket",
+          "description": "Pilha automática de foco para assunto estático com câmera apoiada; modo de baixa prioridade.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-3" },
-              { "item": "Focus lever", "value": "AFC", "note": "front of camera, middle position" },
-              { "item": "Drive dial", "value": "Burst I (H)", "note": "top-left dial, burst position" },
-              { "item": "Lens", "value": "Lumix 35-100mm f/2.8", "note": "" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-3 — Supported Macro Focus Bracket"},
+              {"item": "Lens", "value": "Olympus 60mm Macro", "note": "assunto completamente estático"},
+              {"item": "Focus lever", "value": "MF", "note": "defina o ponto mais próximo necessário"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "a câmera executa a sequência"},
+              {"item": "Support", "value": "Tripod or firm surface", "note": "enquadramento fixo"},
+              {"item": "Flash: X3 trigger", "value": "TTL initially", "note": "teste de compatibilidade pendente"},
+              {"item": "Flash", "value": "2× MF12 + diffusers", "note": "baterias carregadas"},
+              {"item": "Function Lever", "value": "Mode 2", "note": "forces Image Stabilizer Off"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "open wider in shade for lower ISO" },
-              { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "raise for faster subjects" },
-              { "type": "tip", "text": "f/2.8 in shade (max light) \u2192 f/4-5.6 in bright sun" },
-              { "type": "tip", "text": "1/1000 baseline. Raise to 1/2000-1/4000 if enough light" },
-              { "type": "tip", "text": "Half-press and HOLD to track \u2014 AF locks on animal automatically" },
-              { "type": "tip", "text": "Zoom out slightly \u2014 crop later. In frame > missed entirely" },
-              { "type": "tip", "text": "Accept high ISO. Noisy sharp > clean blurry" }
+              {"type": "dial", "item": "Near focus point", "value": "Set manually", "note": "sequência 0/+ segue para o fundo"},
+              {"type": "tip", "text": "Antes de mover a câmera, confirme que os 40 quadros foram gravados e iluminados."},
+              {"type": "warning", "text": "Não use como expectativa de focus bracket handheld para insetos vivos."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Lock aperture + speed; ISO floats" },
-              { "param": "Aperture", "value": "f/2.8", "rationale": "Wide open for max light" },
-              { "param": "Shutter Speed", "value": "1/1000s", "rationale": "Freezes animal motion" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Camera adjusts exposure freely" },
-              { "param": "Min SS", "value": "1/1000s", "rationale": "Floor \u2014 won't go slower" },
-              { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Detects animals/birds" },
-              { "param": "AF Mode", "value": "Zone", "rationale": "Large tracking area" },
-              { "param": "Shutter Type", "value": "Electronic", "rationale": "Max burst speed, silent" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Standard stabilization" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Balanced processing" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "exposição fixa"},
+              {"param": "Aperture / Shutter Speed", "value": "f/8 / 1/200s", "rationale": "menos difração e demanda de flash"},
+              {"param": "ISO Sensitivity", "value": "400", "rationale": "reduz energia de flash"},
+              {"param": "Focus Mode", "value": "MF", "rationale": "ponto inicial preciso"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "sequência automática"},
+              {"param": "Focus Bracket", "value": "Step 2 / 40 images / 0/+", "rationale": "sobreposição conservadora"},
+              {"param": "Shutter Delay", "value": "2 SEC", "rationale": "assentamento do suporte"},
+              {"param": "Flash Control", "value": "TTL initially", "rationale": "primeiro teste de comunicação e reciclagem"},
+              {"param": "Image Stabilizer", "value": "Off", "rationale": "câmera apoiada"},
+              {"param": "Shutter Type", "value": "Mechanical", "rationale": "flash"},
+              {"param": "Constant Preview", "value": "Off", "rationale": "visualização clara"},
+              {"param": "Quality / Photo Style / WB", "value": "RAW / Natural / AWB", "rationale": "merge flexível"}
             ],
             "hints": [
-              "M + Auto ISO = 'wildlife triangle': lock aperture + speed, ISO floats",
-              "Zone AF gives generous tracking area \u2014 no need for surgical framing",
-              "Keep both eyes open to track subject outside the viewfinder"
+              "Faça merge real no Helicon Focus antes de considerar o modo aprovado.",
+              "f/8 e ISO 400 exigem teoricamente três stops menos energia que f/16 e ISO 200."
             ],
-            "why": "Manual + Auto ISO guarantees your two critical variables: f/2.8 for max light gathering, 1/1000s baseline for freezing motion. Raise to 1/2000+ if light allows. The camera just adjusts ISO. AFC + Animal Detection + Zone AF: camera recognizes animals, locks on, and tracks through the frame.",
-            "equipment_notes": ["Lens: Lumix 35-100mm f/2.8"]
-          }
+            "why": "A câmera apoiada elimina mudança de perspectiva; o focus bracket fornece profundidade sem depender de f/16–22."
+          },
+          "alternatives": [
+            {
+              "name": "Manual Flash Fallback",
+              "when": "TTL varia ou não acompanha os 40 quadros.",
+              "changes": [
+                {"item": "Flash Control", "value": "Manual", "note": "Groups A/B = 1:1"},
+                {"item": "MF12 Power", "value": "1/64 each", "note": "teste consistência e exposição"}
+              ],
+              "warnings": ["Não salve até que a sequência completa e o merge funcionem repetidamente."]
+            },
+            {
+              "name": "Continuous Light Fallback",
+              "when": "Sincronismo de flash continua falhando.",
+              "changes": [
+                {"item": "MF12 Modeling Lights", "value": "On", "note": "use como luz contínua"},
+                {"item": "Shutter Speed", "value": "Slower as required", "note": "tripod permite exposição longa"}
+              ],
+              "warnings": ["Assunto precisa permanecer totalmente imóvel."]
+            },
+            {
+              "name": "AD100Pro Off-Camera",
+              "when": "Há espaço para posicionar luz maior e difusa.",
+              "changes": [
+                {"item": "Flash", "value": "AD100Pro + X3", "note": "teste TTL e depois Manual em baixa potência"}
+              ],
+              "warnings": ["É uma alternativa de iluminação, não um baseline salvo."]
+            }
+          ]
         }
       ]
     },
-
     {
       "camera": "Lumix G9 MkII",
       "camera_short": "G9II",
+      "role": "Wildlife, landscape, lightning and wildlife video",
       "modes": [
         {
           "code": "C1",
           "color": "blue",
-          "name": "Street / General",
-          "description": "Walk-around photography. Markets, parks, towns, beaches. Point and shoot.",
-
+          "name": "General / Street",
+          "description": "Modo de prontidão para viagem e rua, idêntico operacionalmente ao C1 da G9 MkI.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C1", "note": "" },
-              { "item": "Focus lever", "value": "AFS", "note": "front of camera" },
-              { "item": "Drive mode", "value": "Single Shot", "note": "button + dial if needed" }
+              {"item": "Mode dial", "value": "C1", "note": "title: General / Street"},
+              {"item": "Focus lever", "value": "AFS", "note": "back-button focus"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "baseline"},
+              {"item": "Lens", "value": "12–35mm II", "note": "troca deliberada a partir da 100–400mm II"},
+              {"item": "Lens IS switch", "value": "On", "note": "normal handheld stabilization"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Rear dial", "value": "= Aperture", "note": "the ONLY thing you adjust" },
-              { "type": "tip", "text": "f/2.8-4 \u2192 blurs background, isolates subject" },
-              { "type": "tip", "text": "f/8-11 \u2192 everything sharp (street, architecture)" },
-              { "type": "tip", "text": "Bright sun: close down (f/8+). Shade: open up (f/2.8-4)" },
-              { "type": "tip", "text": "Camera sets shutter speed automatically \u2014 just shoot" }
+              {"type": "dial", "item": "Rear dial", "value": "Aperture", "note": "f/5.6 baseline"},
+              {"type": "dial", "item": "Exposure Compensation", "value": "As needed", "note": "temporário"},
+              {"type": "warning", "text": "Confirme AF Detection Setting Off; C1 não deve herdar Human Detection."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "A (Aperture)", "rationale": "You pick DoF; camera handles speed" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Adapts to light" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Camera picks best focus point" },
-              { "param": "AF Detection", "value": "ON", "rationale": "Auto subject detection" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Standard stabilization" },
-              { "param": "Shutter Type", "value": "Auto (ESHTR)", "rationale": "Electronic 1st curtain" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Neutral, balanced" },
-              { "param": "WB", "value": "AWB", "rationale": "Adapts to lighting" },
-              { "param": "Metering", "value": "Multi", "rationale": "Evaluative, whole frame" },
-              { "param": "Flash", "value": "Forced OFF", "rationale": "Available light only" }
+              {"param": "Exposure Mode / Aperture", "value": "A / f/5.6", "rationale": "uso geral"},
+              {"param": "ISO Sensitivity / Min. Shutter", "value": "AUTO / 1/125s", "rationale": "resposta com proteção de movimento"},
+              {"param": "Focus Mode / AF Area", "value": "AFS / Full Area", "rationale": "rápido e simples"},
+              {"param": "AF Detection Setting", "value": "Off", "rationale": "comportamento previsível"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "uso geral"},
+              {"param": "Image Stabilizer", "value": "On / Normal", "rationale": "handheld"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque"},
+              {"param": "Quality / Aspect Ratio", "value": "RAW / 4:3", "rationale": "máxima flexibilidade"},
+              {"param": "Photo Style / WB / Metering", "value": "Standard / AWB / Multi", "rationale": "baseline neutro"}
             ],
-            "hints": [
-              "Tap touchscreen to move AF point to your subject",
-              "Phase-detect AF on MkII is faster \u2014 more 'point and shoot' reliable",
-              "If SS drops below 1/60, brace camera or open aperture wider"
-            ],
-            "why": "Aperture Priority: control the one creative decision (blur vs. sharpness), let the camera handle speed and ISO. The G9II's phase-detect AF is faster and more accurate than the MkI, making this mode extremely reliable."
-          }
+            "hints": ["Use C1 apenas quando a lente adequada já estiver montada; a G9 MkII normalmente fica pronta para wildlife com a 100–400mm II."],
+            "why": "C1 mantém a mesma memória muscular nas duas câmeras."
+          },
+          "alternatives": [
+            {
+              "name": "Tighter Travel Details",
+              "when": "35–100mm II montada.",
+              "changes": [{"item": "Lens", "value": "35–100mm II", "note": "nenhuma mudança de câmera"}],
+              "warnings": ["Não regrave C1."]
+            }
+          ]
         },
-
         {
           "code": "C2",
-          "color": "blue",
-          "name": "Portrait / People",
-          "description": "People, environmental portraits, group photos. Face/eye detection.",
-
+          "color": "purple",
+          "name": "Portrait",
+          "description": "Retratos com Human Face/Eye Detection explicitamente salvo.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C2", "note": "" },
-              { "item": "Focus lever", "value": "AFS", "note": "front of camera" },
-              { "item": "Drive mode", "value": "Single Shot", "note": "button + dial if needed" }
+              {"item": "Mode dial", "value": "C2", "note": "title: Portrait"},
+              {"item": "Focus lever", "value": "AFS", "note": "Human Detection"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "baseline"},
+              {"item": "Lens", "value": "35–100mm II", "note": "12–35mm II para retrato ambiental"},
+              {"item": "Lens IS switch", "value": "On", "note": "normal handheld stabilization"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Rear dial", "value": "= Aperture", "note": "controls background blur (bokeh)" },
-              { "type": "tip", "text": "f/1.7-2.8 \u2192 creamy blur for individual portraits" },
-              { "type": "tip", "text": "f/5.6-8 \u2192 group photos (everyone in focus)" },
-              { "type": "tip", "text": "Camera detects faces/eyes automatically \u2014 trust the AF" },
-              { "type": "tip", "text": "Move your feet, don't zoom \u2014 step closer or farther" }
+              {"type": "dial", "item": "Rear dial", "value": "Aperture", "note": "f/2.8 baseline"},
+              {"type": "tip", "text": "Confirme o quadro no olho mais próximo."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "A (Aperture)", "rationale": "Aperture controls bokeh" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Adapts to light" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Finds faces across frame" },
-              { "param": "AF Detection", "value": "ON \u2014 Human", "rationale": "Face/eye detection" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Standard stabilization" },
-              { "param": "Shutter Type", "value": "Auto (ESHTR)", "rationale": "Sharper, no vibration" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Balanced skin tones" },
-              { "param": "WB", "value": "AWB", "rationale": "Adapts to scene" },
-              { "param": "Metering", "value": "Multi", "rationale": "Evaluative metering" },
-              { "param": "Flash", "value": "Forced OFF", "rationale": "Natural light" }
+              {"param": "Exposure Mode / Aperture", "value": "A / f/2.8", "rationale": "separação de fundo"},
+              {"param": "ISO Sensitivity / Min. Shutter", "value": "AUTO / 1/125s", "rationale": "proteção de movimento"},
+              {"param": "Focus Mode / AF Area", "value": "AFS / Full Area", "rationale": "detecção em toda a cena"},
+              {"param": "AF Detection Setting", "value": "On", "rationale": "salvo explicitamente"},
+              {"param": "Detecting Subject", "value": "HUMAN / Face/Eye", "rationale": "prioriza olhos"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "retrato deliberado"},
+              {"param": "Image Stabilizer", "value": "On / Normal", "rationale": "handheld"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque"},
+              {"param": "Quality / Photo Style / WB", "value": "RAW / Portrait / AWB", "rationale": "arquivo e visual de retrato"},
+              {"param": "Metering Mode", "value": "Multi", "rationale": "exposição equilibrada"}
             ],
-            "hints": [
-              "Open shade = most flattering portrait light",
-              "Check eyes are sharp after each shot \u2014 re-shoot if AF missed",
-              "Phase-detect AF on MkII locks eyes even at f/1.7 razor-thin DoF"
-            ],
-            "why": "The G9II's phase-detect AF with Human detection locks onto eyes with sub-second precision, even at wide apertures. Wide aperture separates person from background. For groups, close to f/5.6-8 so everyone is in the focal plane."
-          }
+            "hints": ["Feche para f/4–5.6 em grupos com pessoas em planos diferentes."],
+            "why": "Detection e Human ficam salvos explicitamente para impedir que uma mudança global altere C2."
+          },
+          "alternatives": [
+            {
+              "name": "Environmental Portrait",
+              "when": "Ambiente também precisa contar a história.",
+              "changes": [
+                {"item": "Lens", "value": "12–35mm II", "note": "evite distorção facial na extremidade ampla"},
+                {"item": "Aperture", "value": "f/4–5.6", "note": "mais ambiente nítido"}
+              ],
+              "warnings": ["Mudanças temporárias; não regrave C2."]
+            },
+            {
+              "name": "60mm Macro Portrait",
+              "when": "Retrato fechado com a 60mm já montada.",
+              "changes": [{"item": "Lens", "value": "Olympus 60mm Macro", "note": "mantenha AFS Human Face/Eye"}],
+              "warnings": ["Observe distância de trabalho e nitidez de pele."]
+            }
+          ]
         },
-
         {
           "code": "C3-1",
-          "color": "blue",
-          "name": "Landscape",
-          "description": "Scenery, vistas, nature. Maximum sharpness, enhanced colors.",
-
+          "color": "red",
+          "name": "Stationary / Slow Wildlife",
+          "display_title": "Slow / Still Wildlife",
+          "description": "Base de prontidão para animais parados, pastando ou caminhando lentamente; também é a base dos teleconversores.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-1" },
-              { "item": "Focus lever", "value": "AFS", "note": "front of camera" },
-              { "item": "Drive mode", "value": "Single Shot", "note": "button + dial if needed" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-1 — Slow / Still Wildlife"},
+              {"item": "Lens", "value": "Leica 100–400mm II", "note": "normalmente montada"},
+              {"item": "Focus lever", "value": "AFC", "note": "Animal Detection"},
+              {"item": "Drive dial", "value": "Burst I", "note": "H speed is saved; use short controlled bursts"},
+              {"item": "Lens IS switch", "value": "On", "note": "Mode 1 para tracking ativo"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Rear dial", "value": "= Aperture", "note": "controls depth of field" },
-              { "type": "tip", "text": "f/8-11 \u2192 SWEET SPOT \u2014 sharpest landscapes on MFT" },
-              { "type": "tip", "text": "Never go past f/16 \u2014 diffraction softens the image" },
-              { "type": "tip", "text": "Focus 1/3 into the scene, NOT on the horizon" },
-              { "type": "tip", "text": "Golden hour (sunrise/sunset) = best landscape light" }
+              {"type": "dial", "item": "Shutter Speed", "value": "1/500s baseline", "note": "suba se o movimento aumentar"},
+              {"type": "dial", "item": "Aperture", "value": "Maximum available", "note": "f/6.3 a 400mm sem TC"},
+              {"type": "tip", "text": "Use rajadas curtas; deixe a câmera acompanhar o olho/corpo do animal."},
+              {"type": "warning", "text": "Se a ação acelerar, mude para C3-2 em vez de alterar e salvar C3-1."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "A (Aperture)", "rationale": "You control DoF" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Stays at ISO 200 in good light" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Tap screen for focus point" },
-              { "param": "AF Detection", "value": "OFF", "rationale": "No subject to detect" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Stabilized handheld" },
-              { "param": "Shutter Type", "value": "Auto (ESHTR)", "rationale": "Sharper at slow speeds" },
-              { "param": "Photo Style", "value": "Scenery", "rationale": "Enhanced greens, blues" },
-              { "param": "WB", "value": "AWB", "rationale": "Or set Daylight for golden hour" },
-              { "param": "Metering", "value": "Multi", "rationale": "Evaluative, whole frame" },
-              { "param": "Flash", "value": "Forced OFF", "rationale": "Natural light" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "movimento e profundidade fixos"},
+              {"param": "Aperture / Shutter Speed", "value": "f/6.3 at 400mm / 1/500s", "rationale": "reduz ISO para movimento moderado"},
+              {"param": "ISO Sensitivity", "value": "AUTO", "rationale": "acompanha luz variável"},
+              {"param": "Focus Mode / AF Area", "value": "AFC / Zone", "rationale": "aquisição estável"},
+              {"param": "AF Detection / Subject", "value": "On / ANIMAL", "rationale": "olho/corpo de fauna"},
+              {"param": "AF Custom Setting (Photo)", "value": "Set 1", "rationale": "baseline equilibrado"},
+              {"param": "Drive Mode", "value": "Burst I / H", "rationale": "sequência útil sem SH permanente"},
+              {"param": "Shutter Type", "value": "Electronic", "rationale": "burst silencioso e rápido"},
+              {"param": "Image Stabilizer", "value": "Mode 1", "rationale": "movimento geral"},
+              {"param": "Quality / Style / WB / Metering", "value": "RAW / Standard / AWB / Multi", "rationale": "flexibilidade"}
             ],
             "hints": [
-              "If shutter drops below 1/60, use tripod or brace firmly",
-              "Scenery photo style boosts greens and blues for nature",
-              "25MP sensor captures excellent detail at f/8-11"
+              "É o modo inicial quando a possibilidade de wildlife existe, mas a ação ainda não começou.",
+              "Moon photography é uma variação deste modo, não um Custom Mode separado."
             ],
-            "why": "On MFT, f/8-11 gives deep DoF without diffraction (starts at f/16). Focus 1/3 into the scene for maximum DoF coverage. AF Detection OFF because you're focusing on a distance, not a subject. Scenery style enhances landscape colors."
-          }
+            "why": "1/500s devolve um stop de ISO em relação ao modo Action sem abandonar proteção contra movimento lento."
+          },
+          "alternatives": [
+            {
+              "name": "DMW-TC14 1.4× — Default TC",
+              "when": "Animal parado ou lento; luz moderada/boa; mais alcance realmente necessário.",
+              "changes": [
+                {"item": "Lens setup", "value": "100–400mm II + DMW-TC14", "note": "actual 294–560mm; FF equivalent 588–1120mm"},
+                {"item": "Light loss", "value": "1 stop", "note": "aprox. f/9 no extremo longo"},
+                {"item": "Camera mode", "value": "Keep C3-1", "note": "sem mudança salva"},
+                {"item": "Aperture", "value": "Maximum available", "note": "a câmera ajusta automaticamente"},
+                {"item": "ZOOM LIMIT", "value": "ON", "note": "obrigatório antes de instalar"}
+              ],
+              "warnings": ["Gire a lente para pelo menos 250mm antes de instalar; não force abaixo do limite nativo de 210mm."]
+            },
+            {
+              "name": "DMW-TC20 2× — Tripod",
+              "when": "Animal parado/lento, boa luz, tripod disponível e ar sem haze ou heat distortion forte.",
+              "changes": [
+                {"item": "Lens setup", "value": "100–400mm II + DMW-TC20", "note": "actual 420–800mm; FF equivalent 840–1600mm"},
+                {"item": "Light loss", "value": "2 stops", "note": "aprox. f/13 no extremo longo"},
+                {"item": "Camera mode", "value": "Keep C3-1", "note": "1/500s e Auto ISO"},
+                {"item": "Support", "value": "Tripod", "note": "normalmente necessário"},
+                {"item": "ZOOM LIMIT", "value": "ON", "note": "obrigatório antes de instalar"}
+              ],
+              "warnings": ["Não use C3-2 ou C3-3 rotineiramente com o 2×.", "Não force o zoom abaixo do limite nativo de 210mm."]
+            },
+            {
+              "name": "Locked Tripod",
+              "when": "Cabeça travada e composição fixa.",
+              "changes": [{"item": "Lens O.I.S. switch", "value": "Off", "note": "tripod completamente estável"}],
+              "warnings": ["Com cabeça solta, gimbal ou tracking ativo, mantenha O.I.S. On e Mode 1."]
+            },
+            {
+              "name": "Distant Subject / Clutter",
+              "when": "Animal distante ou AF capturando galhos.",
+              "changes": [
+                {"item": "Focus range selector", "value": "5m–∞", "note": "melhora velocidade para assunto distante"},
+                {"item": "AF Area", "value": "1-Area", "note": "temporário se Zone pegar foreground"}
+              ],
+              "warnings": ["Volte para Zone depois; não regrave C3-1."]
+            },
+            {
+              "name": "Moon",
+              "when": "Lua com tripod e 100–400mm II, com ou sem TC conforme as condições.",
+              "changes": [
+                {"item": "Support", "value": "Tripod", "note": "use temporizador ou disparo remoto"},
+                {"item": "Lens O.I.S. switch", "value": "Off", "note": "cabeça travada"},
+                {"item": "Exposure", "value": "Adjust manually", "note": "a Lua é muito mais clara que o céu"}
+              ],
+              "warnings": ["Confirme foco e highlights; não existe baseline lunar salvo."]
+            }
+          ]
         },
-
         {
           "code": "C3-2",
-          "color": "green",
-          "name": "Macro + Flash",
-          "description": "Handheld close-ups: insects, frogs, small creatures. Off-camera flash.",
-
+          "color": "red",
+          "name": "Wildlife Action",
+          "description": "Animais em movimento previsível: caminhar rápido, correr moderadamente, alimentação ativa.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-2" },
-              { "item": "Focus lever", "value": "MF", "note": "front of camera, bottom position" },
-              { "item": "Drive mode", "value": "Single Shot", "note": "" },
-              { "item": "Lens", "value": "Olympus 60mm f/2.8", "note": "Costa Rica baseline" },
-              { "item": "Flash: X3 trigger", "value": "Mount on hot shoe", "note": "turn ON, check channel" },
-              { "item": "Flash: AD100Pro", "value": "Turn ON", "note": "match channel/group" },
-              { "item": "Flash: ML-CD15", "value": "Attach to AD100Pro", "note": "diffuser" },
-              { "item": "Const Preview", "value": "Verify OFF", "note": "MENU \u2014 or EVF goes BLACK" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-2 — Wildlife Action"},
+              {"item": "Lens", "value": "Leica 100–400mm II", "note": "sem TC como baseline"},
+              {"item": "Focus lever", "value": "AFC", "note": "Animal Detection"},
+              {"item": "Drive dial", "value": "Burst I", "note": "H speed is saved; use short bursts"},
+              {"item": "Lens IS switch", "value": "On", "note": "Mode 1"}
             ],
             "field_adjustments": [
-              { "type": "warning", "text": "DO NOT TOUCH camera dials \u2014 all exposure settings are FIXED" },
-              { "type": "dial", "item": "Flash power", "value": "Adjust on X3 only", "note": "Manual mode, start 1/128" },
-              { "type": "tip", "text": "TTL OVEREXPOSES on MkII \u2014 always use X3 in Manual mode" },
-              { "type": "tip", "text": "Too bright \u2192 lower power. Too dark \u2192 raise power" },
-              { "type": "tip", "text": "Focus: rock your body in/out. Focus ring for coarse adjust" }
+              {"type": "dial", "item": "Shutter Speed", "value": "1/1000s baseline", "note": "mantenha para ação geral"},
+              {"type": "tip", "text": "Pré-enquadre espaço na direção do movimento."},
+              {"type": "warning", "text": "Para movimento errático ou muito rápido, mude para C3-3."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Flash is the light" },
-              { "param": "Aperture", "value": "f/16", "rationale": "Deep DoF for tiny subjects. Open to f/11 if focus is easy" },
-              { "param": "Shutter Speed", "value": "1/200s", "rationale": "Max flash sync speed" },
-              { "param": "ISO", "value": "200 (fixed)", "rationale": "Low noise; flash provides light" },
-              { "param": "Focus", "value": "MF", "rationale": "Rock to focus at macro distance" },
-              { "param": "Shutter Type", "value": "Mechanical", "rationale": "Required for flash sync" },
-              { "param": "Flash", "value": "ON / TTL", "rationale": "Flash fires every shot" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Helps frame while rocking" },
-              { "param": "Const Preview", "value": "OFF", "rationale": "MkII EVF goes black with flash" },
-              { "param": "Photo Style", "value": "Natural", "rationale": "Accurate nature colors" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "controle de ação"},
+              {"param": "Aperture / Shutter Speed", "value": "f/6.3 at 400mm / 1/1000s", "rationale": "ação geral"},
+              {"param": "ISO Sensitivity", "value": "AUTO", "rationale": "luz variável"},
+              {"param": "Focus Mode / AF Area", "value": "AFC / Zone", "rationale": "tracking controlado"},
+              {"param": "AF Detection / Subject", "value": "On / ANIMAL", "rationale": "fauna"},
+              {"param": "AF Custom Setting (Photo)", "value": "Set 1", "rationale": "baseline"},
+              {"param": "Drive Mode", "value": "Burst I / H", "rationale": "sequências úteis"},
+              {"param": "Shutter Type", "value": "Electronic", "rationale": "velocidade"},
+              {"param": "Image Stabilizer", "value": "Mode 1", "rationale": "movimento multidirecional moderado"},
+              {"param": "Quality / Style / WB / Metering", "value": "RAW / Standard / AWB / Multi", "rationale": "flexibilidade"}
             ],
-            "hints": [
-              "TTL overexposes because metering sees dark background and overcompensates",
-              "Constant Preview simulates ambient in M mode \u2014 near-black with flash as main light",
-              "This issue does NOT exist on the MkI \u2014 its preview doesn't fully simulate M mode"
-            ],
-            "why": "MkII CRITICAL: TTL overexposes at all macro distances. Use Manual 1/128 on X3. Constant Preview MUST be OFF \u2014 MkII simulates ambient exposure in EVF, which is near-zero when flash is the main light. Flash fires at ~1/10000s, freezing all motion.",
-            "equipment_notes": ["Lens: 60mm baseline", "AD100Pro + X3 + ML-CD15"]
-          }
+            "hints": ["Use C3-1 se o animal parar; economiza um stop de ISO."],
+            "why": "É o degrau intermediário entre prontidão e ação errática."
+          },
+          "alternatives": [
+            {
+              "name": "DMW-TC14 1.4× — Strong Light Only",
+              "when": "Ação real, luz forte e Auto ISO ainda aceitável.",
+              "changes": [
+                {"item": "Lens setup", "value": "100–400mm II + DMW-TC14", "note": "actual 294–560mm"},
+                {"item": "Camera mode", "value": "Keep C3-2", "note": "1/1000s"},
+                {"item": "ZOOM LIMIT", "value": "ON", "note": "instale com zoom em pelo menos 250mm"}
+              ],
+              "warnings": ["Se ISO subir demais ou AF piorar, volte a C3-1 ou retire o TC.", "DMW-TC20 não é recomendado neste modo."]
+            },
+            {
+              "name": "Foreground Clutter",
+              "when": "Zone AF insiste em galhos ou capim.",
+              "changes": [{"item": "AF Area", "value": "1-Area", "note": "temporário pelo Q.Menu"}],
+              "warnings": ["Volte para Zone quando o assunto estiver livre."]
+            }
+          ]
         },
-
         {
           "code": "C3-3",
           "color": "red",
-          "name": "Wildlife / Action",
-          "description": "Birds, animals in motion. Continuous tracking, high-speed burst.",
-
+          "name": "Fast / Erratic Wildlife",
+          "display_title": "Fast / Erratic Wild",
+          "description": "Aves em voo, mamíferos correndo e movimento rápido ou imprevisível.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-3" },
-              { "item": "Focus lever", "value": "AFC", "note": "front of camera, middle position" },
-              { "item": "Drive mode", "value": "Burst I (H)", "note": "high-speed burst" },
-              { "item": "Lens", "value": "Leica 100-400mm", "note": "f/4-6.3" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-3 — Fast / Erratic Wild"},
+              {"item": "Lens", "value": "Leica 100–400mm II", "note": "sem TC como regra"},
+              {"item": "Focus lever", "value": "AFC", "note": "Animal Detection + Tracking"},
+              {"item": "Drive dial", "value": "Burst I", "note": "H speed is saved; use disciplined bursts"},
+              {"item": "Lens IS switch", "value": "On", "note": "camera IS Mode 2 para panning horizontal"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "open wider in shade for less noise" },
-              { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "raise for faster subjects" },
-              { "type": "tip", "text": "f/6.3 at 400mm (max). Open wider at shorter focal lengths" },
-              { "type": "tip", "text": "1/1000 baseline. Raise to 1/2000-1/4000 if enough light" },
-              { "type": "tip", "text": "Half-press and HOLD to track \u2014 AF locks on animal" },
-              { "type": "tip", "text": "Zoom out slightly \u2014 crop later. In frame > missed" },
-              { "type": "tip", "text": "Accept high ISO. Noisy sharp > clean blurry" }
+              {"type": "dial", "item": "Shutter Speed", "value": "1/4000s baseline", "note": "alto custo de ISO aceito para congelar"},
+              {"type": "tip", "text": "Use Fn1 AF-ON: Near Shift se o foco saltar para o fundo."},
+              {"type": "warning", "text": "Mode 2 é para panning esquerda/direita; use C3-2 para ação menos errática."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Lock aperture + speed; ISO floats" },
-              { "param": "Aperture", "value": "f/6.3", "rationale": "Matched to lens max at 400mm" },
-              { "param": "Shutter Speed", "value": "1/1000s", "rationale": "Freezes animal motion" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Camera adjusts" },
-              { "param": "Min SS", "value": "1/1000s", "rationale": "Floor \u2014 won't go slower" },
-              { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Detects animals/birds" },
-              { "param": "AF Mode", "value": "Zone", "rationale": "Large tracking area" },
-              { "param": "Shutter Type", "value": "Electronic", "rationale": "Max burst fps" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Standard stabilization" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Balanced processing" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "velocidade fixa"},
+              {"param": "Aperture / Shutter Speed", "value": "f/6.3 at 400mm / 1/4000s", "rationale": "congela ação muito rápida"},
+              {"param": "ISO Sensitivity", "value": "AUTO", "rationale": "absorve variação de luz"},
+              {"param": "Focus Mode / AF Area", "value": "AFC / Tracking", "rationale": "trajetória errática"},
+              {"param": "AF Detection / Subject", "value": "On / ANIMAL", "rationale": "fauna"},
+              {"param": "Drive Mode", "value": "Burst I / H", "rationale": "captura sequência"},
+              {"param": "Shutter Type", "value": "Electronic", "rationale": "velocidade"},
+              {"param": "Image Stabilizer", "value": "Mode 2", "rationale": "panning horizontal"},
+              {"param": "Quality / Style / WB / Metering", "value": "RAW / Standard / AWB / Multi", "rationale": "flexibilidade"}
             ],
-            "hints": [
-              "Phase-detect AF on MkII recognizes birds/animals by shape, locks on eyes",
-              "Zone AF gives generous area \u2014 no surgical framing needed in the heat of action",
-              "M + Auto ISO = 'wildlife triangle': lock aperture + speed, ISO compensates"
-            ],
-            "why": "f/6.3 matches the Leica 100-400's max at 400mm. M + Auto ISO: lock both critical variables (aperture for light, speed for freezing), let ISO float. Phase-detect AF with Animal Detection tracks through the frame automatically.",
-            "equipment_notes": ["Lens: Leica 100-400mm f/4-6.3"]
-          }
+            "hints": ["C3-3 é deliberadamente caro em ISO; não o deixe como modo universal de wildlife."],
+            "why": "Tracking, 1/4000s e Mode 2 formam o extremo rápido da sequência progressiva."
+          },
+          "alternatives": [
+            {
+              "name": "Teleconverter Rule",
+              "when": "Quando surge a tentação de adicionar alcance.",
+              "changes": [{"item": "Teleconverter", "value": "Avoid routinely", "note": "prefira lente sem TC"}],
+              "warnings": ["1/4000s com f/9 ou f/13 impõe custo severo de ISO e pode reduzir AF."]
+            },
+            {
+              "name": "Less Extreme Action",
+              "when": "Movimento rápido, mas não errático o suficiente para exigir 1/4000s.",
+              "changes": [{"item": "Camera mode", "value": "Switch to C3-2", "note": "1/1000s, Zone, Mode 1"}],
+              "warnings": ["Mude de Custom Mode; não altere e regrave C3-3."]
+            }
+          ]
         },
-
         {
           "code": "C3-4",
-          "color": "green",
-          "name": "Tripod Macro Stack",
-          "description": "Focus bracketing on tripod. Multiple shots merged in post for full sharpness.",
-
+          "color": "blue",
+          "name": "Standard Handheld Landscape",
+          "display_title": "Handheld Landscape",
+          "description": "Paisagem normal sem tripod, para quando há tempo de trocar a lente mas não de montar suporte.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-4" },
-              { "item": "Focus lever", "value": "MF", "note": "front of camera, bottom position" },
-              { "item": "Drive mode", "value": "Single Shot", "note": "" },
-              { "item": "Lens", "value": "90mm f/3.5 Macro", "note": "MC-20 is field variant" },
-              { "item": "Tripod", "value": "REQUIRED", "note": "camera must be rock-steady" },
-              { "item": "Flash: X3 trigger", "value": "Mount on hot shoe", "note": "turn ON" },
-              { "item": "Flash: AD100Pro", "value": "Turn ON", "note": "match channel/group" },
-              { "item": "Bracket settings", "value": "My Menu #6", "note": "set step + frame count" },
-              { "item": "Const Preview", "value": "Verify OFF", "note": "or EVF goes BLACK" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-4 — Handheld Landscape"},
+              {"item": "Lens", "value": "12–35mm II", "note": "24–70mm FF equivalent"},
+              {"item": "Focus lever", "value": "AFS", "note": "Detection Off"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "handheld"},
+              {"item": "Lens IS switch", "value": "On", "note": "normal stabilization"}
             ],
             "field_adjustments": [
-              { "type": "tip", "text": "Focus on the NEAREST point of the subject before starting" },
-              { "type": "dial", "item": "Flash power", "value": "Adjust on X3", "note": "start 1/128, raise if dark" },
-              { "type": "tip", "text": "Don't touch camera after pressing shutter \u2014 2s delay" },
-              { "type": "tip", "text": "~2 fps mechanical shutter \u2014 5 frames takes ~3 sec (hardware limit)" },
-              { "type": "tip", "text": "Stack in software after \u2014 camera captures the raw frames" }
+              {"type": "dial", "item": "Rear dial", "value": "Aperture", "note": "f/8 baseline"},
+              {"type": "dial", "item": "Polarizer", "value": "Rotate to taste", "note": "observe céu, reflexos e perda de luz"},
+              {"type": "warning", "text": "Verifique a velocidade escolhida pela câmera; aumente ISO se ficar lenta demais para handheld."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "All fixed; flash is the light" },
-              { "param": "Aperture", "value": "f/8", "rationale": "Sharper per-frame; stacking adds DoF" },
-              { "param": "Shutter Speed", "value": "1/200s", "rationale": "Max flash sync speed" },
-              { "param": "ISO", "value": "400 (fixed)", "rationale": "Consistent exposure across stack" },
-              { "param": "Shutter Type", "value": "Mechanical", "rationale": "Required for flash" },
-              { "param": "Flash", "value": "ON / TTL", "rationale": "Flash fires each frame" },
-              { "param": "IS", "value": "OFF", "rationale": "IS causes micro-shifts on tripod" },
-              { "param": "Bracketing", "value": "Focus Bracket ON", "rationale": "Camera shifts focus each frame" },
-              { "param": "Shutter Delay", "value": "2s", "rationale": "Eliminates press vibration" },
-              { "param": "Const Preview", "value": "OFF", "rationale": "MkII flash/EVF issue" },
-              { "param": "i.Dynamic", "value": "OFF", "rationale": "Prevents per-frame differences" }
+              {"param": "Exposure Mode / Aperture", "value": "A / f/8", "rationale": "nitidez e profundidade"},
+              {"param": "ISO Sensitivity", "value": "AUTO", "rationale": "handheld flexível"},
+              {"param": "Focus Mode", "value": "AFS", "rationale": "cena estática"},
+              {"param": "AF Detection Setting", "value": "Off", "rationale": "paisagem"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "captura simples"},
+              {"param": "Image Stabilizer", "value": "On / Normal", "rationale": "handheld"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque"},
+              {"param": "Quality / Aspect Ratio", "value": "RAW / 4:3", "rationale": "sensor completo"},
+              {"param": "Photo Style / WB / Metering", "value": "Landscape / AWB / Multi", "rationale": "paisagem geral"}
             ],
-            "hints": [
-              "f/8 (not f/11): sharper individual frames \u2014 stacking provides the depth",
-              "IS OFF on tripod: stabilizer micro-corrections shift frames out of alignment",
-              "NOT for Costa Rica trip \u2014 tripod macro is a studio/controlled technique"
-            ],
-            "why": "Focus stacking: multiple shots at different focus distances, merged for full sharpness. At 1:1, f/8 gives ~0.5mm DoF per frame. f/8 over f/11 for sharper frames \u2014 stacking adds depth. IS OFF prevents micro-shifts.",
-            "equipment_notes": ["90mm f/3.5 (MC-20 variant)", "NOT for Costa Rica"]
-          }
+            "hints": ["Este é o modo de paisagem mais flexível e com menor preparação."],
+            "why": "Aperture Priority e estabilização ativa permitem trabalhar rapidamente enquanto f/8 permanece como baseline."
+          },
+          "alternatives": [
+            {
+              "name": "Polarizer",
+              "when": "Reduzir reflexos em água/folhas ou aumentar separação do céu.",
+              "changes": [
+                {"item": "Filter", "value": "CPL", "note": "gire observando o efeito no EVF"},
+                {"item": "ISO / Shutter", "value": "Monitor", "note": "o CPL reduz luz"}
+              ],
+              "warnings": ["Em grande angular, o céu pode ficar desigual; reduza o efeito se parecer artificial."]
+            },
+            {
+              "name": "Telephoto Landscape",
+              "when": "Comprimir planos ou isolar detalhes distantes.",
+              "changes": [{"item": "Lens", "value": "35–100mm II or 100–400mm II", "note": "mantenha C3-4"}],
+              "warnings": ["Haze e heat distortion podem limitar detalhe em longas distâncias."]
+            }
+          ]
         },
-
         {
           "code": "C3-5",
-          "color": "red",
-          "name": "Birds + Crop Zoom",
-          "description": "Extra reach for distant birds. Digital 2x crop = 800mm equivalent at 400mm.",
-
+          "color": "blue",
+          "name": "Tripod HDR Landscape",
+          "description": "Cinco exposições RAW para merge HDR; sempre usar tripod e sempre planejar o merge.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-5" },
-              { "item": "Focus lever", "value": "AFC", "note": "front of camera, middle position" },
-              { "item": "Drive mode", "value": "Burst I (H)", "note": "high-speed burst" },
-              { "item": "Lens", "value": "Leica 100-400mm", "note": "f/4-6.3" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-5 — Tripod HDR Landscape"},
+              {"item": "Lens", "value": "12–35mm II", "note": "composição e horizonte"},
+              {"item": "Support", "value": "Tripod", "note": "cabeça travada"},
+              {"item": "Focus lever", "value": "AFS", "note": "Detection Off"},
+              {"item": "Lens IS switch", "value": "Off", "note": "camera IS Off"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "Exposure Bracket is saved in the camera menu"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "same as C3-3" },
-              { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "same as C3-3" },
-              { "type": "tip", "text": "Use zoom lever to engage Crop Zoom (up to 2.0x)" },
-              { "type": "tip", "text": "400mm + 2.0x crop = 800mm MFT equivalent \u2014 extreme reach" },
-              { "type": "tip", "text": "JPEG ONLY \u2014 no RAW available with Crop Zoom" },
-              { "type": "tip", "text": "Same shooting technique as C3-3: half-press, track, burst" }
+              {"type": "dial", "item": "Aperture", "value": "f/8 baseline", "note": "mude apenas por necessidade de DoF"},
+              {"type": "tip", "text": "Cheque o histograma do conjunto: o quadro -2 protege highlights e o +2 abre sombras."},
+              {"type": "warning", "text": "O objetivo é sempre fazer merge dos cinco RAW; não trate como seletor de uma exposição."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Lock aperture + speed; ISO floats" },
-              { "param": "Aperture", "value": "f/6.3", "rationale": "Matched to lens max at 400mm" },
-              { "param": "Shutter Speed", "value": "1/1000s", "rationale": "Freezes bird motion. Raise if light allows" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Camera adjusts" },
-              { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Bird detection" },
-              { "param": "AF Mode", "value": "Zone", "rationale": "Large tracking area" },
-              { "param": "Shutter Type", "value": "Electronic", "rationale": "Max fps" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Stabilization" },
-              { "param": "Quality", "value": "FINE (JPEG)", "rationale": "Crop Zoom requires JPEG" },
-              { "param": "Crop Zoom", "value": "ON (max 2.0x)", "rationale": "Digital magnification" }
+              {"param": "Exposure Mode / Aperture", "value": "A / f/8", "rationale": "abertura constante no bracket"},
+              {"param": "ISO Sensitivity", "value": "100", "rationale": "qualidade máxima"},
+              {"param": "Focus Mode", "value": "AFS", "rationale": "cena estática"},
+              {"param": "AF Detection Setting", "value": "Off", "rationale": "paisagem"},
+              {"param": "Exposure Bracket", "value": "5 images / 1 EV / -2 to +2", "rationale": "faixa aprovada para merge"},
+              {"param": "Bracket Capture", "value": "Complete bracket / one press", "rationale": "não tocar entre quadros"},
+              {"param": "Shutter Delay", "value": "2 SEC", "rationale": "assentamento"},
+              {"param": "Image Stabilizer", "value": "Off", "rationale": "tripod"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque"},
+              {"param": "Quality / Style / WB / Metering", "value": "RAW / Landscape / AWB / Multi", "rationale": "merge flexível"}
             ],
-            "hints": [
-              "Identical to C3-3 except for Crop Zoom ON and JPEG-only output",
-              "Use C3-3 when you have enough reach; switch to C3-5 when you don't",
-              "Resolution is reduced (digital crop) \u2014 only use when needed"
-            ],
-            "why": "Crop Zoom trades resolution for reach: camera uses center of sensor, doubling focal length. 400mm becomes 800mm equivalent. Trade-off: JPEG only, smaller file. Otherwise identical to C3-3.",
-            "equipment_notes": ["Leica 100-400mm", "JPEG only \u2014 no RAW"]
-          }
+            "hints": ["Evite pessoas, animais, água ou folhas se movendo entre quadros quando o deghosting puder falhar."],
+            "why": "Aperture Priority varia apenas a velocidade através do bracket, mantendo f/8 e ISO 100."
+          },
+          "alternatives": [
+            {
+              "name": "Wind or Moving Elements",
+              "when": "Folhas, água, pessoas ou animais se movem durante o bracket.",
+              "changes": [{"item": "Camera mode", "value": "Switch to C3-4", "note": "faça um RAW único seguro"}],
+              "warnings": ["Movimento pode produzir ghosting; ainda faça o bracket apenas se aceitar trabalho de merge adicional."]
+            },
+            {
+              "name": "GND8 Assistance",
+              "when": "Horizonte relativamente definido e céu muito mais claro.",
+              "changes": [{"item": "Filter", "value": "GND8", "note": "alinhe a transição visualmente"}],
+              "warnings": ["É opcional; o bracket continua sendo o método principal. Montanhas/árvores podem denunciar a transição."]
+            }
+          ]
         },
-
         {
           "code": "C3-6",
-          "color": "purple",
-          "name": "Lightning",
-          "description": "Live View Composite on tripod. Each bolt is added to the image. Press Q to stop.",
-
+          "color": "blue",
+          "name": "Focus-Bracketed Landscape",
+          "display_title": "Focus Stack Landscape",
+          "description": "Pilha de foco em tripod para foreground próximo e fundo distante.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-6" },
-              { "item": "Focus lever", "value": "MF", "note": "front of camera, bottom position" },
-              { "item": "Drive mode", "value": "Single Shot", "note": "" },
-              { "item": "Tripod", "value": "REQUIRED", "note": "camera must be rock-steady" },
-              { "item": "Lens IS switch", "value": "OFF", "note": "tripod \u2014 IS would cause shifts" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-6 — Focus Stack Landscape"},
+              {"item": "Lens", "value": "12–35mm II", "note": "testar 12, 25 e 35mm"},
+              {"item": "Support", "value": "Tripod", "note": "cabeça travada"},
+              {"item": "Focus lever", "value": "AFS", "note": "1-Area no ponto mais próximo necessário"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "Focus Bracket 0/+ is saved in the camera menu"},
+              {"item": "Lens IS switch", "value": "Off", "note": "camera IS Off"}
             ],
             "field_adjustments": [
-              { "type": "tip", "text": "Frame the scene. Pre-focus on landscape/horizon with MF" },
-              { "type": "tip", "text": "Press shutter to START \u2014 camera takes continuous 4s frames" },
-              { "type": "tip", "text": "Watch the screen: each bolt is ADDED (only new bright pixels)" },
-              { "type": "tip", "text": "Press Q button to STOP when you have enough bolts" },
-              { "type": "tip", "text": "If sky gets too bright, stop sooner \u2014 it builds up over time" },
-              { "type": "warning", "text": "DO NOT touch camera during session" }
+              {"type": "dial", "item": "AF point", "value": "Nearest required detail", "note": "não foque simplesmente na borda mais próxima do quadro"},
+              {"type": "tip", "text": "A sequência 0/+ progride apenas do ponto escolhido para o infinito."},
+              {"type": "warning", "text": "Step 3 e 30 images são valores iniciais ainda sujeitos a merge e calibração."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Full control for composite" },
-              { "param": "Aperture", "value": "f/8", "rationale": "Landscape sharpness" },
-              { "param": "Shutter Speed", "value": "4s per frame", "rationale": "Each sub-exposure duration" },
-              { "param": "ISO", "value": "400 (max 1600)", "rationale": "Low noise; sky builds up" },
-              { "param": "Shutter Type", "value": "Mechanical", "rationale": "LVC forces mechanical" },
-              { "param": "LVC", "value": "ON", "rationale": "Keeps only new bright pixels" },
-              { "param": "LVC Delay", "value": "2s", "rationale": "Prevents press vibration" },
-              { "param": "IS", "value": "OFF", "rationale": "Tripod required" },
-              { "param": "WB", "value": "Daylight", "rationale": "Fixed \u2014 prevents color shift" },
-              { "param": "Aspect", "value": "16:9", "rationale": "Cinematic storm format" },
-              { "param": "Long Exp NR", "value": "ON", "rationale": "Forced by LVC" }
+              {"param": "Exposure Mode / Aperture", "value": "A / f/8", "rationale": "profundidade base e exposição automática"},
+              {"param": "ISO Sensitivity", "value": "100", "rationale": "qualidade e consistência"},
+              {"param": "Focus Mode / AF Area", "value": "AFS / 1-Area", "rationale": "ponto inicial preciso"},
+              {"param": "AF Detection Setting", "value": "Off", "rationale": "paisagem"},
+              {"param": "Focus Bracket", "value": "Step 3 / 30 images / 0/+", "rationale": "ponto de partida conservador"},
+              {"param": "Shutter Delay", "value": "2 SEC", "rationale": "assentamento"},
+              {"param": "Image Stabilizer", "value": "Off", "rationale": "tripod"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque"},
+              {"param": "Quality / Style / WB / Metering", "value": "RAW / Landscape / AWB / Multi", "rationale": "merge flexível"}
             ],
-            "hints": [
-              "LVC only adds pixels BRIGHTER than previous frame \u2014 sky stays dark, bolts accumulate",
-              "Daylight WB is fixed (not AWB) to prevent color shifts between frames",
-              "16:9 cinematic aspect \u2014 suited to wide storm panoramas"
-            ],
-            "why": "Live View Composite: repeated 4s exposures, only adding brighter pixels. Sky stays dark while each bolt accumulates. One image with multiple bolts. Press Q to end.",
-            "equipment_notes": ["Tripod required", "16:9 cinematic aspect"]
-          }
+            "hints": ["Depois de capturar, faça um quadro normal adicional antes de desmontar o tripod."],
+            "why": "AFS simplifica o ponto inicial; Focus Bracket faz os deslocamentos seguintes sem mover a câmera."
+          },
+          "alternatives": [
+            {
+              "name": "Calibration — 12mm",
+              "when": "Teste pré-viagem ou cena real com foreground próximo em 12mm.",
+              "changes": [{"item": "Focus Bracket", "value": "Start Step 3 / 30 images", "note": "faça merge e procure gaps"}],
+              "warnings": ["Só altere e regrave após falha repetível."]
+            },
+            {
+              "name": "Calibration — 25mm",
+              "when": "Teste pré-viagem ou cena real em 25mm.",
+              "changes": [{"item": "Focus Bracket", "value": "Start Step 3 / 30 images", "note": "compare cobertura"}],
+              "warnings": ["Anote o ponto inicial e a distância do foreground."]
+            },
+            {
+              "name": "Calibration — 35mm",
+              "when": "Teste pré-viagem ou cena real em 35mm.",
+              "changes": [{"item": "Focus Bracket", "value": "Start Step 3 / 30 images", "note": "35mm pode exigir mais cobertura"}],
+              "warnings": ["Faça merge antes de concluir que 30 imagens bastam."]
+            },
+            {
+              "name": "Moving Scene Fallback",
+              "when": "Vento, água ou pessoas impedem uma pilha limpa.",
+              "changes": [{"item": "Camera mode", "value": "Switch to C3-4", "note": "RAW único handheld ou no tripod"}],
+              "warnings": ["Não tente corrigir movimento simplesmente aumentando Image Count."]
+            }
+          ]
         },
-
         {
           "code": "C3-7",
-          "color": "purple",
-          "name": "Indoor / Low Light",
-          "description": "Museums, churches, quiet venues. Completely silent \u2014 no flash, no shutter sound.",
-
+          "color": "blue",
+          "name": "Long Exposure Landscape with ND",
+          "display_title": "Long Exposure + ND",
+          "description": "Longa exposição em tripod para água e movimento, com ND64 como ponto de partida.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-7" },
-              { "item": "Focus lever", "value": "AFC", "note": "front of camera, middle position" },
-              { "item": "Drive mode", "value": "Single Shot", "note": "" },
-              { "item": "Lens", "value": "Lumix 12-35mm f/2.8", "note": "" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-7 — Long Exposure + ND"},
+              {"item": "Lens", "value": "12–35mm II", "note": "72mm magnetic adapter/filter system"},
+              {"item": "Support", "value": "Tripod", "note": "cabeça travada"},
+              {"item": "Filter", "value": "ND64", "note": "6-stop default starting filter"},
+              {"item": "Focus lever", "value": "AFS", "note": "1-Area"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "one exposure per press"},
+              {"item": "Lens IS switch", "value": "Off", "note": "camera IS Off"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "keep f/2.8 unless you need DoF" },
-              { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "don't go below 1/60 handheld" },
-              { "type": "tip", "text": "Camera is COMPLETELY SILENT \u2014 safe for museums and quiet spaces" },
-              { "type": "tip", "text": "Brace against wall, pillar, or doorframe in very low light" },
-              { "type": "tip", "text": "If photos are blurry: accept higher ISO rather than slower shutter" }
+              {"type": "dial", "item": "Shutter Speed", "value": "1s starting point", "note": "ajuste conforme luz e efeito desejado"},
+              {"type": "dial", "item": "AF point", "value": "1-Area", "note": "foque antes de filtro muito escuro se necessário"},
+              {"type": "tip", "text": "Faça também um RAW sem filtro ou com exposição curta como referência segura."},
+              {"type": "warning", "text": "Long Exposure NR permanece Off; ligue manualmente apenas em exposições excepcionalmente longas."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Control in tricky indoor light" },
-              { "param": "Aperture", "value": "f/2.8", "rationale": "Wide open for max light" },
-              { "param": "Shutter Speed", "value": "1/125s", "rationale": "Safe handheld speed" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Compensates for dim scenes" },
-              { "param": "AF Detection", "value": "ON \u2014 Human", "rationale": "Detects people" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Finds subjects across frame" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Critical in low light" },
-              { "param": "Silent Mode", "value": "ON", "rationale": "Zero mechanical noise" },
-              { "param": "Shutter Type", "value": "Electronic", "rationale": "Forced by Silent Mode" },
-              { "param": "Photo Style", "value": "Natural", "rationale": "Subtle processing" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "exposição não muda ao instalar o filtro"},
+              {"param": "Aperture / Initial Shutter", "value": "f/8 / 1s", "rationale": "ponto de partida para água"},
+              {"param": "ISO Sensitivity", "value": "100", "rationale": "qualidade e tempo longo"},
+              {"param": "Focus Mode / AF Area", "value": "AFS / 1-Area", "rationale": "foco preciso"},
+              {"param": "AF Detection Setting", "value": "Off", "rationale": "paisagem"},
+              {"param": "Shutter Delay", "value": "2 SEC", "rationale": "assentamento"},
+              {"param": "Long Exposure NR", "value": "Off", "rationale": "evita dark frame após cada tentativa"},
+              {"param": "Image Stabilizer", "value": "Off", "rationale": "tripod"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "baixo choque"},
+              {"param": "Quality / Style / WB / Metering", "value": "RAW / Landscape / AWB / Multi", "rationale": "flexibilidade"}
             ],
-            "hints": [
-              "Silent Mode = truly invisible. Zero noise. Essential for museums/churches",
-              "If subjects are static (paintings), can drop to 1/30 with good bracing",
-              "Electronic shutter may band under flickering lights \u2014 rare but possible"
-            ],
-            "why": "Silent Mode: zero mechanical noise, essential where shutter clicks are disruptive. f/2.8 wide open gathers max light. Auto ISO floats freely. Key field adjustment: shutter speed \u2014 static subjects allow 1/30-1/60.",
-            "equipment_notes": ["Lens: Lumix 12-35mm f/2.8"]
-          }
+            "hints": ["O filtro escolhe a faixa; Shutter Speed é o ajuste normal no campo."],
+            "why": "Manual mantém f/8 e ISO 100 enquanto o fotógrafo controla diretamente o tempo e o aspecto do movimento."
+          },
+          "alternatives": [
+            {
+              "name": "ND8 — 3 Stops",
+              "when": "Luz mais baixa ou efeito moderado; ND64 produziria tempo longo demais.",
+              "changes": [{"item": "Filter", "value": "ND8", "note": "3-stop light reduction"}],
+              "warnings": ["Ajuste Shutter Speed pelo histograma; 1s não é obrigatório."]
+            },
+            {
+              "name": "ND64 — 6 Stops",
+              "when": "Waterfalls e rios; alternativa padrão inicial.",
+              "changes": [{"item": "Filter", "value": "ND64", "note": "comece em 1s e ajuste"}],
+              "warnings": ["Observe highlights na água e movimento excessivamente uniforme."]
+            },
+            {
+              "name": "ND1000 — 10 Stops",
+              "when": "Luz forte ou exposição muito longa realmente desejada.",
+              "changes": [
+                {"item": "Filter", "value": "ND1000", "note": "10-stop light reduction"},
+                {"item": "Focus", "value": "Set before attaching", "note": "o filtro pode escurecer demais o live view"},
+                {"item": "Shutter Speed", "value": "Recalculate and test", "note": "pode exceder 1s amplamente"}
+              ],
+              "warnings": ["Cheque light leaks, vento e Long Exposure NR; não use ND1000 apenas porque está disponível."]
+            },
+            {
+              "name": "GND8 — 3-Stop Gradient",
+              "when": "Céu mais claro com horizonte suficientemente definido.",
+              "changes": [{"item": "Filter", "value": "GND8", "note": "alinhe a transição no céu"}],
+              "warnings": ["Não substitui automaticamente HDR; árvores e montanhas podem revelar a graduação."]
+            },
+            {
+              "name": "Polarizer + ND",
+              "when": "Reflexos precisam de controle além do tempo longo.",
+              "changes": [{"item": "Filter stack", "value": "CPL + selected ND", "note": "avalie vinheta e perda adicional de luz"}],
+              "warnings": ["Evite empilhar sem necessidade; confirme cantos em 12mm."]
+            }
+          ]
         },
-
         {
           "code": "C3-8",
-          "color": "red",
-          "name": "Birds in Flight (BIF)",
-          "description": "Fast-moving birds. 1/4000s freeze, tracking AF, panning stabilization.",
-
+          "color": "purple",
+          "name": "Lightning — MIOPS Smart+",
+          "display_title": "Lightning - MIOPS",
+          "description": "Raios com disparo externo MIOPS Smart+; resposta rápida é o baseline.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-8" },
-              { "item": "Focus lever", "value": "AFC", "note": "front of camera, middle position" },
-              { "item": "Drive mode", "value": "Burst I (H)", "note": "high-speed burst" },
-              { "item": "Lens", "value": "Leica 100-400mm", "note": "f/4-6.3" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-8 — Lightning - MIOPS"},
+              {"item": "Support", "value": "Tripod", "note": "composição fixa"},
+              {"item": "Focus lever", "value": "MF", "note": "pré-foco na distância provável"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "MIOPS comanda cada exposição"},
+              {"item": "Trigger", "value": "MIOPS Smart+", "note": "correct cable + Lightning Mode + Prefocus"},
+              {"item": "Lens IS switch", "value": "Off", "note": "camera IS Off"},
+              {"item": "Filter", "value": "None initially", "note": "use ND only if ambient light demands it"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "usually leave at f/6.3 (max)" },
-              { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "raise for very fast species" },
-              { "type": "tip", "text": "IS Mode 2 = PANNING \u2014 only vertical axis stabilized" },
-              { "type": "tip", "text": "1/4000 baseline. Raise to 1/6000+ for hummingbirds" },
-              { "type": "tip", "text": "Pre-focus on area where bird will fly. Track with smooth body motion" },
-              { "type": "tip", "text": "Overcast sky is easier \u2014 harsh sun creates extreme contrast" }
+              {"type": "dial", "item": "MIOPS Sensitivity", "value": "Calibrate", "note": "equilibre evento e false triggers"},
+              {"type": "dial", "item": "Aperture / ISO", "value": "Protect highlights", "note": "f/8 e ISO 200 baseline"},
+              {"type": "tip", "text": "Teste o cabo e uma liberação simulada antes de esperar a tempestade."},
+              {"type": "warning", "text": "C3-8 ainda depende de teste físico do MIOPS Smart+ e do cabo."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Exposure mode", "value": "M (Manual)", "rationale": "Lock speed + aperture; ISO floats" },
-              { "param": "Aperture", "value": "f/6.3", "rationale": "Lens max at 400mm" },
-              { "param": "Shutter Speed", "value": "1/4000s", "rationale": "Freezes wing beats" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Camera adjusts" },
-              { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Bird detection + tracking" },
-              { "param": "AF Mode", "value": "Tracking", "rationale": "Follows bird across entire frame" },
-              { "param": "IS", "value": "ON Mode 2 (pan)", "rationale": "Vertical stabilization only" },
-              { "param": "Shutter Type", "value": "Electronic", "rationale": "Max fps" },
-              { "param": "Drive", "value": "Burst I (H)", "rationale": "Captures wing positions" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Balanced" }
+              {"param": "Exposure Mode", "value": "M", "rationale": "resposta previsível"},
+              {"param": "Aperture / Shutter Speed", "value": "f/8 / 1/125s", "rationale": "baseline orientado ao trigger"},
+              {"param": "ISO Sensitivity", "value": "200", "rationale": "protege canais brilhantes"},
+              {"param": "Focus Mode", "value": "MF", "rationale": "pré-foco estável"},
+              {"param": "Drive Mode", "value": "Single Shot", "rationale": "cada evento dispara um quadro"},
+              {"param": "Aspect Ratio / Quality", "value": "4:3 / RAW", "rationale": "sensor completo"},
+              {"param": "Photo Style / WB", "value": "Standard / Daylight", "rationale": "consistência"},
+              {"param": "Flash Mode", "value": "Forced Flash Off", "rationale": "luz natural do raio"},
+              {"param": "Live View Composite", "value": "Off", "rationale": "MIOPS é o método principal"},
+              {"param": "Shutter Type", "value": "EFC", "rationale": "resposta sem restrição LVC"},
+              {"param": "Shutter Delay / Long Exposure NR", "value": "Off / Off", "rationale": "resposta imediata"},
+              {"param": "Image Stabilizer", "value": "Off", "rationale": "tripod"}
             ],
-            "hints": [
-              "Tracking AF (not Zone) is more aggressive \u2014 follows across entire frame",
-              "IS Mode 2 allows smooth horizontal panning; Mode 1 would fight the pan",
-              "Difference from C3-3: faster shutter, Tracking (not Zone), IS Mode 2 for panning"
-            ],
-            "why": "BIF is the most demanding scenario. 1/4000s freezes wing beats. Tracking AF follows across frame. IS Mode 2: vertical-only stabilization allows smooth panning without fighting horizontal tracking.",
-            "equipment_notes": ["Leica 100-400mm f/4-6.3"]
-          }
+            "hints": ["MIOPS Capsule Pro não é o trigger de raios deste modo."],
+            "why": "O trigger reage ao clarão; por isso 1/125s e Delay Off substituem o antigo Live View Composite como baseline."
+          },
+          "alternatives": [
+            {
+              "name": "Night Lightning — Live View Composite",
+              "when": "Noite escura, cena fixa e composição em que somar novos pontos luminosos é útil.",
+              "changes": [
+                {"item": "Live View Composite", "value": "On", "note": "ativação manual pelo My Menu"},
+                {"item": "Base Exposure", "value": "Set for ambient scene", "note": "avalie antes de iniciar"},
+                {"item": "Shutter Type", "value": "Mechanical (camera-forced)", "note": "comportamento do modo"},
+                {"item": "Long Exposure NR", "value": "On (camera-forced)", "note": "pode limitar prontidão"}
+              ],
+              "warnings": ["É uma variação noturna; não regrave C3-8."]
+            },
+            {
+              "name": "Bright Ambient Light",
+              "when": "1/125s ainda deixa o ambiente claro demais ou o canal do raio clipa.",
+              "changes": [
+                {"item": "ISO Sensitivity", "value": "100", "note": "primeiro ajuste"},
+                {"item": "Aperture", "value": "f/11", "note": "se mais proteção for necessária"},
+                {"item": "Filter", "value": "ND8 if required", "note": "teste efeito sobre sensibilidade e composição"}
+              ],
+              "warnings": ["Configuração alternativa para teste; não existe exposição universal para raios."]
+            }
+          ]
         },
-
         {
           "code": "C3-9",
-          "color": "orange",
-          "name": "Video \u2014 Travel",
-          "description": "Documentary, travel clips, vlogs. Fully automatic exposure \u2014 just press record.",
-
+          "color": "blue",
+          "name": "Tripod High Resolution Landscape",
+          "display_title": "Tripod High Res",
+          "description": "RAW de 100 MP por sensor shift, mais RAW normal de segurança, para cenas essencialmente estáticas.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-9" },
-              { "item": "Focus lever", "value": "AFC", "note": "front of camera, middle position" },
-              { "item": "Drive mode", "value": "N/A", "note": "video mode \u2014 drive not applicable" },
-              { "item": "Lens", "value": "Lumix 12-35mm f/2.8", "note": "" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-9 — Tripod High Res"},
+              {"item": "Drive dial", "value": "High Resolution", "note": "confirme antes do disparo"},
+              {"item": "Lens", "value": "12–35mm II", "note": "composição precisa"},
+              {"item": "Support", "value": "Tripod", "note": "obrigatório com Handheld High-Res Off"},
+              {"item": "Focus lever", "value": "AFS", "note": "1-Area"},
+              {"item": "Lens IS switch", "value": "Off", "note": "IS indisponível no modo"}
             ],
             "field_adjustments": [
-              { "type": "tip", "text": "P mode \u2014 camera handles EVERYTHING automatically" },
-              { "type": "tip", "text": "Just press the red record button and go" },
-              { "type": "tip", "text": "Keep movements slow and smooth \u2014 jerky pans look amateur" },
-              { "type": "tip", "text": "Avoid zooming while recording \u2014 almost never looks good" },
-              { "type": "tip", "text": "Tap screen to shift AF to a different person" },
-              { "type": "tip", "text": "Record 10-15 second clips. Shorter is better for editing" }
+              {"type": "dial", "item": "AF point", "value": "Critical detail", "note": "1-Area"},
+              {"type": "tip", "text": "Verifique folhas, água, pessoas e animais antes do disparo."},
+              {"type": "warning", "text": "Motion Blur Processing Mode 1 pode criar afterimages; use o RAW normal como segurança."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Mode", "value": "Creative Video", "rationale": "Dedicated video mode" },
-              { "param": "Exp Mode", "value": "P (Program)", "rationale": "Camera handles all exposure" },
-              { "param": "Rec Quality", "value": "4K 30p", "rationale": "High res, natural frame rate" },
-              { "param": "AF Detection", "value": "ON \u2014 Human", "rationale": "Follows people" },
-              { "param": "AF Mode", "value": "Full Area", "rationale": "Camera picks focus" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Standard stabilization" },
-              { "param": "E-Stab Video", "value": "STANDARD", "rationale": "Digital stab layer" },
-              { "param": "Boost IS", "value": "OFF", "rationale": "Avoids excessive crop" },
-              { "param": "Photo Style", "value": "Standard", "rationale": "Balanced look" },
-              { "param": "Audio", "value": "Internal mic", "rationale": "Default levels" }
+              {"param": "Exposure Mode / Aperture", "value": "A / f/8", "rationale": "paisagem estática"},
+              {"param": "ISO Sensitivity", "value": "100", "rationale": "detalhe máximo"},
+              {"param": "Focus Mode / AF Area", "value": "AFS / 1-Area", "rationale": "foco preciso"},
+              {"param": "AF Detection Setting", "value": "Off", "rationale": "paisagem"},
+              {"param": "Drive Mode", "value": "High Resolution", "rationale": "ativa o workflow de 100 MP"},
+              {"param": "High Resolution Picture Quality", "value": "RAW", "rationale": "processamento máximo"},
+              {"param": "High Resolution Picture Size", "value": "XL / 100 MP / 4:3", "rationale": "resolução máxima"},
+              {"param": "Simul Record Normal Shot", "value": "On", "rationale": "quadro de segurança"},
+              {"param": "Handheld High-Res", "value": "Off", "rationale": "tripod workflow"},
+              {"param": "Motion Blur Processing", "value": "MODE1", "rationale": "efeito High Resolution máximo"},
+              {"param": "Shutter Delay", "value": "2 SEC", "rationale": "assentamento"},
+              {"param": "Shutter Type", "value": "Electronic (camera-forced)", "rationale": "requisito do modo"},
+              {"param": "Image Stabilizer", "value": "Unavailable / Off", "rationale": "Handheld High-Res Off"}
             ],
-            "hints": [
-              "P mode = zero decisions while recording. Camera adjusts everything",
-              "4K 30p: high res for cropping, 30fps is natural for documentary",
-              "E-Stab STANDARD adds stabilization without the crop of HIGH mode"
-            ],
-            "why": "Program mode for video: zero decisions during recording. 4K 30p balances resolution with natural documentary look. E-Stab STANDARD adds digital stabilization without excessive crop.",
-            "equipment_notes": ["Lens: Lumix 12-35mm f/2.8"]
-          }
+            "hints": ["Se a exposição necessária exceder 1s, use C3-4, C3-5 ou C3-7."],
+            "why": "O modo combina máxima resolução com um RAW normal que protege contra movimento na cena."
+          },
+          "alternatives": [
+            {
+              "name": "Movement Safety",
+              "when": "Há dúvida sobre vento, água, pessoas ou animais.",
+              "changes": [{"item": "Safety frame", "value": "Use simultaneous normal RAW", "note": "compare antes de escolher o arquivo final"}],
+              "warnings": ["Não desligue Simul Record Normal Shot."]
+            },
+            {
+              "name": "Exposure Longer Than 1 Second",
+              "when": "A câmera exige tempo fora do intervalo permitido pelo High Resolution Mode.",
+              "changes": [{"item": "Camera mode", "value": "Switch to C3-4, C3-5 or C3-7", "note": "escolha conforme single/HDR/ND"}],
+              "warnings": ["Não force C3-9 fora de sua faixa de shutter permitida."]
+            }
+          ]
         },
-
         {
           "code": "C3-10",
           "color": "orange",
-          "name": "Video \u2014 Wildlife",
-          "description": "Animals in motion. Manual exposure, tracking AF, strong stabilization.",
-
+          "name": "Wildlife Video",
+          "description": "Vídeo handheld de wildlife em 4K60 10-bit, pronto para movimento natural e slow motion 2× em timeline 30p.",
           "front": {
             "physical_setup": [
-              { "item": "Mode dial", "value": "C3", "note": "then rear dial to select C3-10" },
-              { "item": "Focus lever", "value": "AFC", "note": "front of camera, middle position" },
-              { "item": "Drive mode", "value": "N/A", "note": "video mode \u2014 drive not applicable" },
-              { "item": "Lens", "value": "Leica 100-400mm", "note": "f/4-6.3" }
+              {"item": "Mode dial", "value": "C3", "note": "Select C3-10 — Wildlife Video"},
+              {"item": "Lens", "value": "Leica 100–400mm II", "note": "primary"},
+              {"item": "Focus lever", "value": "AFC", "note": "Animal Tracking"},
+              {"item": "Drive dial", "value": "Single Shot", "note": "neutral position; not used for video capture"},
+              {"item": "Lens IS switch", "value": "On", "note": "OIS Normal + E-Stabilization High"},
+              {"item": "Audio", "value": "Internal microphone", "note": "meter small; limiter On"}
             ],
             "field_adjustments": [
-              { "type": "dial", "item": "Front dial", "value": "= Aperture", "note": "" },
-              { "type": "dial", "item": "Rear dial", "value": "= Shutter speed", "note": "keep at 1/500 minimum" },
-              { "type": "tip", "text": "Tracking AF follows the animal \u2014 tap screen to select target" },
-              { "type": "tip", "text": "E-Stab HIGH crops slightly but gives much smoother footage" },
-              { "type": "tip", "text": "Start recording BEFORE the action \u2014 you can trim, can't rewind" },
-              { "type": "tip", "text": "Keep steady \u2014 at 400mm every shake is magnified" }
+              {"type": "dial", "item": "Shutter Speed", "value": "1/125s baseline", "note": "movimento natural em 60p"},
+              {"type": "dial", "item": "Framing", "value": "Allow crop margin", "note": "E-Stabilization High crops the image"},
+              {"type": "tip", "text": "Grave clipes curtos e estáveis; apoie os cotovelos ou use suporte quando possível."},
+              {"type": "warning", "text": "Atomos Shinobi II não faz parte do workflow da viagem."}
             ]
           },
-
           "back": {
             "software_settings": [
-              { "param": "Mode", "value": "Creative Video", "rationale": "Dedicated video mode" },
-              { "param": "Exp Mode", "value": "M (Manual)", "rationale": "Consistent exposure across clip" },
-              { "param": "Rec Quality", "value": "4K 30p", "rationale": "High resolution" },
-              { "param": "Aperture", "value": "f/6.3", "rationale": "Lens max at 400mm" },
-              { "param": "Shutter Speed", "value": "1/500s", "rationale": "Freezes motion per frame" },
-              { "param": "ISO", "value": "AUTO", "rationale": "Camera compensates" },
-              { "param": "AF Detection", "value": "ON \u2014 Animal", "rationale": "Tracks animals" },
-              { "param": "AF Mode", "value": "Tracking", "rationale": "Follows across frame" },
-              { "param": "IS", "value": "ON Mode 1", "rationale": "Optical stabilization" },
-              { "param": "E-Stab Video", "value": "HIGH", "rationale": "Strong digital stab (slight crop)" }
+              {"param": "Recording Mode / Exposure", "value": "Creative Video / M", "rationale": "controle previsível"},
+              {"param": "Rec. File Format / Rec Quality", "value": "MP4 / 4K 60p 10-bit 100 Mbps HEVC", "rationale": "movimento e slow motion"},
+              {"param": "Shutter / Aperture / ISO", "value": "1/125s / f/6.3 / AUTO", "rationale": "aprox. 180-degree shutter"},
+              {"param": "Luminance Level", "value": "64-940", "rationale": "10-bit video range"},
+              {"param": "Focus Mode / AF Area", "value": "AFC / Tracking", "rationale": "fauna em movimento"},
+              {"param": "AF Detection / Subject", "value": "On / ANIMAL", "rationale": "tracking"},
+              {"param": "Image Area of Video", "value": "FULL", "rationale": "sensor completo"},
+              {"param": "Image Stabilizer", "value": "OIS Normal / E-Stabilization High / Boost I.S. Off", "rationale": "handheld"},
+              {"param": "Photo Style / WB", "value": "Standard / AWB", "rationale": "sem Log/HLG"},
+              {"param": "Continuous AF", "value": "MODE1", "rationale": "AF durante gravação"},
+              {"param": "Audio", "value": "Internal / 0 dB / Limiter On / Wind STANDARD / Lens Noise Cut On", "rationale": "baseline simples"},
+              {"param": "Red REC Frame Indicator", "value": "On", "rationale": "confirma gravação"},
+              {"param": "Time Code / XLR", "value": "Off / Off", "rationale": "workflow enxuto"}
             ],
-            "hints": [
-              "Manual exposure prevents brightness jumps when panning sky \u2192 forest",
-              "1/500s video balance: freezes per-frame motion without stuttery look",
-              "E-Stab HIGH: aggressive digital stab, worth the crop for handheld telephoto"
-            ],
-            "why": "Manual for wildlife video: prevents exposure jumps across brightness zones. 1/500s balances motion freeze without stuttery look. E-Stab HIGH: slight crop, essential for handheld telephoto.",
-            "equipment_notes": ["Leica 100-400mm f/4-6.3"]
-          }
+            "hints": ["A configuração geral fora de C3-10 permanece 4K30 8-bit; este modo preserva a configuração especializada."],
+            "why": "4K60 permite movimento suave e slow motion; 1/125s evita o ISO excessivo e o aspecto entrecortado de 1/500s."
+          },
+          "alternatives": [
+            {
+              "name": "Very Fast Action",
+              "when": "Movimento rápido, análise quadro a quadro ou possível frame extraction.",
+              "changes": [
+                {"item": "Shutter Speed", "value": "1/250s", "note": "primeiro degrau"},
+                {"item": "Shutter Speed", "value": "1/500s", "note": "somente se a ação justificar"}
+              ],
+              "warnings": ["Aceite ISO mais alto e movimento menos natural; não regrave C3-10."]
+            },
+            {
+              "name": "Tripod / Supported Video",
+              "when": "Enquadramento estável e animal permanecendo na área.",
+              "changes": [
+                {"item": "Support", "value": "Tripod or loose head", "note": "permita acompanhar o animal"},
+                {"item": "E-Stabilization (Video)", "value": "Evaluate High vs Off", "note": "High aplica crop"}
+              ],
+              "warnings": ["Não desligue OIS automaticamente com cabeça solta; teste o comportamento do suporte."]
+            }
+          ]
         }
       ]
     }

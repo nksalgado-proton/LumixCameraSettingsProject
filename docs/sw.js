@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lumix-cards-v3';
+const CACHE_NAME = 'lumix-cards-v4-us-parks-2026';
 const ASSETS = [
   './',
   './index.html',
