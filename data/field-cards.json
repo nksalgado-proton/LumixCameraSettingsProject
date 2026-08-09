@@ -1,8 +1,8 @@
 {
   "_metadata": {
     "description": "Field reference for the US National Parks 2026 camera configuration",
-    "version": "2.0",
-    "last_updated": "2026-08-08",
+    "version": "2.1",
+    "last_updated": "2026-08-09",
     "status": "US PARKS 2026",
     "card_format": "Each mode separates physical setup, temporary field adjustments, saved settings, and alternative configurations",
     "source": "guides/Camera-Mode-Redesign-US-Parks-2026.md"
@@ -18,6 +18,10 @@
           "color": "blue",
           "name": "General / Street",
           "description": "Modo de prontidão para viagem, rua, detalhes e paisagem ocasional sem preparação.",
+          "usage_scenarios": [
+            "Escolha este modo quando estiver caminhando, entrando em cidades, parando em mirantes ou registrando cenas espontâneas sem tempo para preparar uma configuração especializada. Ele é a posição segura para deixar a G9 MkI com a 12–35mm II durante os deslocamentos.",
+            "Também funciona para detalhes de viagem, arquitetura, comida e paisagens ocasionais feitas rapidamente. Se a fotografia exigir tripod, bracket ou longa exposição, passe a responsabilidade para um dos modos de paisagem da G9 MkII."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C1", "note": "mesmo significado nas duas câmeras"},
@@ -69,6 +73,10 @@
           "color": "purple",
           "name": "Portrait",
           "description": "Retratos, pessoas e grupos com prioridade para rosto e olhos.",
+          "usage_scenarios": [
+            "Use quando uma pessoa ou um pequeno grupo for o assunto principal: retratos planejados, fotografias de companheiros de viagem e pessoas inseridas na paisagem. A 35–100mm II favorece enquadramentos mais fechados; a 12–35mm II inclui mais do ambiente.",
+            "Este não é um modo de ação. Para pessoas caminhando devagar ele continua adequado, mas movimento rápido exige conferir a velocidade ou migrar para uma configuração mais responsiva."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C2", "note": "mesmo significado nas duas câmeras"},
@@ -128,6 +136,10 @@
           "color": "green",
           "name": "Single Macro — TTL",
           "description": "Macro handheld de um quadro com foco manual e a segurança de exposição TTL.",
+          "usage_scenarios": [
+            "Este é o primeiro modo para uma oportunidade macro inesperada: inseto relativamente cooperativo, detalhe de planta, textura ou pequeno objeto fotografado com a 60mm Macro e os dois MF12. Faça um quadro de cada vez enquanto move suavemente o corpo para posicionar o plano de foco.",
+            "O TTL é a opção de segurança quando a distância e o enquadramento mudam entre tentativas. Se o tempo de reciclagem impedir uma sequência curta, passe para C3-2 e use a potência manual previamente testada."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-1 — Single Macro — TTL"},
@@ -191,6 +203,10 @@
           "color": "green",
           "name": "Macro Burst — Manual Flash",
           "description": "Rajada curta de 3–5 quadros para aumentar a chance de um plano crítico correto.",
+          "usage_scenarios": [
+            "Use quando o inseto pode se mover ou quando pequenos deslocamentos do seu corpo tornam difícil acertar olhos e detalhes críticos em um único quadro. A meta não é produzir uma pilha: é obter 3–5 tentativas independentes e escolher a melhor.",
+            "O flash fica em potência manual baixa para reciclar entre os disparos. Interrompa a rajada se aparecerem quadros escuros ou exposição irregular; isso indica que a cadência ou a potência ainda precisa ser reduzida."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-2 — Macro Burst — Manual Flash"},
@@ -254,6 +270,10 @@
           "color": "green",
           "name": "Supported Macro Focus Bracket",
           "description": "Pilha automática de foco para assunto estático com câmera apoiada; modo de baixa prioridade.",
+          "usage_scenarios": [
+            "Reserve este modo para flores sem vento, objetos, minerais, texturas ou insetos completamente imóveis quando a câmera puder ficar em tripod ou sobre uma superfície firme. Ele registra uma sequência destinada ao merge posterior no Helicon Focus.",
+            "Não é a escolha normal para insetos vivos handheld: movimento do assunto, do enquadramento ou do flash pode tornar a pilha inutilizável. Se houver dúvida, use C3-1 ou C3-2 e procure um quadro único forte."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-3 — Supported Macro Focus Bracket"},
@@ -333,6 +353,10 @@
           "color": "blue",
           "name": "General / Street",
           "description": "Modo de prontidão para viagem e rua, idêntico operacionalmente ao C1 da G9 MkI.",
+          "usage_scenarios": [
+            "Use quando a G9 MkII estiver temporariamente com a 12–35mm II e você quiser a mesma resposta geral da G9 MkI: caminhada, cidade, arquitetura, detalhes e registros espontâneos.",
+            "Nos parques, a G9 MkII normalmente estará com a 100–400mm II; portanto C1 pressupõe uma troca deliberada de lente. Para paisagem preparada, escolha C3-4 a C3-9 conforme o objetivo."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C1", "note": "title: General / Street"},
@@ -376,6 +400,10 @@
           "color": "purple",
           "name": "Portrait",
           "description": "Retratos com Human Face/Eye Detection explicitamente salvo.",
+          "usage_scenarios": [
+            "Escolha para retratos individuais, casais ou pequenos grupos quando a G9 MkII estiver com a 35–100mm II ou a 12–35mm II. O modo prioriza rosto e olhos para reduzir a necessidade de reposicionar a área AF.",
+            "Prefira a 35–100mm II para comprimir o fundo e a 12–35mm II para mostrar a pessoa dentro do parque. Confira a velocidade se o retratado estiver se movimentando rapidamente."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C2", "note": "title: Portrait"},
@@ -429,6 +457,10 @@
           "name": "Stationary / Slow Wildlife",
           "display_title": "Slow / Still Wildlife",
           "description": "Base de prontidão para animais parados, pastando ou caminhando lentamente; também é a base dos teleconversores.",
+          "usage_scenarios": [
+            "Este é o modo inicial para mamíferos parados, pastando, descansando ou caminhando lentamente e para aves pousadas. A velocidade de 1/500s equilibra segurança contra movimento com ISO mais baixo, especialmente nas primeiras e últimas horas do dia.",
+            "Também é a base para o TC14 e, em condições mais restritas, o TC20. Se o comportamento acelerar ou ficar imprevisível, mude imediatamente para C3-2 ou C3-3 em vez de tentar recuperar a situação alterando vários ajustes."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-1 — Slow / Still Wildlife"},
@@ -520,6 +552,10 @@
           "color": "red",
           "name": "Wildlife Action",
           "description": "Animais em movimento previsível: caminhar rápido, correr moderadamente, alimentação ativa.",
+          "usage_scenarios": [
+            "Use para movimento contínuo e razoavelmente previsível: mamíferos caminhando ou correndo em uma direção, aves grandes decolando com trajetória legível, disputas moderadas e alimentação ativa.",
+            "C3-2 oferece mais proteção contra movimento que C3-1 sem impor o custo de ISO de C3-3. O TC14 pode ser usado apenas com boa luz; o TC20 normalmente torna este cenário lento e escuro demais."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-2 — Wildlife Action"},
@@ -575,6 +611,10 @@
           "name": "Fast / Erratic Wildlife",
           "display_title": "Fast / Erratic Wild",
           "description": "Aves em voo, mamíferos correndo e movimento rápido ou imprevisível.",
+          "usage_scenarios": [
+            "Escolha quando perder o instante seria pior do que aceitar ISO elevado: aves em voo, arrancadas repentinas, perseguições, saltos ou animais mudando rapidamente de direção. Tracking e 1/4000s privilegiam aquisição e congelamento do movimento.",
+            "Não deixe este modo como padrão para animais tranquilos, pois a velocidade extrema cobra muita luz. Evite teleconversores: o campo de visão mais estreito e a perda de luminosidade dificultam encontrar e acompanhar o assunto."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-3 — Fast / Erratic Wild"},
@@ -625,6 +665,10 @@
           "name": "Standard Handheld Landscape",
           "display_title": "Handheld Landscape",
           "description": "Paisagem normal sem tripod, para quando há tempo de trocar a lente mas não de montar suporte.",
+          "usage_scenarios": [
+            "Use em mirantes, trilhas e paradas curtas quando a cena cabe em uma única exposição e montar o tripod não é necessário ou permitido. A estabilização permanece ligada e f/8 é o ponto de partida para boa profundidade de campo.",
+            "O CPL é opcional para controlar reflexos e realçar folhagem, mas exige observar a velocidade e a uniformidade do céu. Se a faixa dinâmica, o foco ou o movimento exigirem uma técnica especial, escolha um dos modos seguintes."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-4 — Handheld Landscape"},
@@ -635,7 +679,7 @@
             ],
             "field_adjustments": [
               {"type": "dial", "item": "Rear dial", "value": "Aperture", "note": "f/8 baseline"},
-              {"type": "dial", "item": "Polarizer", "value": "Rotate to taste", "note": "observe céu, reflexos e perda de luz"},
+              {"type": "dial", "item": "CPL (optional)", "value": "Rotate while watching EVF", "note": "pare quando o reflexo indesejado diminuir; o efeito máximo nem sempre é o melhor"},
               {"type": "warning", "text": "Verifique a velocidade escolhida pela câmera; aumente ISO se ficar lenta demais para handheld."}
             ]
           },
@@ -656,13 +700,23 @@
           },
           "alternatives": [
             {
-              "name": "Polarizer",
-              "when": "Reduzir reflexos em água/folhas ou aumentar separação do céu.",
-              "changes": [
-                {"item": "Filter", "value": "CPL", "note": "gire observando o efeito no EVF"},
-                {"item": "ISO / Shutter", "value": "Monitor", "note": "o CPL reduz luz"}
+              "name": "CPL — Reduce Glare and Reflections",
+              "when": "Há brilho ou reflexo indesejado em água, folhas molhadas, pedras ou vidro; também pode aumentar a separação entre céu e nuvens.",
+              "what_it_does": "CPL significa Circular Polarizer. Ele reduz parte da luz refletida e pode revelar cor e detalhe que estavam escondidos pelo brilho. O efeito muda conforme a direção da câmera e a rotação do filtro; ele não serve apenas para deixar o céu mais azul.",
+              "steps": [
+                "Componha a fotografia e monte o CPL.",
+                "Gire lentamente o anel enquanto observa no EVF a água, as folhas ou o céu — não apenas o próprio filtro.",
+                "Pare quando o reflexo indesejado estiver suficientemente reduzido; não é obrigatório usar o efeito máximo.",
+                "Confira novamente Shutter Speed, ISO e histograma antes de fotografar."
               ],
-              "warnings": ["Em grande angular, o céu pode ficar desigual; reduza o efeito se parecer artificial."]
+              "changes": [
+                {"item": "Filter", "value": "CPL", "note": "rotate while watching the EVF"},
+                {"item": "ISO / Shutter", "value": "Monitor", "note": "o CPL normalmente custa cerca de 1–2 stops de luz"}
+              ],
+              "warnings": [
+                "Em 12mm, o céu pode ficar com faixas claras e escuras; reduza o efeito ou retire o CPL se parecer artificial.",
+                "Retire o CPL quando a luz estiver escassa e o controle de reflexos não trouxer benefício real."
+              ]
             },
             {
               "name": "Telephoto Landscape",
@@ -677,6 +731,10 @@
           "color": "blue",
           "name": "Tripod HDR Landscape",
           "description": "Cinco exposições RAW para merge HDR; sempre usar tripod e sempre planejar o merge.",
+          "usage_scenarios": [
+            "Escolha para nascer ou pôr do sol, interiores com vista externa, cânions e florestas contrastadas quando uma exposição não consegue preservar simultaneamente céu claro e sombras profundas. A câmera registra cinco RAW de −2 a +2 EV para serem combinados depois.",
+            "O GND8 pode ajudar quando existe um horizonte simples e o céu é muito mais claro, mas ele não substitui o bracket. Evite este modo quando folhas, água, pessoas ou animais mudam muito entre os cinco quadros, pois o merge pode criar ghosting."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-5 — Tripod HDR Landscape"},
@@ -716,10 +774,20 @@
               "warnings": ["Movimento pode produzir ghosting; ainda faça o bracket apenas se aceitar trabalho de merge adicional."]
             },
             {
-              "name": "GND8 Assistance",
-              "when": "Horizonte relativamente definido e céu muito mais claro.",
-              "changes": [{"item": "Filter", "value": "GND8", "note": "alinhe a transição visualmente"}],
-              "warnings": ["É opcional; o bracket continua sendo o método principal. Montanhas/árvores podem denunciar a transição."]
+              "name": "GND8 — Darken a Bright Sky (Optional)",
+              "when": "O céu está muito mais claro que o terreno e o horizonte pode cruzar a transição fixa no centro do filtro — ou você aceita centralizar a composição e recortar depois. Mar, planície e vale distante são os casos mais favoráveis.",
+              "what_it_does": "GND significa Graduated Neutral Density. O GND8 tem uma região escura que reduz até 3 stops e uma região clara; a transição entre elas permite escurecer o céu sem escurecer o terreno na mesma proporção. Ele reduz a diferença de luminosidade antes do HDR, mas não substitui as cinco exposições.",
+              "steps": [
+                "Componha primeiro sem o filtro e identifique onde termina o céu.",
+                "Monte o GND8 com a transição central sobre o horizonte; gire apenas para alinhar o ângulo, pois ela não sobe nem desce.",
+                "Observe a transição no EVF; confira se montanhas, árvores ou edifícios ficaram escurecidos de forma artificial.",
+                "Mantenha o C3-5 e fotografe o bracket completo de cinco RAW."
+              ],
+              "changes": [{"item": "Filter", "value": "GND8", "note": "dark area over sky; clear area over foreground"}],
+              "warnings": [
+                "O filtro magnético circular pode ser girado, mas sua transição não pode ser deslocada para cima ou para baixo como num sistema retangular.",
+                "Se a transição ficar evidente na paisagem, retire o GND8 e faça apenas o bracket."
+              ]
             }
           ]
         },
@@ -729,6 +797,10 @@
           "name": "Focus-Bracketed Landscape",
           "display_title": "Focus Stack Landscape",
           "description": "Pilha de foco em tripod para foreground próximo e fundo distante.",
+          "usage_scenarios": [
+            "Use quando uma paisagem contém um elemento muito próximo da lente — flores, pedras, raízes ou textura do solo — e também um fundo distante que precisa permanecer nítido. A sequência desloca o foco do ponto próximo escolhido em direção ao infinito.",
+            "A cena deve permanecer praticamente imóvel durante toda a sequência. Vento forte, água detalhada, pessoas ou animais podem impedir um merge limpo; nesses casos faça também um RAW seguro em C3-4."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-6 — Focus Stack Landscape"},
@@ -792,12 +864,16 @@
           "name": "Long Exposure Landscape with ND",
           "display_title": "Long Exposure + ND",
           "description": "Longa exposição em tripod para água e movimento, com ND64 como ponto de partida.",
+          "usage_scenarios": [
+            "Escolha quando você quer que o tempo transforme movimento: suavizar cachoeiras e rios, criar rastros em nuvens ou remover parte do movimento de pessoas. O filtro ND reduz toda a luz de maneira uniforme e permite usar uma velocidade mais longa sem superexpor a fotografia.",
+            "ND8, ND64 e ND1000 diferem apenas na intensidade: 3, 6 e 10 stops. Comece com o filtro menos forte capaz de produzir o efeito desejado; uma exposição mais longa não é automaticamente melhor."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-7 — Long Exposure + ND"},
               {"item": "Lens", "value": "12–35mm II", "note": "72mm magnetic adapter/filter system"},
               {"item": "Support", "value": "Tripod", "note": "cabeça travada"},
-              {"item": "Filter", "value": "ND64", "note": "6-stop default starting filter"},
+              {"item": "Filter", "value": "None initially", "note": "compose and focus first; ND64 is the default starting choice"},
               {"item": "Focus lever", "value": "AFS", "note": "1-Area"},
               {"item": "Drive dial", "value": "Single Shot", "note": "one exposure per press"},
               {"item": "Lens IS switch", "value": "Off", "note": "camera IS Off"}
@@ -805,6 +881,7 @@
             "field_adjustments": [
               {"type": "dial", "item": "Shutter Speed", "value": "1s starting point", "note": "ajuste conforme luz e efeito desejado"},
               {"type": "dial", "item": "AF point", "value": "1-Area", "note": "foque antes de filtro muito escuro se necessário"},
+              {"type": "tip", "text": "Workflow seguro: componha e foque sem filtro, monte o ND escolhido, confirme o foco, ajuste Shutter Speed pelo histograma e faça uma exposição de teste."},
               {"type": "tip", "text": "Faça também um RAW sem filtro ou com exposição curta como referência segura."},
               {"type": "warning", "text": "Long Exposure NR permanece Off; ligue manualmente apenas em exposições excepcionalmente longas."}
             ]
@@ -827,38 +904,73 @@
           },
           "alternatives": [
             {
-              "name": "ND8 — 3 Stops",
-              "when": "Luz mais baixa ou efeito moderado; ND64 produziria tempo longo demais.",
-              "changes": [{"item": "Filter", "value": "ND8", "note": "3-stop light reduction"}],
-              "warnings": ["Ajuste Shutter Speed pelo histograma; 1s não é obrigatório."]
+              "name": "ND8 — Mild Motion Blur (3 Stops)",
+              "when": "Você quer apenas um pouco mais de movimento na água ou a luz já está baixa e o ND64 produziria uma exposição longa demais.",
+              "what_it_does": "O ND8 escurece toda a fotografia de maneira uniforme em 3 stops. Mantendo ISO e abertura, ele permite uma velocidade aproximadamente 8× mais longa: por exemplo, 1/125s passa para perto de 1/15s.",
+              "steps": [
+                "Componha e foque antes de montar o filtro.",
+                "Monte o ND8 e mantenha ISO 100 e f/8 como ponto de partida.",
+                "Ajuste Shutter Speed até obter o movimento desejado e confirme o histograma.",
+                "Compare uma fotografia curta e outra mais longa; escolha pelo aspecto da água, não pelo maior tempo."
+              ],
+              "changes": [{"item": "Filter", "value": "ND8", "note": "uniform 3-stop reduction; approximately 8× longer exposure"}],
+              "warnings": ["1s não é obrigatório; com ND8 o melhor resultado pode continuar abaixo de um segundo."]
             },
             {
-              "name": "ND64 — 6 Stops",
-              "when": "Waterfalls e rios; alternativa padrão inicial.",
-              "changes": [{"item": "Filter", "value": "ND64", "note": "comece em 1s e ajuste"}],
-              "warnings": ["Observe highlights na água e movimento excessivamente uniforme."]
+              "name": "ND64 — Smooth Water (6 Stops)",
+              "when": "Cachoeiras, rios e água em movimento durante o dia; é o filtro inicial normal do C3-7.",
+              "what_it_does": "O ND64 escurece toda a fotografia em 6 stops e permite uma exposição aproximadamente 64× mais longa com o mesmo ISO e abertura. Ele costuma levar a água para a faixa em que o movimento fica suave sem exigir exposições de muitos minutos.",
+              "steps": [
+                "Componha, foque e observe a velocidade sem filtro.",
+                "Monte o ND64; comece em ISO 100, f/8 e aproximadamente 1s.",
+                "Faça uma exposição de teste e ajuste Shutter Speed pelo histograma e pela textura desejada na água.",
+                "Registre também um RAW mais curto como opção de segurança."
+              ],
+              "changes": [{"item": "Filter", "value": "ND64", "note": "uniform 6-stop reduction; start near 1s and adjust"}],
+              "warnings": ["Observe highlights na água; tempo excessivo pode transformar toda a textura em uma superfície branca e sem detalhe."]
             },
             {
-              "name": "ND1000 — 10 Stops",
-              "when": "Luz forte ou exposição muito longa realmente desejada.",
+              "name": "ND1000 — Very Long Exposure (10 Stops)",
+              "when": "Luz forte e uma exposição de muitos segundos ou minutos é parte deliberada da fotografia, como nuvens arrastadas ou superfície de água muito suavizada.",
+              "what_it_does": "O ND1000 escurece toda a fotografia em 10 stops e permite uma velocidade aproximadamente 1000× mais longa. Como referência, 1/125s sem filtro torna-se cerca de 8s com o mesmo ISO e abertura.",
+              "steps": [
+                "Componha e confirme foco, horizonte e bordas do quadro antes de montar o filtro.",
+                "Anote a velocidade correta sem filtro e calcule aproximadamente 10 stops a mais.",
+                "Monte o ND1000, cubra entradas de luz desnecessárias e faça uma exposição de teste.",
+                "Revise histograma, color cast, vento e possíveis light leaks antes de aumentar ainda mais o tempo."
+              ],
               "changes": [
-                {"item": "Filter", "value": "ND1000", "note": "10-stop light reduction"},
+                {"item": "Filter", "value": "ND1000", "note": "uniform 10-stop reduction; approximately 1000× longer exposure"},
                 {"item": "Focus", "value": "Set before attaching", "note": "o filtro pode escurecer demais o live view"},
                 {"item": "Shutter Speed", "value": "Recalculate and test", "note": "pode exceder 1s amplamente"}
               ],
-              "warnings": ["Cheque light leaks, vento e Long Exposure NR; não use ND1000 apenas porque está disponível."]
+              "warnings": ["Não use ND1000 apenas porque está disponível; movimento de vegetação, bateria, ruído e vazamentos de luz pioram com o tempo."]
             },
             {
-              "name": "GND8 — 3-Stop Gradient",
-              "when": "Céu mais claro com horizonte suficientemente definido.",
-              "changes": [{"item": "Filter", "value": "GND8", "note": "alinhe a transição no céu"}],
-              "warnings": ["Não substitui automaticamente HDR; árvores e montanhas podem revelar a graduação."]
+              "name": "GND8 — Darken the Sky, Not the Ground",
+              "when": "O céu está muito mais claro que o terreno e o horizonte pode cruzar a transição fixa no centro do filtro — ou você aceita centralizar a composição e recortar depois.",
+              "what_it_does": "Diferente dos filtros ND8, ND64 e ND1000, o GND8 não escurece o quadro inteiro. Uma parte reduz até 3 stops e a outra permanece clara, equilibrando céu e terreno diretamente na captura.",
+              "steps": [
+                "Componha sem o filtro e identifique a linha do horizonte.",
+                "Monte o GND8 com a transição central sobre o horizonte; gire apenas para alinhar o ângulo, pois ela não sobe nem desce.",
+                "Confira no EVF se a transição escureceu montanhas, árvores ou edifícios de forma artificial.",
+                "Se a transição não puder ser escondida, retire o filtro e use bracket ou um RAW normal."
+              ],
+              "changes": [{"item": "Filter", "value": "GND8", "note": "dark area over sky; clear area over foreground"}],
+              "warnings": ["O modelo circular pode girar, mas não permite mover a transição verticalmente; isso limita a composição."]
             },
             {
-              "name": "Polarizer + ND",
-              "when": "Reflexos precisam de controle além do tempo longo.",
-              "changes": [{"item": "Filter stack", "value": "CPL + selected ND", "note": "avalie vinheta e perda adicional de luz"}],
-              "warnings": ["Evite empilhar sem necessidade; confirme cantos em 12mm."]
+              "name": "CPL + ND — Reflections and Motion Together",
+              "when": "Você precisa simultaneamente reduzir reflexos em água ou folhas e prolongar a exposição.",
+              "what_it_does": "O CPL controla reflexos; o ND prolonga o tempo. Os efeitos são diferentes e podem ser combinados, mas cada vidro adicional aumenta a chance de vinheta, flare, color cast e perda de luz.",
+              "steps": [
+                "Monte primeiro o CPL e gire até obter o controle de reflexo desejado.",
+                "Sem mudar a composição, acrescente o ND menos forte capaz de produzir o tempo desejado.",
+                "Confira os quatro cantos do quadro, especialmente em 12mm.",
+                "Recalcule Shutter Speed e confirme histograma e foco."
+              ],
+              "changes": [{"item": "Filter stack", "value": "CPL + selected ND", "note": "use only when both effects are needed"}],
+              "warnings": ["Evite empilhar por rotina; se aparecer vinheta ou reflexo interno, retire um dos filtros ou use focal mais longa."]
             }
           ]
         },
@@ -868,6 +980,10 @@
           "name": "Lightning — MIOPS Smart+",
           "display_title": "Lightning - MIOPS",
           "description": "Raios com disparo externo MIOPS Smart+; resposta rápida é o baseline.",
+          "usage_scenarios": [
+            "Use somente a partir de abrigo seguro, como um veículo de teto rígido ou uma construção substancial, respeitando fechamentos do parque e orientação dos rangers. Não permaneça ao ar livre junto ao tripod quando houver trovão audível ou tempestade se aproximando: distância aparente não é critério confiável. O MIOPS, o foco, o enquadramento e a exposição devem estar preparados antes; se o equipamento não puder ser operado a partir do abrigo ou deixado remotamente em posição previamente segura, abandone a fotografia e procure proteção.",
+            "Comece sem filtro. Somente em ambiente ainda muito claro, depois de reduzir ISO e fechar a abertura, considere ND8 para evitar superexposição. O filtro também reduz a luz do raio, portanto não deve ser colocado automaticamente."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-8 — Lightning - MIOPS"},
@@ -918,12 +1034,19 @@
             {
               "name": "Bright Ambient Light",
               "when": "1/125s ainda deixa o ambiente claro demais ou o canal do raio clipa.",
+              "what_it_does": "Se ISO 100 e f/11 ainda não forem suficientes, o ND8 reduz toda a cena — inclusive o próprio raio — em 3 stops. Ele é um recurso de último estágio para ambiente claro, não um filtro padrão para tempestades.",
+              "steps": [
+                "Primeiro reduza ISO para 100 e teste novamente.",
+                "Se necessário, feche a abertura para f/11 e verifique highlights.",
+                "Somente se a cena continuar clara demais, monte ND8 e faça disparos de teste.",
+                "Mantenha a calibração do MIOPS para as condições ambientes; após montar o ND8, teste apenas a exposição da câmera. Recalibre o trigger somente se a luz ambiente ou a tempestade mudarem."
+              ],
               "changes": [
                 {"item": "ISO Sensitivity", "value": "100", "note": "primeiro ajuste"},
                 {"item": "Aperture", "value": "f/11", "note": "se mais proteção for necessária"},
-                {"item": "Filter", "value": "ND8 if required", "note": "teste efeito sobre sensibilidade e composição"}
+                {"item": "Filter", "value": "ND8 only if required", "note": "uniform 3-stop reduction; it also darkens the lightning"}
               ],
-              "warnings": ["Configuração alternativa para teste; não existe exposição universal para raios."]
+              "warnings": ["Não use ND8 à noite ou por rotina; configuração alternativa para teste, pois não existe exposição universal para raios."]
             }
           ]
         },
@@ -933,6 +1056,10 @@
           "name": "Tripod High Resolution Landscape",
           "display_title": "Tripod High Res",
           "description": "RAW de 100 MP por sensor shift, mais RAW normal de segurança, para cenas essencialmente estáticas.",
+          "usage_scenarios": [
+            "Escolha para paisagens muito estáticas, arquitetura, arte e cenas com detalhes finos quando você pretende imprimir grande ou recortar intensamente. O sensor registra várias exposições deslocadas e a câmera produz um arquivo de aproximadamente 100 MP.",
+            "Movimento entre as exposições pode criar artefatos em folhas, água, pessoas e animais. Por isso o modo também salva um RAW normal: trate esse arquivo como segurança, não como opcional."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-9 — Tripod High Res"},
@@ -987,6 +1114,10 @@
           "color": "orange",
           "name": "Wildlife Video",
           "description": "Vídeo handheld de wildlife em 4K60 10-bit, pronto para movimento natural e slow motion 2× em timeline 30p.",
+          "usage_scenarios": [
+            "Use quando comportamento e movimento contam melhor a história do que um quadro isolado: animais caminhando, alimentando-se, interagindo ou vocalizando. O 4K60 permite movimento fluido e slow motion de 2× em uma timeline 30p.",
+            "O modo foi pensado para operação handheld com a 100–400mm II, mas apoio melhora enquadramentos longos. Grave tomadas curtas e deliberadas, monitore highlights e áudio e evite zooms ou movimentos de câmera sem propósito."
+          ],
           "front": {
             "physical_setup": [
               {"item": "Mode dial", "value": "C3", "note": "Select C3-10 — Wildlife Video"},

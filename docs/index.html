@@ -403,6 +403,33 @@ body {
   line-height: 1.4;
   font-style: italic;
 }
+.usage-scenarios {
+  margin: 10px 0 4px;
+  border: 1px solid rgba(74,144,217,0.25);
+  border-radius: 10px;
+  background: rgba(74,144,217,0.08);
+  overflow: hidden;
+}
+.usage-scenarios summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  color: var(--adjust);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+.usage-scenarios[open] summary {
+  border-bottom: 1px solid rgba(74,144,217,0.18);
+}
+.usage-paragraphs {
+  padding: 2px 12px 11px;
+}
+.usage-paragraphs p {
+  margin: 9px 0 0;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.52;
+}
 
 /* --- Equipment notes --- */
 .equip-notes {
@@ -472,6 +499,40 @@ body {
   line-height: 1.4;
   margin-bottom: 10px;
 }
+.alternative-explanation {
+  margin: 8px 0 10px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: rgba(74,144,217,0.10);
+  border: 1px solid rgba(74,144,217,0.22);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.48;
+}
+.alternative-explanation strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--adjust);
+}
+.alternative-steps {
+  margin: 8px 0 11px;
+  padding: 9px 10px 9px 30px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.035);
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.48;
+}
+.alternative-steps::before {
+  content: 'HOW TO USE IT';
+  display: block;
+  margin: 0 0 5px -20px;
+  color: var(--accent-teal);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+.alternative-steps li { margin: 4px 0; }
 .alternative-change {
   display: grid;
   grid-template-columns: minmax(90px, 0.8fr) 1.2fr;
@@ -652,6 +713,13 @@ function buildCard(m) {
     : '';
 
   const alternatives = m.alternatives || [];
+  const usageScenarios = m.usage_scenarios || [];
+  const usageHtml = usageScenarios.length
+    ? `<details class="usage-scenarios" open>
+        <summary>When to Use This Mode</summary>
+        <div class="usage-paragraphs">${usageScenarios.map(p => `<p>${p}</p>`).join('')}</div>
+      </details>`
+    : '';
   const alternativesHtml = alternatives.length
     ? alternatives.map(a => {
         const changes = (a.changes || []).map(c =>
@@ -664,9 +732,17 @@ function buildCard(m) {
         const warnings = (a.warnings || []).map(w =>
           `<div class="alternative-warning">⚠️ ${w}</div>`
         ).join('');
+        const explanation = a.what_it_does
+          ? `<div class="alternative-explanation"><strong>What it does</strong>${a.what_it_does}</div>`
+          : '';
+        const steps = (a.steps || []).length
+          ? `<ol class="alternative-steps">${a.steps.map(step => `<li>${step}</li>`).join('')}</ol>`
+          : '';
         return `<div class="alternative-card">
           <div class="alternative-name">${a.name}</div>
           <div class="alternative-when"><strong>Quando usar:</strong> ${a.when}</div>
+          ${explanation}
+          ${steps}
           ${changes}
           ${warnings}
         </div>`;
@@ -691,6 +767,7 @@ function buildCard(m) {
 
     <div id="panel-front" class="tab-content active" role="tabpanel" aria-labelledby="tab-front" data-tab="front">
       <div class="desc-banner">${m.description}</div>
+      ${usageHtml}
       <div class="section-label must">⚙️ Physical Controls &amp; Setup</div>
       <div class="physical-intro"><strong>Set before shooting.</strong> A recalled Custom Mode cannot move a physical dial, lever or lens switch. Confirm every position shown below.</div>
       <div class="setup-list">${setupHtml}</div>
