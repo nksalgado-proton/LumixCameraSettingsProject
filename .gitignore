@@ -47,6 +47,9 @@ tools/nks_focus_culler/bin/
 # Photo review samples (large files, local only)
 review/
 
+# Private camera setting backups
+backup/
+
 # Log files
 *.log
 

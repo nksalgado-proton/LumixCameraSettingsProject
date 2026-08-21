@@ -2,7 +2,7 @@
 
 Date started: 2026-08-07
 
-Status: Decision and migration ledger. Do not change the camera configuration JSON files until the implementation phase.
+Status: Approved decision and migration ledger. G9 MkI macro tests are complete and its final target JSON is updated; final camera programming, recall verification and `G9PARKS.DAT` backup remain pending. G9 MkII work remains independent.
 
 ## Operating Model
 
@@ -38,15 +38,15 @@ The approved names above remain the conceptual names used by this project. The G
 |---|---|
 | C1 | `General / Street` |
 | C2 | `Portrait` |
-| C3-1 | `Slow / Still Wildlife` |
+| C3-1 | `Wildlife Still` |
 | C3-2 | `Wildlife Action` |
-| C3-3 | `Fast / Erratic Wild` |
-| C3-4 | `Handheld Landscape` |
-| C3-5 | `Tripod HDR Landscape` |
-| C3-6 | `Focus Stack Landscape` |
-| C3-7 | `Long Exposure + ND` |
-| C3-8 | `Lightning - MIOPS` |
-| C3-9 | `Tripod High Res` |
+| C3-3 | `Wildlife Fast` |
+| C3-4 | `Landscape Handheld` |
+| C3-5 | `Landscape T HDR` |
+| C3-6 | `Landscape T Focus` |
+| C3-7 | `Landscape T ND` |
+| C3-8 | `Lightning T MIOPS` |
+| C3-9 | `Landscape T HiRes` |
 | C3-10 | `Wildlife Video` |
 
 The G9 MkI mode labels remain conceptual labels in the project documentation unless the camera presents an editable title field. Do not infer or force a naming function that is not shown by the camera.
@@ -62,7 +62,7 @@ For every target mode:
 
 ## Global Set-and-Forget Review
 
-Status: review in progress. Global settings will be reviewed and approved before the camera configuration JSON files are changed.
+Status: global targets reviewed and approved. The G9 MkI target record is updated; physical implementation remains governed by its final runbook.
 
 ### Storage and Double-Card Recording
 
@@ -102,7 +102,7 @@ Approved configuration:
 | File numbering | Continuous | Continuous | Preserve chronological continuity; do not restart numbering during daily downloads. |
 | File Number Reset | Perform once immediately before the trip, after testing is complete | Perform once immediately before the trip, after testing is complete | Begin the trip with a clean sequence while minimizing duplicate names. |
 | Folder / File behavior | Preserve standard folder-number-linked behavior | Preserve standard folder-number-linked behavior | Avoid unnecessary manual folder management during the trip. |
-| Copyright Information | On | On | Embed authorship information in captured files. |
+| Copyright Information | Not available on G9 MkI firmware 2.7 | Verify on G9 MkII with its firmware-2.7 Menu Atlas | The G9 MkI manual contains no Copyright Information, Artist or Copyright Holder menu items. |
 | Artist | `NKS` | `NKS` | Exact approved text. |
 | Copyright Holder | `Nelson Krahenbuhl Salgado` | `Nelson Krahenbuhl Salgado` | Exact approved text; no fixed year so the persistent setting does not become obsolete. |
 
@@ -137,7 +137,7 @@ Approved G9 MkI changes:
 |---|---|---|---|
 | i.Dynamic | Auto | Off | Avoid automatic contrast and exposure intervention in the RAW-centered workflow and align the two cameras. |
 | Shading Compensation | On | Off | Avoid automatic corner brightening and possible increased corner noise; apply lens correction during RAW processing when desired. |
-| Diffraction Compensation | On | Off | Avoid automatic processing and possible increased high-ISO noise; align with the G9 MkII RAW workflow. |
+| Diffraction Compensation | AUTO | OFF | The G9 MkI exposes `AUTO/OFF`, not `ON/OFF`; disable automatic processing and possible increased high-ISO noise. |
 
 Clarification:
 
@@ -152,17 +152,18 @@ Status: approved.
 Preserve on both cameras:
 
 - Back-button focus: Shutter AF off and AF-ON assigned to the rear control.
-- Half-Press Shutter off.
-- AFS Focus/Shutter Priority set to Focus.
+- G9 MkI `Half Press Release` off; verify the G9 MkII exact equivalent in its Menu Atlas.
+- G9 MkI `Focus/Release Priority > AFS/AFF` set to Focus; verify the G9 MkII exact equivalent in its Menu Atlas.
 - AF+MF on.
 - MF Assist enabled with PIP display and MF Guide on.
-- Focus Peaking on, red and Low sensitivity.
+- G9 MkI `Peaking` on, red and Low `Detect Level`.
+- G9 MkII `Focus Peaking` on with sensitivity `-2`, red display, `Display During AFS` on, and all three `Display During MF` conditions on. These exact firmware-2.7 values were observed during implementation.
 - Quick AF and Eye Sensor AF off.
 - Global Focus Limiter off.
 - AF Micro Adjustment off.
 - AF Custom Setting (Photo) Set 1.
 - Focus Switching for Vertical/Horizontal off.
-- Looped Focus Frame off.
+- G9 MkI `Loop Movement Focus Frame` off; verify the G9 MkII exact equivalent in its Menu Atlas.
 
 Approved changes:
 
@@ -170,9 +171,10 @@ Approved changes:
 |---|---|---|---|---|
 | G9 MkII | AFC Focus/Shutter Priority | Focus | Balance | Reduce burst interruptions caused by strict focus confirmation while retaining more focus discipline than Release priority. |
 | G9 MkII | AF Assist Light | On | Off | Its short effective range does not help normal 100–400mm wildlife distances and the light may attract or disturb animals. |
-| Both | Lens Focus Resume | Off | On | Preserve the last focus distance across power cycles, particularly useful for manual-focus macro work and deliberate prefocusing. |
-| G9 MkI | Burst Shot 1 | H | L, 2 fps | Make Burst I the approved normal low-recycle macro burst. |
-| G9 MkI | Burst Shot 2 | `SH75` (invalid copied setting) | M, 7 fps | Provide the approved higher-cadence 3–5 frame manual-flash test option. SH75 does not exist on the G9 MkI. |
+| G9 MkI | Lens Position Resume | Off | On | Exact firmware-2.7 name; preserve the last focus distance across power cycles. |
+| G9 MkII | Lens-position-resume equivalent | Off | On | Exact name and path must come from the G9 MkII firmware-2.7 Menu Atlas. |
+| G9 MkI | Burst Shot 1 Setting | H | L | Retain as the ISO 200/slower alternative; measured 15 frames in 10 seconds with flash. |
+| G9 MkI | Burst Shot 2 Setting | `SH75` (invalid copied setting) | M | Tested C3-2 baseline; measured 26 consistently illuminated frames in 10 seconds with Manual 1/32. SH75 does not exist on the G9 MkI. |
 | G9 MkII | Burst Shot 1 | H | H | Preserve the normal wildlife burst used by C3-1 through C3-3. |
 | G9 MkII | Burst Shot 2 | SH75 | SH20 PRE | Provide an AFC-compatible pre-capture option for sudden wildlife action. |
 | G9 MkII | SH Pre-Burst Recording Time | Not recorded | 0.5 second | Save ten frames before the full shutter press at SH20, providing reaction-time protection without the volume of a one-second pre-burst. |
@@ -190,8 +192,8 @@ Preserve on both cameras:
 
 - Auto Review off, avoiding interruptions after normal frames and bursts.
 - 9-section / 3x3 photo grid on.
-- Level Gauge on.
-- Focal Length display on.
+- Show the level gauge with `DISP.` when desired; there is no persistent On/Off preference.
+- Do not use `Focal Length Set` with the planned communicating electronic lenses.
 - Live View Boost off as the normal baseline; activate only when required for a dark night scene.
 - Night Mode off.
 - Exposure Meter display off.
@@ -204,14 +206,14 @@ Approved changes:
 | Camera | Setting | Current | Target | Reason |
 |---|---|---|---|---|
 | G9 MkII | Histogram | Off | On | Provide an approximate live exposure guide on the camera that will handle most landscapes. Position it in an unobtrusive corner and use DISP. when a clean view is required. |
-| G9 MkI | Blinking Highlights | Off | On | Identify clipped areas during playback, particularly useful for macro flash and portraits. |
+| G9 MkI | Highlight | Off | On | Exact firmware-2.7 name; identify clipped areas during playback, particularly useful for macro flash and portraits. |
 | G9 MkII | Blinking Highlights | Off | On | Identify clipped areas during playback for landscapes, wildlife and other subjects. |
 
 Exceptions and clarification:
 
 - Histogram remains off on the G9 MkI because a live histogram does not represent the final flash-lit macro exposure reliably.
 - Constant Preview remains off in all three approved G9 MkI macro custom modes.
-- With Auto Review off, Blinking Highlights is seen when an image is deliberately opened in playback; it will not interrupt capture automatically.
+- With Auto Review off, the G9 MkI `Highlight` warning and the G9 MkII equivalent are seen when an image is deliberately opened in playback; they will not interrupt capture automatically.
 
 ### Global Stabilization and Lens Behavior
 
@@ -221,39 +223,41 @@ Preserve:
 
 - Stabilization on with normal handheld behavior as the global baseline on both cameras.
 - Explicit stabilization overrides in every approved custom mode: tripod modes off, G9 MkI handheld macro Mode 1, normal G9 MkII wildlife Mode 1, and fast/erratic wildlife Mode 2.
-- Focus Ring Control Non-Linear. Linear control is lens-dependent and is not required for the body-movement macro technique.
-- Lens Fn Button set to AF-ON.
-- Aperture Ring Increment at 1/3 EV.
+- Focus Ring Control Non-Linear only when the attached lens exposes the setting; otherwise record it as unavailable.
+- Lens Fn Button set to AF-ON only when the attached lens exposes the setting.
+- Aperture Ring Increment at 1/3 EV only when a supported clickless aperture-ring lens exposes it; none of the planned lenses requires it.
 - AF Micro Adjustment off unless a repeatable, tested focus offset is later demonstrated.
 - G9 MkII Lens Information Confirmation on.
 
 Previously approved global change retained:
 
-- Lens Focus Resume on for both cameras.
+- G9 MkI `Lens Position Resume` on; verify the G9 MkII exact equivalent in its Menu Atlas.
 
 ### Global Power, Monitor and Viewfinder Setup
 
 Status: approved.
 
-Preserve on both cameras:
+Power-save timing:
 
-- Sleep Mode at 2 minutes.
-- Auto LVF/Monitor Off at 1 minute.
+- Both cameras: Sleep Mode at 10 minutes; Auto LVF/Monitor Off at 2 minutes.
+- The G9 MkII originally had a 2-minute/1-minute target. During implementation, the user explicitly transferred the less intrusive G9 MkI timing after testing it in practice.
+
+Preserve on both cameras:
 - Monitor Frame Rate at 60 fps.
 - Monitor Backlight / LVF Luminance on Auto.
 - Eye Sensor sensitivity Low.
-- Thermal Management / Recording Max Temperature at Standard for handheld use.
+- G9 MkI: no thermal-management menu exists in firmware 2.7. Verify the G9 MkII exact thermal setting in its Menu Atlas.
 - All beeps off.
 - USB connection selection on connection and USB power on.
-- System Frequency at 59.94 Hz NTSC, matching the United States and the approved 60p wildlife video mode.
+- G9 MkI: no `System Frequency` Setup item exists in firmware 2.7. Verify the G9 MkII video-system behavior in its Menu Atlas rather than inferring a common menu.
 
 Approved changes:
 
 | Camera | Setting | Current | Target | Reason |
 |---|---|---|---|---|
 | G9 MkII | LVF Frame Rate | 60 fps | 120 fps | Provide smoother viewfinder motion for tracking fast wildlife. Increased battery use is accepted and mitigated by the approved power-save timings. |
-| G9 MkI | Battery Use Priority | Battery Grip | Body | No battery grip is used; make the setting match the actual equipment. |
-| G9 MkII | Battery Use Priority | Battery Grip | Body | No battery grip is used; make the setting match the actual equipment. |
+| G9 MkI | Battery Use Priority | Unavailable without DMW-BGG9 | Do not program | The user has no grip; the manual documents this menu only after attaching it. |
+| G9 MkII | Battery Use Priority | Unknown until firmware-2.7 atlas verification | Do not infer | Verify whether the item is exposed with no grip before attempting a change. |
 
 Preserve G9 MkI LVF Frame Rate at 60 fps because its main macro, portrait, general and occasional-landscape roles do not justify the additional battery consumption of a high-rate wildlife viewfinder.
 
@@ -280,7 +284,7 @@ Approved G9 MkII changes:
 | Global 8-bit Luminance Level | 16-255 | 16-235 | Use the standard video range for broad compatibility. |
 | C3-10 10-bit Luminance Level | Not explicitly recorded | 64-940 | Use the corresponding standard 10-bit range with Standard Photo Style. |
 | Sound Rec Level Display | Off | On, Small | Confirm that internal-microphone audio is present and monitor excessive levels without a large overlay. |
-| XLR Mic Adaptor Setting | On | Off | No XLR microphone adaptor will be used. |
+| XLR Mic Adaptor Setting | Not displayed without adaptor | Effective Off | The firmware-2.7 camera uses the built-in microphone and hides this control when no XLR adaptor is attached. |
 
 Preserve on the G9 MkII:
 
@@ -289,9 +293,9 @@ Preserve on the G9 MkII:
 - C3-10 4K60, 10-bit, HEVC 100 Mbps quality and all previously approved C3-10 settings.
 - Internal microphone, Standard recording gain, 0 dB level adjustment, limiter on, Standard wind-noise cancellation and Lens Noise Cut on.
 - Continuous AF Mode 1.
-- Zebra 1 at the current 100–105% range.
+- Zebra 1 and Zebra 2 at 95%, the maximum offered by the camera in the active 4K 10-bit / 64-940 configuration; Zebra display off by default.
 - Red Recording Frame on.
-- Time Code off.
+- Time Code unavailable with MP4.
 - Auto Exposure in P/A/S/M on.
 - Current HDMI output settings. The Shinobi II remains outside the trip workflow.
 
@@ -305,37 +309,31 @@ Approved target on both cameras:
 
 | Setting | Target | Reason |
 |---|---|---|
-| Bluetooth | On | Maintain a low-energy connection for clock synchronization and geolocation. |
-| Auto Clock Set | On | Synchronize camera clock and time-zone information from the smartphone when the camera connects, including at power-on. |
-| Location Logging | On | Write smartphone-provided GPS coordinates directly to captured-image metadata. |
+| Bluetooth | Off during the photographic day | Save camera and phone battery; enable only for deliberate morning clock synchronization. |
+| Auto Clock Set | Preference On | When Bluetooth reconnects, both cameras restore this preference and synchronize clock/time-zone information; while Bluetooth is Off, the row is greyed and displays forced Off. |
+| Location Logging | Off | Direct Bluetooth geotagging is outside the final workflow. |
 | Wi-Fi | Off unless actively required | Clock and location use Bluetooth; avoid unnecessary higher-power Wi-Fi operation. |
 | Auto Transfer | Off | Avoid large RAW transfers, Wi-Fi activation, battery use and background transfer delays. |
 | Remote Wakeup | Off | It is not required for clock or location logging and can continue draining the camera battery while the power switch is off. |
 
 Applications:
 
-- G9 MkI: use Panasonic Image App for complete support, including Auto Clock Set and Location Logging.
-- G9 MkII: use LUMIX Sync for the approved workflow. LUMIX Lab remains optional and should not compete for the active connection during the test.
+- G9 MkI: use Panasonic Image App briefly for morning Auto Clock Set synchronization.
+- G9 MkII: use LUMIX Sync briefly for morning Auto Clock Set synchronization.
 - G9 MkII Network Connection Light remains off.
 - G9 MkII USB-SSD remains off.
 - USB Mode remains Select on Connection and USB Power remains on.
 
 Required two-camera test before travel:
 
-1. Pair the G9 MkI with Panasonic Image App and the G9 MkII with LUMIX Sync on the same smartphone.
-2. Grant both applications always-allowed location access and background operation; disable aggressive battery optimization for them.
-3. Enable smartphone GPS, camera Bluetooth, Auto Clock Set and Location Logging.
-4. Power both cameras on and wait until each shows a solid location/GPS indicator rather than a translucent unavailable indicator.
-5. Photograph the same displayed clock with both cameras.
-6. Lock the smartphone screen, move to a meaningfully different location, and photograph again with both cameras.
-7. Inspect the files on a computer and verify capture-time agreement, latitude/longitude presence and updated coordinates after movement.
-8. Repeat after a camera power cycle and with the phone operating without cellular data.
+1. Each morning, verify that the iPhone has the correct local time and time zone.
+2. Enable Bluetooth on the G9 MkI, connect Panasonic Image App and verify the camera clock; then disable Bluetooth.
+3. Enable Bluetooth Function on the G9 MkII, connect LUMIX Sync and verify the camera clock; then disable Bluetooth Function.
+4. Repeat after every time-zone change or extended period without a camera battery.
+5. At each new photographic location, take an iPhone reference photograph with precise location enabled.
+6. During post-processing, copy the iPhone photograph's GPS metadata to the corresponding Lumix photographs.
 
-Fallback if the smartphone cannot maintain both background connections:
-
-- Give live Bluetooth geolocation priority to the G9 MkII because it will capture most landscapes and wildlife.
-- Synchronize the G9 MkI clock manually each day and after time-zone changes.
-- Preserve a smartphone GPS track so G9 MkI images can be geotagged later by matching capture times if desired.
+No continuous background camera connection or GPX track is required in the final workflow.
 
 Privacy note:
 
@@ -431,7 +429,7 @@ Pre-programming maintenance:
 - Use Pixel Refresh only if repeatable bright or stuck pixels are visible; do not use it as routine maintenance.
 - Test all four primary 256 GB cards and the two 64 GB reserve cards; format each card in its intended camera after its contents have been backed up and verified.
 - Test MIOPS cables and triggering, Godox X3/MF12 flash operation, and the physical contacts and operation of lenses and teleconverters.
-- Complete the approved two-camera Bluetooth clock and geolocation test.
+- Complete the approved morning two-camera clock-synchronization test and iPhone reference-photo geotagging test.
 
 Final backup after programming and validation:
 
@@ -440,9 +438,11 @@ Final backup after programming and validation:
 
 ## Global Review Completion
 
-Status: all conceptual global set-and-forget categories have been reviewed and approved. Configuration JSON files remain unchanged pending a final consistency audit and the explicit implementation phase.
+Status: all conceptual global set-and-forget categories have been reviewed and approved. The G9 MkI target JSON is updated after its macro tests; its final physical closure pass remains pending. Do not infer G9 MkII closure from that state.
 
 ## G9 MkII Migration Ledger
+
+Implementation override: the historical baselines named below describe conceptual ancestry only. Do not load an old C3 slot during programming because its stored settings may have changed since the inventory was written. Build C3-1 from the newly programmed and power-cycle-verified C1 common template, then derive every later target only from C1 or the closest newly completed and verified target. The pre-change DAT backup preserves the old camera state if recovery is needed.
 
 ### C3-1 — Stationary / Slow Wildlife
 
@@ -669,8 +669,9 @@ Operational intent:
 - Primary use: waterfalls and rivers.
 - Shutter speed is the normal field adjustment according to ambient light, filter strength and desired water rendering.
 - Keep Long Exposure Noise Reduction off to avoid a same-duration dark exposure after every attempt; enable it manually only for unusually long exposures when appropriate.
-- K&F Concept magnetic 72mm kit: GND8, ND8, ND64 and ND1000, plus 58→72mm step-up ring.
+- K&F Concept magnetic 72mm kit: GND8, ND8, ND64 and ND1000, plus 58→72mm and 55→72mm direct step-up rings.
 - ND64 is the initial default; a detailed filter field guide will be created later.
+- Leica 9mm f/1.7 waterfall alternative: use the direct 55→72mm step-up ring with the threaded K&F Nano-X PRO VND2-32/CPL 72mm, tripod, ISO 100, f/8 and approximately 1/2 second as the initial exposure. Compare roughly 1/4, 1/2 and 1 second; adjust CPL conservatively while watching the full ultra-wide frame. Do not stack filters.
 
 ### C3-8 — Lightning — MIOPS Smart+
 
@@ -751,7 +752,7 @@ Approved changes:
 | AF area | Current / inherited | 1-Area | Position focus precisely. |
 | Handheld High-Res | Not applicable / Off | Off | This custom mode is designed for tripod use. |
 | High Resolution Picture Quality | Not applicable | RAW | Preserve maximum processing flexibility. |
-| High Resolution Picture Size | Not applicable | XL, 100 MP at 4:3 (11552×8672) | Use the maximum available output resolution. |
+| High Resolution Picture Size | Not applicable | Camera-forced XL, 100 MP at 4:3 (11552×8672) when Picture Quality is RAW | The item is unavailable because RAW fixes the maximum dimensions. |
 | Simul Record Normal Shot | Off | On | Save a normal approximately 25 MP safety frame as well as the merged image. |
 | Motion Blur Processing | Not applicable | Mode 1 | Prioritize the full High Resolution effect. |
 | Shutter delay | Off | 2 seconds | Allow vibration from pressing the shutter to settle. |
@@ -771,11 +772,11 @@ Operational intent:
 
 ### C3-10 — Wildlife Video
 
-Status: migration and settings confirmed.
+Status: implemented, recalled and capture-tested on firmware 2.7.
 
-Baseline: current G9 MkII C3-10 `Video — Wildlife in Motion`.
+C3-10 was built directly in Creative Video. The previous custom mode was not recalled because stored camera settings could have drifted from the earlier project record, and firmware 2.7 does not permit loading a still custom mode into Creative Video.
 
-Preserve:
+Implemented baseline:
 
 - Recording mode: Creative Video
 - Exposure sub-mode: Manual
@@ -792,7 +793,7 @@ Preserve:
 - Electronic shutter / video behavior
 - Flash: Forced Off
 - Internal recording
-- Internal microphone with current default levels
+- Internal microphone, Standard gain, 0dB, limiter On, Standard wind-noise cancellation and Lens Noise Cut On
 
 Approved changes:
 
@@ -810,6 +811,14 @@ Operational intent:
 - Raise shutter speed manually to 1/250s or 1/500s for very fast animals, frame analysis or possible frame extraction, accepting higher ISO and less natural motion rendering.
 - Standard Photo Style only; no V-Log/HLG workflow.
 - Atomos Shinobi II is excluded from the trip workflow.
+
+Verified firmware-2.7 behavior:
+
+- MP4 fixes `Sound Rec Quality` to 48kHz/16bit.
+- `Time Code` is unavailable with MP4.
+- `XLR Mic Adaptor Setting` is not displayed when no adaptor is attached; the built-in microphone is active.
+- Zebra 1 and Zebra 2 offered a maximum of 95% with the active 4K 10-bit / 64-940 configuration, so both were saved at 95% and the Zebra display remains Off by default.
+- The recalled mode recorded and played back a 4K60 10-bit HEVC clip successfully, with moving audio meters, audible internal-microphone sound, continuous AF and the red recording frame.
 
 ## G9 MkI Migration Ledger
 
@@ -838,7 +847,8 @@ Approved changes:
 | Setting | Current | Target | Reason |
 |---|---|---|---|
 | G9 MkII AF Detection | May inherit global Human Detection because C1 has no explicit override | Explicitly Off | Make C1 behavior predictable and consistent across both bodies. |
-| AF area | Not uniformly explicit | Full Area with Detection Off | Reproduce the existing G9 MkI C1 behavior on both cameras. |
+| G9 MkI AF mode | Not uniformly explicit | `225-Area` | Exact broad-area mode without automatic detection on the G9 MkI. |
+| G9 MkII AF area/detection | Not uniformly explicit | Verify exact equivalent in G9 MkII Menu Atlas | Do not transfer the G9 MkI terminology to the newer body. |
 | Minimum shutter speed | Auto | 1/125s | Protect street photographs from subject movement and modest camera motion. |
 
 Accepted tradeoff:
@@ -850,7 +860,7 @@ Operational intent:
 
 - Primary lens: 12–35mm.
 - 35–100mm is an alternate for tighter travel details.
-- Recall baseline: Aperture Priority, f/5.6, AFS Full Area, Detection Off, Single Shot, Auto ISO with 1/125s minimum, RAW, AWB, stabilization on and Electronic Front Curtain.
+- G9 MkI recall baseline: Aperture Priority, f/5.6, AFS `225-Area`, Single Shot, Auto ISO with 1/125s minimum, RAW, AWB, stabilization on and Electronic Front Curtain.
 
 ### C2 — Portrait
 
@@ -882,7 +892,7 @@ Approved clarification / change:
 
 G9 MkI behavior:
 
-- No technical change: preserve Full Area with Face/Eye Detection.
+- G9 MkI: replace the imprecise Full Area/detection wording with the exact AF mode `Human Detect AF`.
 - The focus-system wording and capability differ by camera generation, but the operational intent is the same.
 
 Operational intent:
@@ -890,13 +900,13 @@ Operational intent:
 - Primary lens: 35–100mm f/2.8.
 - Environmental alternative: 12–35mm f/2.8.
 - Olympus 60mm Macro is an alternate for tighter, deliberate portraits.
-- Recall baseline: Aperture Priority, f/2.8, AFS, Human/Face/Eye Detection, Full Area, Single Shot, Auto ISO with 1/125s minimum, Portrait Photo Style, RAW, AWB, stabilization on and Electronic Front Curtain.
+- G9 MkI recall baseline: Aperture Priority, f/2.8, AFS `Human Detect AF`, Single Shot, Auto ISO with 1/125s minimum, Portrait Photo Style, RAW, AWB, stabilization on and Electronic Front Curtain.
 
 ### C3-1 — Single Macro — TTL
 
-Status: migration and settings confirmed; TTL recycle-time test still required.
+Status: macro acceptance-tested and target approved; final clean-source programming and closure verification remain pending.
 
-Baseline: current G9 MkI C3-2 `Macro Handheld (Single Shot)`.
+Historical ancestry: old G9 MkI C3-2 `Macro Handheld (Single Shot)`. Executable source: newly completed C1, then save the fully specified macro state to C3-1.
 
 Preserve:
 
@@ -912,7 +922,7 @@ Preserve:
 - Stabilizer: On, Mode 1
 - White balance: AWB
 - RAW
-- Focus Peaking: On, Low sensitivity, red
+- G9 MkI `Peaking`: On, `Detect Level = LOW`, red `Display Color`
 - MF Assist and MF Guide: On
 
 Approved changes:
@@ -932,14 +942,14 @@ Operational intent and calibration:
 
 - Olympus 60mm Macro.
 - Manual-focus rocking technique.
-- Preserve f/16 and ISO 200 initially; measure real MF12 TTL recycle time before changing either.
+- Preserve f/16 and ISO 200. Several individual frames produced consistent TTL exposure and a usable viewfinder; this is intentionally not a burst mode.
 - The Panasonic Wireless menu stays off because radio control is handled by the Godox X3/MF12 system.
 
 ### C3-2 — Macro Burst — Manual Flash
 
-Status: migration and initial settings confirmed; flash exposure and recycle calibration still required.
+Status: macro acceptance-tested and target approved; Burst II / M is the final target, with clean-source programming and closure verification pending.
 
-Baseline: current G9 MkI C3-2 `Macro Handheld (Single Shot)` and approved target C3-1 `Single Macro — TTL`.
+Historical ancestry: old G9 MkI C3-2 `Macro Handheld (Single Shot)`. Executable source: recall the newly completed C3-1 again, then save the burst target to C3-2.
 
 Preserve:
 
@@ -953,44 +963,44 @@ Preserve:
 - Stabilizer: On, Mode 1
 - White balance: AWB
 - Constant Preview: Off
-- Focus Peaking, MF Assist and MF Guide: On
+- G9 MkI Peaking, MF Assist and MF Guide: On
 
 Approved changes from target C3-1:
 
 | Setting | C3-1 | C3-2 | Reason |
 |---|---|---|---|
 | Name | Single Macro — TTL | Macro Burst — Manual Flash | Identify the short-burst and manual-lighting workflow. |
-| Drive | Single Shot | Burst I, L speed (2 fps) | Record 3–5 frames at a cadence the flashes can plausibly sustain. |
+| Drive | Single Shot | Physical Burst II; `Burst Shot 2 Setting = M` | The validated combination recorded 26 fully illuminated frames in 10 seconds; use only 3–5 frames per field burst. |
 | ISO | 200 | 400 | Save one stop of flash output and shorten recycling. |
 | Flash control | TTL | Manual | Keep exposure and recycling consistent through the burst. |
-| Initial MF12 power | TTL-determined | 1/32 on each unit | Provide a conservative low-power starting point for rapid recycling. |
-| MF12 balance | TTL | Groups A and B at 1:1 | Start with neutral left/right lighting before creative adjustment. |
+| Initial MF12 power | TTL-determined | Group A at 1/32 for both units | Provide consistent low-power output and rapid recycling. |
+| MF12 grouping | Both units in Group A; Group B Off | Both units in Group A; Group B Off | The X3 controls the pair together; do not document a nonexistent A/B left-right balance. |
 
 Recall baseline:
 
-- Manual, MF, Burst I at L 2 fps, f/16, 1/200s, ISO 400, MF12 groups A/B at 1/32, Mechanical shutter and stabilizer Mode 1.
+- Manual, MF, physical Burst II with `Burst Shot 2 Setting = M`, f/16, 1/200s, ISO 400, both Group A MF12 units at Manual 1/32, Mechanical shutter and stabilizer Mode 1.
 
 Operational intent:
 
 - Olympus 60mm Macro with manual-focus rocking.
-- Hold the shutter for approximately 1.5–2.5 seconds to produce 3–5 frames.
+- Hold the shutter for approximately 1.2–1.9 seconds to produce 3–5 frames at the measured 2.6 fps cadence.
 - The objective is not a guaranteed stack; it is to increase the probability that at least one frame places the critical plane in focus.
 - If body movement is sufficiently smooth, the sequence may occasionally support a small software stack, but this is not the mode's success criterion.
-- The physical drive dial must be moved to Burst I; a recalled custom mode cannot physically move the dial.
+- The physical drive dial must be moved to Burst II; a recalled custom mode cannot physically move the dial.
 
-Calibration and field adjustment order:
+Validated calibration and field adjustment order:
 
-1. Test with both MF12 diffusers fitted and fully charged batteries.
-2. If underexposed, raise ISO from 400 to 640 or 800 first.
-3. Only then raise MF12 power from 1/32 to 1/16.
-4. If any frame misses a flash, lower flash power or pause; do not raise the burst rate.
-5. Also test Burst M at 7 fps with MF12 power at 1/32 and 1/64. Promote M to the saved baseline only if every frame is illuminated consistently; otherwise retain the approved L 2 fps baseline.
+1. Burst II / M, ISO 400 and Group A Manual 1/32 recorded 26 fully illuminated frames in 10 seconds and is the final baseline.
+2. TTL was rejected after producing many black frames under C3-2 conditions.
+3. Physical Burst I / L, ISO 200 and Group A Manual 1/32 recorded 15 illuminated frames in 10 seconds and remains the quality-priority alternative.
+4. If the final baseline is underexposed in a new situation, raise ISO to 640 or 800 before raising flash power.
+5. If any frame misses flash, stop and allow recycling; do not increase cadence.
 
 ### C3-3 — Supported Macro Focus Bracket
 
-Status: migration and initial settings confirmed; X3/MF12 compatibility, recycle and merge calibration still required.
+Status: macro acceptance-tested and target approved; TTL completed the full capture and merge workflow, with clean-source programming and closure verification pending.
 
-Baseline: current G9 MkI C3-2 `Macro Handheld (Single Shot)`, adapted for an automatic supported stack. The current C3-3 `Wildlife / Action` is replaced because wildlife specialization moves to the G9 MkII.
+Historical ancestry: old G9 MkI C3-2 `Macro Handheld (Single Shot)`; old C3-3 `Wildlife / Action` is retired because wildlife specialization moves to the G9 MkII. Executable source: newly completed C3-1, then save the supported-bracket target to C3-3.
 
 Preserve:
 
@@ -1003,7 +1013,7 @@ Preserve:
 - White balance: AWB
 - Shutter type: Mechanical
 - Constant Preview: Off
-- Focus Peaking, MF Assist and MF Guide: On
+- G9 MkI Peaking, MF Assist and MF Guide: On
 
 Approved changes:
 
@@ -1014,18 +1024,18 @@ Approved changes:
 | Camera support | Handheld | Tripod or firm surface | Keep framing and perspective fixed through the stack. |
 | Aperture | f/16 | f/8 | Let stacking provide depth, reduce diffraction and require four times less flash energy than f/16. |
 | ISO | 200 | 400 | Save one additional stop of flash energy. |
-| Flash control | TTL | TTL initially | Retain automatic exposure and test whether the Godox system communicates recycle readiness reliably. |
+| Flash control | TTL | Group A TTL +0.0; Group B Off | Validated with both diffused MF12 units in Group A. |
 | Stabilizer | On, Mode 1 | Off | The camera is supported. |
 | Bracketing | Off | Focus Bracket | Record the automatic focus sequence. |
 | Focus bracket step | Not applicable | 2 | Favor conservative overlap between focus planes. |
 | Focus bracket image count | Not applicable | 40 | Provide a practical initial range for the 60mm Macro. |
 | Focus bracket sequence | Not applicable | 0/+ | Start at the nearest required detail and move toward the background. |
-| Shutter delay | Off | 2 seconds | Allow vibration from pressing the shutter to settle before the sequence. |
+| Shutter delay | Off | Off | The 2-second setting delayed every bracket frame and would stretch 40 images to roughly 80 seconds. |
 | Physical drive dial | Single Shot | Single Shot | Allow the camera to execute the programmed image count automatically. |
 
 Recall baseline:
 
-- Manual, MF, Single Shot, f/8, 1/200s, ISO 400, TTL, Mechanical shutter, stabilizer off, Focus Bracket Step 2, 40 images, sequence 0/+ and 2-second delay.
+- Manual, MF, Single Shot, f/8, 1/200s, ISO 400, Group A TTL +0.0, Mechanical shutter, stabilizer off, Focus Bracket Step 2, 40 images, sequence 0/+ and shutter delay Off.
 
 Operational intent:
 
@@ -1034,13 +1044,12 @@ Operational intent:
 - Compared with C3-1, f/8 and ISO 400 reduce theoretical flash-energy demand by three stops.
 - MF12 pair controlled by X3 is the initial light; AD100Pro remains an optional off-camera variation.
 
-Required validation before implementation:
+Validated result:
 
-1. Use a fully static test subject, supported camera, charged MF12 units and fitted diffusers.
-2. Confirm that all 40 TTL frames receive consistent flash exposure.
-3. Merge the sequence in Helicon Focus and inspect it for focus gaps and alignment artifacts.
-4. If TTL frames are inconsistent or recycle cannot keep up, test both MF12 units manually at 1/64.
-5. If flash synchronization still fails, test the MF12 modeling lights as continuous illumination with an appropriately slower shutter speed.
+1. A supported camera and static subject produced 40 fully illuminated TTL frames in 12 seconds.
+2. Step 2 / 40 / 0+ covered approximately 4 cm from near to far.
+3. The sequence merged perfectly in Helicon Focus.
+4. Manual 1/64 and the MF12 modeling lights remain fallbacks only; the approved TTL baseline did not require them.
 
 ## Equipment and Scope Decisions
 
@@ -1062,6 +1071,39 @@ Wildlife gear:
 - Leica 100–400mm II
 - Panasonic 1.4× and 2× teleconverters
 - Tripod normally available
+
+Landscape filter gear:
+
+- K&F Concept magnetic 72mm kit: fixed GND8, ND8, ND64 and ND1000
+- Direct 58→72mm and 55→72mm step-up rings
+- K&F Concept KF01.2001 Nano-X PRO 72mm VND2-32 + CPL 2-in-1, 1–5 stops, 36-layer coating
+- K&F Concept 72mm VND2-400, 1–9 stops
+- K&F Concept NANO-K 58mm HMC CPL, standalone circular polarizer
+- K&F Concept NANO-K 72mm HMC CPL, standalone circular polarizer
+- Never stack the two variable filters; the VND2-32/CPL is the normal Leica 9mm waterfall choice, with VND2-400 reserved for light too strong for 5 stops
+- Keep the standalone HMC CPL filters distinct from the KF01.2001 combined VND/CPL when selecting gear in the field
+
+### Filter selection quick guide
+
+| Filter | Use it when | Avoid or replace it when |
+|---|---|---|
+| NANO-K 58mm HMC CPL | Direct fit on the 12–35mm II for glare on water, wet foliage, rocks or glass; rotate while watching the subject in the EVF. | Light is scarce, reflections are not a problem, or the ultra-wide sky becomes uneven. |
+| NANO-K 72mm HMC CPL | The lens or direct step-up ends at 72mm and the goal is controlling reflections or improving color separation, not creating a long exposure. | Another polarizer or VND is already mounted; never stack polarizers. |
+| Nano-X PRO VND2-32 + CPL 2-in-1 | Waterfalls, streams and wet landscapes where both 1–5 stops of exposure control and independent reflection control are useful; normal Leica 9mm choice. | More than 5 stops are required, only simple polarization is needed, or the ultra-wide frame becomes uneven. |
+| VND2-400, 1–9 stops | Strong or changing light where the needed density is not known in advance; increase only until the target shutter speed is reached. | A fixed ND already matches the required density, reflection control is the main goal, or the high setting creates an X pattern or color/exposure irregularity. |
+| Fixed ND8, 3 stops | Mild motion blur, shade, dawn/dusk, or when ND64 would make the exposure unnecessarily long. | It cannot slow the shutter enough in bright conditions. |
+| Fixed ND64, 6 stops | Normal daylight waterfall and river starting point for smooth water without exposures of many minutes. | Light is already low or the desired texture needs only a small reduction. |
+| Fixed ND1000, 10 stops | Deliberate multi-second/minute effects in strong light: very smooth water, moving clouds or reduction of moving people. | Vegetation moves, spray reaches the lens, or a shorter exposure preserves better water texture. |
+| GND8, up to 3 stops graduated | A bright sky and darker foreground are divided by a simple horizon that can align with the fixed transition. | Trees, mountains or buildings cross the transition visibly; use HDR bracket or a normal RAW instead. |
+
+Selection rule: choose the effect first. CPL controls reflections; ND controls time; GND controls a brightness difference across the frame. Use only the least complex filter that solves the actual problem.
+
+Travel video and observation gear:
+
+- GoPro HERO12 Black, firmware 2.40, four batteries and one 256 GB V30 microSD card
+- Premium suction mount, PGYTECH backpack-strap clip with articulating adapter, chest/head mounts and floating grip
+- Zeiss Victory SF 8x32 binocular
+- GoPro modes and daily clock synchronization are defined in `GoPro-HERO12-Travel-Setup.md` and `data/camera-config-gopro-hero12.json`
 
 ## G9 MkII Teleconverter Field Variants
 
@@ -1120,29 +1162,29 @@ Other decisions:
 
 ## Confirmed Q.Menu Redesign
 
-Status: layout confirmed for both cameras; configuration JSON files remain unchanged until implementation.
+Status: G9 MkI layout corrected against the firmware-2.7-compatible manual; G9 MkII remains subject to its own firmware-2.7 Menu Atlas.
 
 Design rule:
 
-- Slots 3–12 have the same operational meaning on both bodies to reinforce muscle memory.
-- Slots 1–2 hold the camera-specific priorities: macro flash on the G9 MkI and subject detection on the G9 MkII.
+- Slots 1–8 retain the approved cross-camera muscle-memory pattern.
+- G9 MkI slots 9–12 use only items established by the G9 manual. `Shutter Delay` remains in My Menu unless the firmware-2.7 add-item screen explicitly offers it.
+- G9 MkII slots 9–12 remain unchanged until its Menu Atlas verifies their exact names and availability.
 
 | Slot | G9 MkI | G9 MkII |
 |---:|---|---|
 | 1 | Flash Mode | AF Detection Setting |
 | 2 | Flash Adjust. | Detecting Subject |
-| 3 | Image Stabilizer | Image Stabilizer |
+| 3 | Stabilizer | Image Stabilizer |
 | 4 | Metering Mode | Metering Mode |
 | 5 | Quality | Picture Quality |
 | 6 | Shutter Type | Shutter Type |
-| 7 | Bracketing | Bracketing |
-| 8 | Burst Shot Setting | Burst Shot Setting |
-| 9 | Shutter Delay | Shutter Delay |
-| 10 | Minimum Shutter Speed | Minimum Shutter Speed |
-| 11 | Photo Style | Photo Style |
-| 12 | Aspect Ratio | Aspect Ratio |
-| 13 | Focus Peaking | Not available in the G9 MkII 12-item grid |
-| 14–15 | Empty | Not applicable |
+| 7 | Bracket | Bracketing |
+| 8 | Burst Shot Setting | AF Custom Setting(Photo) |
+| 9 | Min. Shtr Speed | Focus Peaking |
+| 10 | Photo Style | Minimum Shutter Speed |
+| 11 | Aspect Ratio | Photo Style |
+| 12 | Peaking | Aspect Ratio |
+| 13–15 | Empty | Not applicable |
 
 G9 MkI removals:
 
@@ -1151,18 +1193,20 @@ G9 MkI removals:
 
 G9 MkI additions:
 
-- `Burst Shot Setting`: switch and calibrate L/M for C3-2.
-- `Shutter Delay`: supported C3-3 control.
-- `Focus Peaking`: quick MF display toggle for macro.
+- `Burst Shot Setting`: select the active Burst I/Burst II preset; exact Rec entries remain `Burst Shot 1 Setting` and `Burst Shot 2 Setting`.
+- `Shutter Delay`: keep in My Menu unless it appears explicitly in the firmware-2.7 Q.Menu add-item screen.
+- `Peaking`: exact G9 MkI name; quick MF display toggle for macro.
 
 G9 MkII removals:
 
 - Remove `Flash Mode` and `Flash Adjust.` because no planned G9 MkII mode uses flash.
 
-G9 MkII additions:
+G9 MkII implementation correction:
 
-- `Burst Shot Setting`: wildlife H/M/L adjustment.
-- `Shutter Delay`: tripod, remote and bracketing variation.
+- The firmware-2.7-compatible manual's complete Q.Menu registration list on pp. 547–550 does not include `Burst Shot Setting` or `Shutter Delay`; the camera add-item screen confirmed the omission.
+- Slot 8 is therefore `AF Custom Setting(Photo)` for immediate wildlife AFC behavior changes.
+- Slot 9 is `Focus Peaking` for immediate landscape/manual-focus display control.
+- `Burst Shot Setting` and `Shutter Delay` remain in My Menu for detailed access.
 
 Constant Preview decision:
 
@@ -1172,48 +1216,62 @@ Constant Preview decision:
 
 ## Confirmed My Menu Redesign
 
-Status: layout confirmed for both cameras; configuration JSON files remain unchanged until implementation.
+Status: G9 MkI layout corrected against the firmware-2.7-compatible manual; G9 MkII remains subject to its Menu Atlas.
 
 Design rule:
 
 - Q.Menu is for immediate field changes.
 - My Menu is for detailed configuration, calibration and maintenance.
-- Slots 1–13 have the same operational meaning on both bodies.
+- Preserve the same functional priorities where possible, but do not force identical names or slot counts across cameras.
 
-### Common slots
+### G9 MkI exact slots
 
-| Slot | Item | Purpose |
+| Slot | Exact item | Purpose |
 |---:|---|---|
-| 1 | Save to Custom Mode / Cust.Set Mem. | Re-save a mode after an approved calibration. |
-| 2 | Bracket — Detailed Settings | Change Type, Step, Count and Sequence. |
-| 3 | Burst Shot Setting | Configure H/M/L in detail. |
-| 4 | Shutter Delay | Adjust supported-mode delay. |
-| 5 | ISO Sensitivity — Photo | Change the Auto ISO upper limit. |
-| 6 | Long Shutter NR | Exceptional use for very long exposures. |
-| 7 | Focus Peaking Set | Change peaking color and sensitivity. |
-| 8 | Sensor Cleaning | Field maintenance. |
-| 9 | Card Format | Deliberate formatting, kept below photographic controls to reduce accidental access. |
-| 10 | Fn Button Set | Maintain button assignments. |
-| 11 | Rec Quality | Occasional video-format change. |
+| 1 | Cust.Set Mem. | Re-save a mode after an approved calibration. |
+| 2 | Bracket | Change Type, Step, Count and Sequence. |
+| 3 | Burst Shot 1 Setting | Configure the physical Burst I preset. |
+| 4 | Burst Shot 2 Setting | Configure the physical Burst II preset. |
+| 5 | Shutter Delay | Adjust supported-mode delay. |
+| 6 | ISO Sensitivity (photo) | Change the Auto ISO upper limit. |
+| 7 | Long Shtr NR | Exceptional use for very long exposures. |
+| 8 | Peaking | Change peaking color and sensitivity. |
+| 9 | Sensor Cleaning | Field maintenance. |
+| 10 | Format | Deliberate formatting, kept below photographic controls to reduce accidental access. |
+| 11 | Fn Button Set | Maintain button assignments. |
 | 12 | Time Lapse/Animation | Occasional access, including possible Capsule Pro experiments. |
-| 13 | Zebra Pattern Set | Change the zebra threshold. |
+| 13 | Zebra Pattern | Change the zebra threshold. |
 
 ### G9 MkI decisions
 
-- Stop at slot 13; slots 14–16 may remain empty.
+- Stop at slot 13; the camera supports up to 23 My Menu entries, but no further G9 MkI entries are approved. `Rec Quality` was removed because general video is outside the approved scope.
 - Remove `AF Custom Setting (Photo)`: C1/C2 use AFS and the C3 modes use MF.
 - Remove `Focus Limiter`: the planned macro modes use MF.
 - Remove `Ex. Tele Conv.`: wildlife has moved to the G9 MkII.
 
-### G9 MkII additional slots
+### G9 MkII exact slots
 
-| Slot | Item | Purpose |
+The G9 MkII uses one combined `Burst Shot Setting` item rather than the G9 MkI's two separate burst presets. `Rec Quality` remains deliberately excluded because general video is outside the project scope. The resulting final list contains 17 entries.
+
+| Slot | Exact item | Purpose |
 |---:|---|---|
-| 14 | AF Custom Setting — Photo | Change wildlife tracking behavior Set 1–4. |
-| 15 | Focus Limiter | Apply a more precise AF range when the physical lens selector is insufficient. |
-| 16 | High Resolution Mode Setting | Adjust RAW, XL, Motion Blur Mode and simultaneous normal frame. |
-| 17 | Live View Composite | Access the night-lightning variation. |
-| 18 | Custom Mode Settings | Maintain titles, mode count and reload behavior. |
+| 1 | Save to Custom Mode | Re-save a mode after an approved calibration. |
+| 2 | Bracketing | Change bracket type and detailed parameters. |
+| 3 | Burst Shot Setting | Configure Burst I, Burst II and pre-burst behavior. |
+| 4 | Shutter Delay | Adjust supported-mode delay. |
+| 5 | ISO Sensitivity (photo) | Change Auto ISO limits. |
+| 6 | Long Exposure NR | Exceptional use for very long exposures. |
+| 7 | Focus Peaking | Change peaking display details. |
+| 8 | Sensor Cleaning | Field maintenance. |
+| 9 | Card Format | Deliberate formatting below photographic controls. |
+| 10 | Fn Button Set | Maintain button assignments. |
+| 11 | Time Lapse/Animation | Occasional interval and animation access. |
+| 12 | Zebra Pattern | Change zebra thresholds. |
+| 13 | AF Custom Setting(Photo) | Change wildlife AFC response Set 1–4. |
+| 14 | Focus Limiter | Apply a precise AF range when the lens selector is insufficient. |
+| 15 | High Resolution Mode Setting | Adjust RAW, XL, motion blur handling and simultaneous normal frame. |
+| 16 | Live View Composite | Access the night/lightning variation. |
+| 17 | Custom Mode Settings | Maintain titles, mode count and reload behavior. |
 
 G9 MkII removals:
 
@@ -1223,7 +1281,7 @@ G9 MkII removals:
 
 ## Confirmed Fn Button Redesign
 
-Status: assignments confirmed for both cameras; configuration JSON files remain unchanged until implementation.
+Status: assignments confirmed for both cameras. The G9 MkI target record is updated and its final physical implementation is pending; the G9 MkII record remains unchanged until its own validation completes.
 
 ### G9 MkI
 
@@ -1286,15 +1344,13 @@ Decisions completed:
 
 Physical calibration and preparation still required:
 
-- Calibrate G9 MkI C3-1 MF12 TTL recycle time at f/16 and ISO 200.
-- Calibrate G9 MkI C3-2 MF12 exposure and cadence: approved L 2 fps baseline, plus M 7 fps tests at 1/32 and 1/64.
-- Validate G9 MkI C3-3 Focus Bracket with X3/MF12 TTL, then manual 1/64 or continuous modeling-light fallback if needed.
+- G9 MkI macro calibration is complete. Apply the final common settings and C1/C2 changes, re-save all five modes, pass the power-cycle recall/capture checks, and create the verified `G9PARKS.DAT` backup using `G9MkI-Final-Implementation-and-Backup-Checklist.md`.
 - Calibrate G9 MkII C3-6 landscape Focus Bracket Step 3 and 30 frames at 12mm, 25mm and 35mm, including actual software merges.
 - Test the MIOPS Smart+, correct camera cable, Prefocus, Lightning Mode sensitivity and false-trigger behavior.
 - Write the K&F filter field guide.
-- Q.Menu, My Menu and Fn-button assignments have been reviewed and confirmed; implementation remains pending.
+- G9 MkI Q.Menu and My Menu are implemented; its final controls and mode closure pass remain pending. G9 MkII implementation work remains tracked separately.
 
 Implementation gate:
 
-- Perform a final user review of this migration ledger.
-- Only then update the two camera configuration JSON files and produce the step-by-step programming checklist.
+- The G9 MkI approved target JSON and camera-in-hand runbook are ready. Mark that body implemented-and-validated only after its runbook closure gate and `G9PARKS.DAT` verification pass.
+- Keep G9 MkII configuration status independent; do not close it from G9 MkI evidence.

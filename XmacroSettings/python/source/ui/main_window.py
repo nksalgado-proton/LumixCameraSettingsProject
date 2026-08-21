@@ -1,13 +1,20 @@
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QFormLayout,
     QGroupBox, QComboBox, QDoubleSpinBox, QLabel, QRadioButton,
-    QButtonGroup, QSizePolicy,
+    QButtonGroup,
 )
-from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QAction
 
 from core.gear_data import CAMERAS, LENSES, ACCESSORIES, FLASH_UNITS
 from core.calculations import calculate_all
+from core.recommendations import (
+    DEFAULT_CHARACTER_SIZE_MM,
+    TESTED_LUMIX_STEP,
+    alternative_shots_for_character_size,
+    shots_for_character_size,
+    supported_alternative_magnifications,
+    supported_coverage_sizes,
+)
 
 # Shooting conditions: name → (overlap, description)
 CONDITIONS = {
@@ -15,7 +22,6 @@ CONDITIONS = {
     "Field":   (0.40, "40% overlap — balanced, light breeze"),
     "Windy":   (0.20, "20% overlap — faster sequence, less overlap"),
 }
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -32,6 +38,7 @@ class MainWindow(QMainWindow):
         root.setContentsMargins(14, 14, 14, 14)
 
         root.addWidget(self._build_gear_group())
+        root.addWidget(self._build_tested_recommendation_group())
         root.addWidget(self._build_params_group())
         root.addWidget(self._build_shooting_mode_group())
         root.addWidget(self._build_results_group())
@@ -71,6 +78,47 @@ class MainWindow(QMainWindow):
         self.acc_combo = QComboBox()
         form.addRow("Accessory:", self.acc_combo)
 
+        return box
+
+    def _build_tested_recommendation_group(self) -> QGroupBox:
+        box = QGroupBox("Final C3-3 Coverage Guide")
+        layout = QVBoxLayout(box)
+        form = QFormLayout()
+
+        self.character_size_combo = QComboBox()
+        for size_mm in supported_coverage_sizes():
+            self.character_size_combo.addItem(f"{size_mm} mm", size_mm)
+        self.character_size_combo.setCurrentIndex(
+            self.character_size_combo.findData(DEFAULT_CHARACTER_SIZE_MM)
+        )
+
+        self.tested_step_label = QLabel(str(TESTED_LUMIX_STEP))
+        self.tested_shots_label = QLabel()
+        form.addRow("Target Coverage:", self.character_size_combo)
+        form.addRow("Step Setting:", self.tested_step_label)
+        form.addRow("Number of Shots:", self.tested_shots_label)
+        layout.addLayout(form)
+
+        alternatives_title = QLabel("Alternatives")
+        alternatives_title.setStyleSheet("font-weight: bold; margin-top: 4px;")
+        layout.addWidget(alternatives_title)
+        self.alternatives_label = QLabel()
+        self.alternatives_label.setWordWrap(True)
+        self.alternatives_label.setStyleSheet(
+            "background: #f4f4f4; border-radius: 4px; padding: 6px;"
+        )
+        layout.addWidget(self.alternatives_label)
+
+        note = QLabel(
+            "G9 · OM 60mm · 1:2 tested · f/8 · step 2 · "
+            "40 shots ≈ 40 mm coverage · "
+            "alternatives estimated from depth of field"
+        )
+        note.setWordWrap(True)
+        note.setStyleSheet("color: #555;")
+        layout.addWidget(note)
+
+        self._update_tested_recommendation()
         return box
 
     def _build_params_group(self) -> QGroupBox:
@@ -230,6 +278,9 @@ class MainWindow(QMainWindow):
     # ------------------------------------------------------------------
 
     def _connect_signals(self):
+        self.character_size_combo.currentIndexChanged.connect(
+            self._update_tested_recommendation
+        )
         self.cam_combo.currentTextChanged.connect(self._recalculate)
         self.lens_combo.currentTextChanged.connect(self._on_lens_changed)
         self.acc_combo.currentTextChanged.connect(self._recalculate)
@@ -244,6 +295,21 @@ class MainWindow(QMainWindow):
     # ------------------------------------------------------------------
     # Slots
     # ------------------------------------------------------------------
+
+    def _update_tested_recommendation(self, *_):
+        size_mm = self.character_size_combo.currentData()
+        self.tested_shots_label.setText(str(shots_for_character_size(size_mm)))
+        cells = []
+        for magnification in supported_alternative_magnifications():
+            shots = alternative_shots_for_character_size(size_mm, magnification)
+            cells.append(
+                f"<td align='center'><b>{magnification}</b><br>{shots} shots</td>"
+            )
+        self.alternatives_label.setText(
+            "<table width='100%' cellspacing='0' cellpadding='3'><tr>"
+            + "".join(cells)
+            + "</tr></table>"
+        )
 
     def _on_lens_changed(self):
         lens_name = self.lens_combo.currentText()

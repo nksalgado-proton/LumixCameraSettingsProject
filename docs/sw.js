@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lumix-cards-v5-scenarios-and-filter-guide';
+const CACHE_NAME = 'travel-cards-v11-waterfall';
 const ASSETS = [
   './',
   './index.html',

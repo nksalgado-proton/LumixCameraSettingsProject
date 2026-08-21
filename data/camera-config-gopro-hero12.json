@@ -1,0 +1,95 @@
+{
+  "_metadata": {
+    "camera": "GoPro HERO12 Black",
+    "firmware": "2.40",
+    "configured_on": "2026-08-20",
+    "status": "IMPLEMENTED",
+    "backup_type": "Declarative restoration record; HERO12/Quik does not export a Panasonic-style binary settings file",
+    "phone_app": "GoPro Quik 13.38-era interface with camera-mode management introduced in 13.28"
+  },
+  "hardware": {
+    "batteries": 4,
+    "memory_card": "256 GB microSD, V30",
+    "mounts": [
+      "Premium suction mount for rental-car hood",
+      "PGYTECH backpack-strap quick-release clip with articulating adapter",
+      "Chest mount",
+      "Head mount",
+      "Floating hand grip"
+    ]
+  },
+  "privacy_and_sync": {
+    "cloud_upload": "Off",
+    "control_phone": "Owner's phone; operated only by the passenger while the car is moving",
+    "clock_rule": "In Quik, use Set Date and Time at the start of each shooting day and after every time-zone change; phone automatic date/time/time-zone must be enabled"
+  },
+  "modes": {
+    "timewarp_road_2x": {
+      "quik_family": "Time Lapse",
+      "quik_mode": "TimeWarp",
+      "resolution": "4K",
+      "aspect_ratio": "16:9",
+      "speed": "2x",
+      "lens": "Linear + Horizon Leveling (L+)",
+      "use": "Road highlights; record 20-30 seconds for 10-15 seconds of output"
+    },
+    "video_road_trail": {
+      "quik_family": "Video",
+      "quik_mode": "Video",
+      "resolution": "4K",
+      "aspect_ratio": "16:9",
+      "frame_rate": "30 fps",
+      "profile": "Standard",
+      "lens": "Linear + Horizon Lock (L+)",
+      "hypersmooth": "AutoBoost",
+      "duration": "No limit",
+      "use": "Real-time road and backpack-strap trail video"
+    },
+    "video_snorkel_temporary": {
+      "base_mode": "video_road_trail",
+      "temporary_changes": {
+        "frame_rate": "60 fps",
+        "lens": "Wide"
+      },
+      "unchanged": {
+        "resolution": "4K",
+        "aspect_ratio": "16:9",
+        "profile": "Standard",
+        "hypersmooth": "AutoBoost"
+      },
+      "use": "Handheld with floating grip; restore 30 fps and L+ after leaving the water"
+    },
+    "photo_family": {
+      "quik_family": "Photo",
+      "quik_mode": "Photo",
+      "lens": "Linear",
+      "output": "SuperPhoto",
+      "timer": "Off"
+    },
+    "photo_burst": {
+      "quik_family": "Photo",
+      "quik_mode": "Burst",
+      "lens": "Wide",
+      "rate": "Auto",
+      "output": "Standard",
+      "timer": "Off"
+    },
+    "photo_night": {
+      "quik_family": "Photo",
+      "quik_mode": "Night Photo",
+      "lens": "Wide",
+      "shutter": "Auto",
+      "timer": "3 seconds",
+      "output": "Standard",
+      "support": "Firm support or tripod"
+    }
+  },
+  "restoration_order": [
+    "Factory-reset and pair the HERO12 with GoPro Quik only if restoration is actually required",
+    "On the camera, enable Pro Controls",
+    "Keep cloud/automatic upload disabled",
+    "Recreate each mode from the values in this file",
+    "Use Set Date and Time in Quik",
+    "Confirm firmware 2.40 or the then-current approved firmware"
+  ]
+}

@@ -1,10 +1,11 @@
 {
   "camera": "Panasonic Lumix G9 MkI (DC-G9)",
-  "firmware": "Latest (with Animal Detection)",
-  "last_updated": "2026-04-06",
+  "firmware": "2.7",
+  "last_updated": "2026-08-20",
+  "configuration_status": "FINAL BACKUP VERIFIED — PHYSICAL CLOSURE PENDING",
   "owner": "Nelson (wife carries it in Costa Rica)",
   "role": "PRIMARY: Macro (Nelson) + General (Wife)",
-  "notes": "Wife will carry this camera — modes must be simple and intuitive. G9 MkI has animal detection on latest firmware. Shoots RAW. Menu uses [Rec] and [Motion Picture] (not [Photo]/[Video]). Has Function Lever for Silent Mode toggle.",
+  "notes": "Final G9 MkI configuration documented; physical closure checks remain pending. The final camera backup is backup/G9/G9MK1SET.DAT (SHA-256 EA7F23E8C96C12334E65620DC4B7AF40524B03742BB807E5A8E4AFAA2039EABE); preserve G9PRE.DAT and G9FINAL.DAT as earlier recovery points. Shoots RAW. Menu uses [Rec] and [Motion Picture] (not [Photo]/[Video]). The Function Lever controls stabilization: MODE1 preserves the saved stabilizer state and MODE2 forces stabilization Off.",
   "gear": {
     "lenses": [
       {
@@ -25,8 +26,15 @@
     ],
     "flash": [
       {
+        "name": "2× Godox MF12",
+        "primary_use": "Primary G9 MkI macro lighting",
+        "trigger": "Godox X3",
+        "diffuser": "2× MF12 diffusers on lens ring",
+        "validated_control": "Both MF12 units in Group A; Group B Off"
+      },
+      {
         "name": "Godox AD100Pro",
-        "primary_use": "Handheld macro (Costa Rica)",
+        "primary_use": "Optional off-camera macro variation",
         "trigger": "Godox X3",
         "diffuser": "ML-CD15"
       }
@@ -40,13 +48,13 @@
     ]
   },
   "global_settings": {
-    "double_card_slot_function": "Relay",
-    "copyright_information": "ON",
+    "double_card_slot_function": "Backup Rec",
+    "copyright_information": "Not available on G9 MkI firmware 2.7",
     "power_save_mode": {
-      "sleep": "2MIN",
-      "monitor_off": "1MIN"
+      "sleep": "10MIN",
+      "monitor_off": "2MIN"
     },
-    "thermal_management": "STANDARD",
+    "thermal_management": "Not available on G9 MkI firmware 2.7",
     "monitor_frame_rate": "60fps",
     "lvf_frame_rate": "60fps",
     "monitor_backlight_lvf_luminance": "AUTO",
@@ -58,72 +66,72 @@
       "mode": "Select on connection",
       "power": "ON"
     },
-    "battery_use_priority": "BG",
-    "system_frequency": "59.94Hz NTSC"
+    "battery_use_priority": "Not configured; DMW-BGG9 is not used",
+    "system_frequency": "Not available on G9 MkI firmware 2.7"
   },
   "qmenu": {
-    "_description": "12 of 15 slots used — IDENTICAL across ALL modes, NEVER changes per mode",
+    "_description": "Final firmware-2.7 layout; 12 of 15 slots used across all modes",
     "layout_style": "CUSTOM (12 of 15 slots)",
     "slots": [
       {
         "slot": 1,
-        "item": "Photo Style",
-        "rationale": "Wife can switch looks (Standard/Vivid/Portrait)"
+        "item": "Flash Mode",
+        "rationale": "Immediate macro flash-mode access"
       },
       {
         "slot": 2,
-        "item": "Image Stabilizer",
-        "rationale": "Toggle ON/OFF, Mode 1/2"
+        "item": "Flash Adjust.",
+        "rationale": "Immediate flash-exposure compensation"
       },
       {
         "slot": 3,
+        "item": "Stabilizer",
+        "rationale": "Confirm or change the saved stabilization state"
+      },
+      {
+        "slot": 4,
         "item": "Metering Mode",
         "rationale": "Switch Multi/Spot/Center"
       },
       {
-        "slot": 4,
-        "item": "Quality",
-        "rationale": "RAW/RAW+JPEG/JPEG"
-      },
-      {
         "slot": 5,
-        "item": "Shutter Type",
-        "rationale": "Mech/EFC/Electronic"
+        "item": "Quality",
+        "rationale": "Verify the RAW baseline"
       },
       {
         "slot": 6,
-        "item": "Bracket",
-        "rationale": "Focus/Exposure bracket ON/OFF"
+        "item": "Shutter Type",
+        "rationale": "Switch Mechanical/EFC/Electronic"
       },
       {
         "slot": 7,
-        "item": "Flash Mode",
-        "rationale": "ON/OFF, Forced, Slow Sync"
+        "item": "Bracket",
+        "rationale": "Enable or disable focus/exposure bracketing"
       },
       {
         "slot": 8,
-        "item": "Flash Adjust.",
-        "rationale": "Flash exposure compensation"
+        "item": "Burst Shot Setting",
+        "rationale": "Select the active Burst I/Burst II preset"
       },
       {
         "slot": 9,
         "item": "Min. Shtr Speed",
-        "rationale": "Safety net for Auto ISO"
+        "rationale": "Control the Auto ISO safety floor"
       },
       {
         "slot": 10,
-        "item": "i.Dynamic",
-        "rationale": "Shadow/highlight recovery for JPEGs"
+        "item": "Photo Style",
+        "rationale": "Switch the saved rendering baseline"
       },
       {
         "slot": 11,
-        "item": "Ex. Tele Conv.",
-        "rationale": "Digital zoom 1.4x/2.0x"
+        "item": "Aspect Ratio",
+        "rationale": "Verify the 4:3 full-sensor baseline"
       },
       {
         "slot": 12,
-        "item": "Aspect Ratio",
-        "rationale": "4:3/3:2/16:9/1:1"
+        "item": "Peaking",
+        "rationale": "Toggle or configure macro focus peaking"
       }
     ],
     "empty_slots": [
@@ -132,10 +140,10 @@
       15
     ],
     "setup_instructions": "[Custom] > [Operation] > [Q.MENU] > set to [CUSTOM]. Press [Q.MENU] > press down to edit icon > [MENU/SET]. Select items for slots.",
-    "differences_from_mkii": "MkI has no dedicated AF Detection button — slot 1 is Photo Style instead. i.Dynamic and Ex. Tele Conv. replace AF Detection Setting and Detecting Subject."
+    "differences_from_mkii": "The G9 MkI uses Flash Mode and Flash Adjust. in slots 1-2 for macro; the G9 MkII uses AF Detection controls."
   },
   "my_menu": {
-    "_description": "Generally fixed across all modes — up to 16 items on MkI",
+    "_description": "Final firmware-2.7 order; 13 approved entries",
     "items": [
       {
         "slot": 1,
@@ -144,78 +152,63 @@
       },
       {
         "slot": 2,
-        "item": "Format",
-        "rationale": "Quick format between shooting days"
+        "item": "Bracket",
+        "rationale": "Configure bracket type, step, count and sequence"
       },
       {
         "slot": 3,
-        "item": "AF Custom Setting (Photo)",
-        "rationale": "Switch tracking behavior"
+        "item": "Burst Shot 1 Setting",
+        "rationale": "Configure physical Burst I; final baseline L"
       },
       {
         "slot": 4,
-        "item": "Focus Limiter",
-        "rationale": "Prevent lens hunting to infinity during macro"
+        "item": "Burst Shot 2 Setting",
+        "rationale": "Configure physical Burst II; final baseline M"
       },
       {
         "slot": 5,
-        "item": "Burst Shot Setting",
-        "rationale": "Change burst speed"
+        "item": "Shutter Delay",
+        "rationale": "Adjust supported-mode delay; final C3-3 value Off"
       },
       {
         "slot": 6,
-        "item": "Bracket (detailed settings)",
-        "rationale": "Configure Step, Count, Type for Focus Bracketing"
+        "item": "ISO Sensitivity (photo)",
+        "rationale": "Access Auto ISO upper-limit settings"
       },
       {
         "slot": 7,
-        "item": "Ex. Tele Conv.",
-        "rationale": "Digital crop 1.4x/2.0x"
+        "item": "Long Shtr NR",
+        "rationale": "Exceptional long-exposure control"
       },
       {
         "slot": 8,
-        "item": "Long Shtr NR",
-        "rationale": "Toggle ON/OFF"
+        "item": "Peaking",
+        "rationale": "Adjust focus-peaking sensitivity and color"
       },
       {
         "slot": 9,
-        "item": "Fn Button Set",
-        "rationale": "Reassign function buttons"
+        "item": "Sensor Cleaning",
+        "rationale": "Field maintenance"
       },
       {
         "slot": 10,
-        "item": "Shutter Delay",
-        "rationale": "Add delay for tripod vibration"
+        "item": "Format",
+        "rationale": "Deliberate card formatting below photographic controls"
       },
       {
         "slot": 11,
-        "item": "Sensor Cleaning",
-        "rationale": "Quick field maintenance"
+        "item": "Fn Button Set",
+        "rationale": "Maintain physical-control assignments"
       },
       {
         "slot": 12,
-        "item": "Focus Peaking SET",
-        "rationale": "Adjust sensitivity/color"
+        "item": "Time Lapse/Animation",
+        "rationale": "Occasional interval and animation access"
       },
       {
         "slot": 13,
-        "item": "Zebra Pattern SET",
-        "rationale": "Adjust threshold"
-      },
-      {
-        "slot": 14,
-        "item": "Rec Quality",
-        "rationale": "Change video resolution/framerate"
-      },
-      {
-        "slot": 15,
-        "item": "Time Lapse/Animation",
-        "rationale": "Configure time lapse and stop motion"
-      },
-      {
-        "slot": 16,
-        "item": "ISO Sensitivity (photo)",
-        "rationale": "Access Auto ISO Upper Limit"
+        "item": "Zebra Pattern",
+        "rationale": "Adjust the zebra threshold"
       }
     ]
   },
@@ -252,8 +245,8 @@
       },
       {
         "button": "Fn Lever (29)",
-        "assignment": "Silent Mode",
-        "rationale": "Flip to MODE2 for Silent Mode toggle — intuitive for wife"
+        "assignment": "Stabilizer",
+        "rationale": "MODE1 preserves the saved stabilizer value; MODE2 forces stabilization Off for supported C3-3"
       },
       {
         "button": "+/- (4)",
@@ -290,7 +283,7 @@
       "Touch Tab is OFF — Fn6-Fn10 (touch icons) not accessible",
       "G9 MkI has NO dedicated AF-ON button — Fn1 assignment is mandatory",
       "G9 MkI has NO dedicated Q button — Fn2 must stay as Q.MENU",
-      "G9 MkI HAS Function Lever for Silent Mode (MkII does not)"
+      "G9 MkI Function Lever is assigned to Stabilizer; use MODE1 for C1, C2, C3-1 and C3-2, and MODE2 for supported C3-3"
     ]
   },
   "baseline_settings": {
@@ -305,11 +298,11 @@
         "color_space": "sRGB",
         "metering_mode": "Multi",
         "highlight_shadow": "Standard",
-        "i_dynamic": "AUTO",
+      "i_dynamic": "OFF",
         "i_resolution": "OFF",
         "long_shutter_nr": "OFF",
-        "shading_comp": "ON",
-        "diffraction_compensation": "ON"
+      "shading_comp": "OFF",
+      "diffraction_compensation": "OFF"
       },
       "focus": {
         "afs_aff": "AFS",
@@ -326,7 +319,7 @@
           "mode": "AUTO",
           "upper_limit": "No Limit"
         },
-        "min_shutter_speed": "AUTO"
+      "min_shutter_speed": "1/125s"
       },
       "image_stabilizer": {
         "stabilizer": "ON",
@@ -334,8 +327,8 @@
         "digital_zoom": "OFF"
       },
       "recording": {
-        "burst_shot_1_setting": "H",
-        "burst_shot_2_setting": "SH75",
+      "burst_shot_1_setting": "L",
+      "burst_shot_2_setting": "M",
         "6k_4k_photo": "OFF",
         "post_focus": "OFF",
         "self_timer": "OFF",
@@ -409,7 +402,7 @@
           "fn_lock": "ON"
         },
         "color_space": "sRGB",
-        "exposure_comp_reset": "OFF"
+      "exposure_comp_reset": "ON"
       },
       "af_ae_settings": {
         "focus_shutter_priority": {
@@ -451,11 +444,11 @@
         "live_view_boost": "OFF",
         "night_mode": "OFF",
         "expo_meter": "OFF",
-        "focal_length": "ON",
-        "blinking_highlights": "OFF",
+        "focal_length_set": "Not used with the planned communicating electronic lenses",
+      "blinking_highlights": "ON",
         "sheer_overlay": "OFF",
         "is_status_scope": "OFF",
-        "level_gauge": "ON",
+        "level_gauge_display": "Show with DISP. when desired; there is no persistent On/Off preference",
         "luminance_spot_meter": "OFF"
       },
       "monitor_display_motion_picture": {
@@ -480,183 +473,170 @@
         "joystick_setting": "D.FOCUS Movement"
       },
       "lens_others": {
-        "lens_focus_resume": "OFF",
-        "lens_fn_button_setting": "AF-ON",
-        "aperture_ring_increment": "1/3 EV",
-        "focus_ring_control": "NON-LINEAR",
+        "lens_focus_resume": "ON",
+        "lens_fn_button_setting": "AF-ON when exposed by the attached lens; otherwise unavailable",
+        "aperture_ring_increment": "1/3 EV only when exposed by a supported clickless aperture-ring lens; not required by the planned lenses",
+        "focus_ring_control": "NON-LINEAR when exposed by the attached lens; otherwise unavailable",
         "af_micro_adjustment": "OFF"
       }
     }
   },
   "modes": {
     "C1": {
-      "name": "Street / General",
+      "name": "General / Street",
       "recording_mode": "A (Aperture Priority)",
       "focus_lever": "AFS",
       "drive_dial": "Single Shot (S)",
+      "function_lever": "MODE1",
       "lens": "Lumix 12-35mm f/2.8 or 35-100mm f/2.8",
       "overrides": {
+        "photo_style": "Standard",
         "aperture": "f/5.6",
+        "iso_sensitivity": "AUTO",
+        "min_shutter_speed": "1/125s",
         "white_balance": "AWB",
-        "af_mode": "Full Area (Detection OFF)",
-        "iso_upper_limit": "AUTO"
-      }
+        "af_mode": "225-Area",
+        "metering_mode": "Multi",
+        "quality": "RAW",
+        "aspect_ratio": "4:3",
+        "shutter_type": "EFC",
+        "stabilizer": "On / Normal",
+        "constant_preview": "On",
+        "flash_mode": "Forced Off",
+        "bracket": "Off",
+        "shutter_delay": "Off"
+      },
+      "final_verification": "Pending final camera implementation: AF-ON focuses, shutter half-press does not focus, and a general-scene RAW is written to both cards."
     },
     "C2": {
       "name": "Portrait / People",
       "recording_mode": "A (Aperture Priority)",
       "focus_lever": "AFS",
       "drive_dial": "Single Shot (S)",
+      "function_lever": "MODE1",
       "lens": "Lumix 35-100mm f/2.8 or 12-35mm f/2.8",
       "overrides": {
         "photo_style": "Portrait",
         "aperture": "f/2.8",
+        "iso_sensitivity": "AUTO",
         "min_shutter_speed": "1/125s",
         "white_balance": "AWB",
-        "af_mode": "Full Area (Detection ON — Human)",
-        "iso_upper_limit": "AUTO"
-      }
+        "af_mode": "Human Detect AF",
+        "metering_mode": "Multi",
+        "quality": "RAW",
+        "aspect_ratio": "4:3",
+        "shutter_type": "EFC",
+        "stabilizer": "On / Normal",
+        "constant_preview": "On",
+        "flash_mode": "Forced Off",
+        "bracket": "Off",
+        "shutter_delay": "Off"
+      },
+      "final_verification": "Pending final camera implementation: a human face/eye receives the yellow detection frame and a portrait RAW is written to both cards."
     },
     "C3-1": {
-      "name": "Landscape",
-      "recording_mode": "A (Aperture Priority)",
-      "focus_lever": "AFS",
-      "drive_dial": "Single Shot (S)",
-      "lens": "Lumix 12-35mm f/2.8",
-      "overrides": {
-        "photo_style": "Scenery/Landscape",
-        "aperture": "f/8",
-        "af_mode": "Full Area (Detection OFF)",
-        "white_balance": "AWB",
-        "iso_upper_limit": "AUTO"
-      }
-    },
-    "C3-2": {
-      "name": "Macro Handheld (Single Shot)",
+      "name": "Single Macro — TTL",
       "recording_mode": "M (Manual)",
       "focus_lever": "MF",
       "drive_dial": "Single Shot (S)",
-      "lens": "Olympus 60mm f/2.8 bare (Costa Rica baseline)",
-      "flash": "Godox AD100Pro + X3 trigger + ML-CD15 diffuser",
+      "function_lever": "MODE1",
+      "lens": "Olympus 60mm f/2.8 Macro",
+      "external_flash": "Godox X3 Group A TTL ±0; Group B Off; both diffused MF12 units in Group A",
       "overrides": {
         "photo_style": "Natural",
         "aperture": "f/16",
         "shutter_speed": "1/200s",
-        "iso_sensitivity": {
-          "mode": "Fixed",
-          "value": 200
-        },
-        "af_mode": "N/A (MF)",
-        "flash_mode": "Forced ON / TTL",
-        "flash_adjust": "±0",
+        "iso_sensitivity": 200,
+        "flash_mode": "Forced On / TTL / ±0",
         "shutter_type": "MSHTR (Mechanical)",
-        "image_stabilizer": {
-          "enabled": "ON",
-          "mode": "Mode 1"
-        },
-        "white_balance": "AWB"
-      }
+        "stabilizer": "On / Normal",
+        "bracket": "Off",
+        "shutter_delay": "Off",
+        "constant_preview": "Off",
+        "peaking": "On / LOW / RED",
+        "quality": "RAW",
+        "aspect_ratio": "4:3",
+        "white_balance": "AWB",
+        "metering_mode": "Multi"
+      },
+      "validation": "Accepted for individual macro frames with consistent TTL exposure and a usable viewfinder. Do not expect TTL burst recycling."
+    },
+    "C3-2": {
+      "name": "Macro Burst — Manual Flash",
+      "recording_mode": "M (Manual)",
+      "focus_lever": "MF",
+      "drive_dial": "Burst II",
+      "function_lever": "MODE1",
+      "lens": "Olympus 60mm f/2.8 Macro",
+      "external_flash": "Godox X3 Manual; Group A 1/32; Group B Off; both diffused MF12 units in Group A",
+      "overrides": {
+        "photo_style": "Natural",
+        "aperture": "f/16",
+        "shutter_speed": "1/200s",
+        "iso_sensitivity": 400,
+        "burst_shot_2_setting": "M",
+        "flash_mode": "Forced On / Manual",
+        "shutter_type": "MSHTR (Mechanical)",
+        "stabilizer": "On / Normal",
+        "bracket": "Off",
+        "shutter_delay": "Off",
+        "constant_preview": "Off",
+        "peaking": "On / LOW / RED",
+        "quality": "RAW",
+        "aspect_ratio": "4:3",
+        "white_balance": "AWB",
+        "metering_mode": "Multi"
+      },
+      "validation": "26 frames in 10 seconds (approximately 2.6 fps), all consistently illuminated. Use 3–5-frame bursts. TTL was rejected after producing many black frames.",
+      "slower_alternative": "Physical Burst I / L, ISO 200, Group A manual 1/32; measured 15 frames in 10 seconds."
     },
     "C3-3": {
-      "name": "Wildlife / Action",
+      "name": "Supported Macro Focus Bracket",
       "recording_mode": "M (Manual)",
-      "focus_lever": "AFC",
-      "drive_dial": "Burst I",
-      "lens": "Lumix 35-100mm f/2.8",
+      "focus_lever": "MF",
+      "drive_dial": "Single Shot (S)",
+      "function_lever": "MODE2",
+      "lens": "Olympus 60mm f/2.8 Macro",
+      "support": "Tripod or firm surface; completely static subject",
+      "external_flash": "Godox X3 Group A TTL +0.0; Group B Off; both diffused MF12 units in Group A",
       "overrides": {
-        "photo_style": "Standard",
-        "aperture": "f/2.8",
-        "shutter_speed": "1/1000s",
-        "iso_sensitivity": {
-          "mode": "AUTO",
-          "upper_limit": "AUTO"
-        },
-        "af_mode": "Zone (Detection ON — Animal)",
-        "burst_shot_1_setting": "H",
-        "shutter_type": "ELEC.",
-        "flash_mode": "Forced OFF",
-        "image_stabilizer": {
-          "enabled": "ON",
-          "mode": "Mode 1"
-        },
-        "white_balance": "AWB"
-      }
+        "photo_style": "Natural",
+        "aperture": "f/8",
+        "shutter_speed": "1/200s",
+        "iso_sensitivity": 400,
+        "flash_mode": "Forced On / TTL / +0.0",
+        "shutter_type": "MSHTR (Mechanical)",
+        "stabilizer": "Off",
+        "focus_bracket": "Step 2 / 40 images / 0/+",
+        "shutter_delay": "Off",
+        "constant_preview": "Off",
+        "peaking": "On / LOW / RED",
+        "quality": "RAW",
+        "aspect_ratio": "4:3",
+        "white_balance": "AWB",
+        "metering_mode": "Multi"
+      },
+      "validation": "40 fully illuminated frames in 12 seconds, approximately 4 cm of focus coverage, and a perfect Helicon Focus merge. A 2-second shutter delay was rejected because it delayed every bracket frame."
     }
   },
   "field_variants": {
-    "C3-2_macro_handheld": {
-      "_description": "Same variant system as G9 MkII — variants for C3-2 Macro Handheld depending on lens/accessory combination. Both cameras share these field variants.",
-      "variant_1": {
-        "name": "60mm bare, no stacking, handheld",
-        "notes": "Baseline configuration as stored in C3-2"
-      },
-      "variant_2": {
-        "name": "60mm + Raynox DCR-250, no stacking, handheld",
-        "changes": {
-          "notes": "Possibly tighter aperture, flash comp same"
-        }
-      },
-      "variant_3": {
-        "name": "90mm bare, no stacking, handheld",
-        "changes": {
-          "aperture": "wider aperture OK",
-          "flash_adjust": "+0.3 to +0.7",
-          "shutter_speed": "1/250s"
-        }
-      },
-      "variant_4": {
-        "name": "90mm + MC-20, no stacking, handheld",
-        "changes": {
-          "aperture": "wider aperture",
-          "flash_adjust": "+0.7 to +1.3",
-          "shutter_speed": "1/250s to 1/320s",
-          "iso_sensitivity": "200-400"
-        }
-      },
-      "variant_5": {
-        "name": "60mm bare + Focus Stacking, handheld or tripod",
-        "changes": {
-          "bracket": "ON",
-          "aperture": "f/5.6 to f/8",
-          "flash_adjust": "low flash power",
-          "iso_sensitivity": "200-400"
-        }
-      },
-      "variant_6": {
-        "name": "60mm + Raynox + Focus Stacking, tripod recommended",
-        "changes": {
-          "bracket": "ON",
-          "aperture": "f/7.1 to f/9",
-          "flash_adjust": "+0.3 to +0.7",
-          "iso_sensitivity": "200-400"
-        }
-      },
-      "variant_7": {
-        "name": "90mm bare + Focus Stacking, optional tripod",
-        "changes": {
-          "bracket": "ON",
-          "aperture": "wider aperture",
-          "flash_adjust": "lower flash power",
-          "iso_sensitivity": "200-800"
-        }
-      },
-      "variant_8": {
-        "name": "90mm + MC-20 + Focus Stacking, tripod required",
-        "changes": {
-          "bracket": "ON",
-          "aperture": "f/5.6 (effective ~f/11)",
-          "image_stabilizer": "OFF",
-          "shutter_delay": "ON",
-          "flash_adjust": "balance flash vs recycle",
-          "iso_sensitivity": "400-1600"
-        }
-      }
+    "C3-1_ttl_recycle_relief": {
+      "when": "TTL recycle becomes too slow for changing subject distance",
+      "changes": "Move to C3-2 and use the validated manual-flash burst baseline"
+    },
+    "C3-2_quality_priority": {
+      "when": "ISO 200 quality matters more than cadence",
+      "changes": "Use physical Burst I / L, ISO 200, Group A manual 1/32; measured 15 frames in 10 seconds"
+    },
+    "C3-3_manual_flash_fallback": {
+      "when": "TTL becomes inconsistent in a future supported bracket",
+      "changes": "Test both Group A MF12 units manually at 1/64; do not overwrite the validated TTL baseline unless the full capture and merge test passes again"
     }
   },
   "side_effects_incompatibilities": [
     {
       "feature": "Silent Mode",
-      "effects": "Forces Electronic Shutter. G9 MkI has Function Lever for quick toggle."
+      "effects": "Forces Electronic Shutter. The Function Lever no longer controls Silent Mode; use the menu when deliberately required."
     },
     {
       "feature": "Flash",
@@ -680,7 +660,7 @@
     },
     {
       "feature": "AF Detection (G9 MkI)",
-      "effects": "Part of AF Mode selection. Full Area has toggle for detection ON/OFF. Zone, Tracking also support detection. Other AF modes have no detection."
+      "effects": "Implemented as exact AF modes. C1 uses 225-Area without automatic detection; C2 uses Human Detect AF."
     },
     {
       "feature": "Constant Preview",
@@ -693,19 +673,19 @@
   ],
   "mki_vs_mkii_differences": {
     "menu_names": "[Rec] not [Photo], [Motion Picture] not [Video]",
-    "picture_quality_baseline": "FINE (JPEG) on MkI vs RAW on MkII",
-    "i_dynamic_baseline": "AUTO on MkI vs OFF on MkII",
-    "shading_comp_baseline": "ON on MkI vs OFF on MkII",
-    "diffraction_comp_baseline": "ON on MkI vs OFF on MkII",
+    "picture_quality_baseline": "RAW on both bodies",
+    "i_dynamic_baseline": "OFF on both bodies",
+    "shading_comp_baseline": "OFF on both bodies",
+    "diffraction_comp_baseline": "OFF on both bodies",
     "af_detection": "Integrated into AF Mode on MkI vs separate setting on MkII",
     "custom_mode_slots": "C1, C2, C3-1 to C3-3 (5 total) vs C1, C2, C3-1 to C3-10 (12 total)",
-    "silent_mode_access": "Function Lever on MkI vs menu only on MkII",
+    "function_lever": "G9 MkI lever controls Stabilizer; G9 MkII has no equivalent lever",
     "wb_daylight_name": "Daylight on MkI vs Clear sky (sun icon) on MkII",
     "no_crop_zoom": "Not available — use Ex. Tele Conv. instead",
     "no_live_view_composite": "Not available on MkI",
     "no_creative_video_mode": "Not available — video settings via [Motion Picture] menu",
     "no_dedicated_af_on_button": "Must assign Fn1 = AF-ON",
     "no_dedicated_q_button": "Must keep Fn2 = Q.MENU",
-    "qmenu_differences": "MkI uses Photo Style, i.Dynamic, Ex.Tele Conv in Q.Menu; MkII uses AF Detection, Detecting Subject instead"
+    "qmenu_differences": "G9 MkI slots 1-2 are Flash Mode and Flash Adjust.; G9 MkII slots 1-2 are AF Detection Setting and Detecting Subject"
   }
 }

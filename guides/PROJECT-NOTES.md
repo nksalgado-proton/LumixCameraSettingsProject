@@ -124,12 +124,13 @@ Completely reconfigure both cameras with a **simplified, unified system** that p
 | C3-6 | Landscape Tripod (Lightning) | Tripod + MIOPS trigger. Long exposure, possibly Bulb. For lightning storms. |
 | C3-7 | Low Light Handheld | Wide open, high ISO, stabilizer ON. Indoor, night, dim forest canopy. |
 | C3-8 | Birds in Flight (BIF) | AFC + high burst + fast shutter + Animal Detect. Panning IS mode. |
-| C3-9 | Video — Travel / Documentary | Simple travel scenes, documenting the trip. GoPro 13 also available. |
+| C3-9 | Video — Travel / Documentary | Simple travel scenes, documenting the trip. GoPro HERO12 also available. |
 | C3-10 | Video — Wildlife in Motion | Wildlife behavior, birds, animals moving. Longer focal lengths. |
 
 #### Additional Gear (updated)
 - MIOPS trigger (for lightning/long exposure)
-- GoPro Hero 13 (also being carried for video)
+- GoPro HERO12 Black (also being carried for video)
+- Zeiss Victory SF 8x32 binocular
 
 **MODE MAP STATUS: CONFIRMED ✓**
 

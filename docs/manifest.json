@@ -1,7 +1,7 @@
 {
-  "name": "Lumix Field Cards",
+  "name": "Travel Field Cards",
   "short_name": "FieldCards",
-  "description": "US Parks camera modes, field variations and reference cards for Lumix G9 and G9 MkII",
+  "description": "US Parks camera modes, field variations and reference cards for Lumix G9, G9 MkII and GoPro HERO12",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#1a1a2e",
