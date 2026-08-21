@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#1a1a2e">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Lumix Field Cards</title>
+<title>Travel Field Cards</title>
 <style>
 :root {
   --bg: #1a1a2e;
@@ -372,6 +372,65 @@ body {
 .settings-table .val { color: #fff; font-weight: 600; width: 25%; }
 .settings-table .rat { color: var(--text-dim); font-style: italic; }
 
+/* --- Focus bracket coverage guide --- */
+.coverage-guide {
+  margin-top: 14px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 12px;
+}
+.coverage-guide h3 {
+  margin: 0 0 4px;
+  color: #fff;
+  font-size: 15px;
+}
+.coverage-baseline {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.coverage-summary, .coverage-note {
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.coverage-scroll {
+  overflow-x: auto;
+  margin: 10px -4px 8px;
+}
+.coverage-scroll-hint { display: none; }
+.coverage-table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  text-align: center;
+}
+.coverage-table th, .coverage-table td {
+  padding: 7px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-size: 12px;
+}
+.coverage-table th { color: var(--text-dim); font-weight: 600; }
+.coverage-table td { color: #fff; font-weight: 700; }
+.coverage-table th:first-child, .coverage-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--card-bg);
+}
+.coverage-notes { margin: 8px 0 0; padding-left: 18px; }
+.coverage-note + .coverage-note { margin-top: 4px; }
+@media (max-width: 520px) {
+  .coverage-scroll-hint {
+    display: block;
+    margin-top: 8px;
+    color: var(--accent-teal);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: right;
+  }
+}
+
 /* --- Hints --- */
 .hint-item {
   background: var(--card-bg);
@@ -578,7 +637,7 @@ body {
 <body>
 
 <div class="topbar">
-  <h1>Lumix Field Cards</h1>
+  <h1>Travel Field Cards</h1>
   <div class="preview-badge" id="previewBadge">US PARKS 2026</div>
   <div class="camera-tabs" id="cameraTabs"></div>
 </div>
@@ -628,7 +687,7 @@ function switchCamera(i) {
 function renderModes() {
   const cam = data.cameras[currentCamera];
   document.getElementById('modeList').innerHTML =
-    `<div class="camera-role"><strong>${cam.camera}</strong> · ${cam.role || ''}<br>Camera settings and values are shown in English.</div>` +
+    `<div class="camera-role"><strong>${cam.camera}</strong> · ${cam.role || ''}<br>${cam.settings_note || 'Camera settings and values are shown in English.'}</div>` +
     cam.modes.map((m, i) =>
     `<button type="button" class="mode-item" data-color="${m.color}" onclick="openCard(${i})" aria-label="Open ${m.code}: ${m.name}">
       <div class="mode-code">${m.code}</div>
@@ -669,6 +728,7 @@ function switchTab(tab) {
 function buildCard(m) {
   const f = m.front;
   const b = m.back;
+  const isGoPro = data.cameras[currentCamera].camera_short === 'H12';
 
   // Physical setup rows
   const physicalControlPattern = /mode dial|focus lever|drive|function lever|lens is switch|focus range selector|zoom limit|o\.i\.s\. switch/i;
@@ -720,6 +780,22 @@ function buildCard(m) {
         <div class="usage-paragraphs">${usageScenarios.map(p => `<p>${p}</p>`).join('')}</div>
       </details>`
     : '';
+  const coverage = m.coverage_guide;
+  const coverageHtml = coverage
+    ? `<section class="coverage-guide" aria-label="${coverage.title || 'Focus Bracket Coverage'}">
+        <h3>${coverage.title}</h3>
+        <div class="coverage-baseline">Saved baseline: ${coverage.baseline}</div>
+        <div class="coverage-summary">${coverage.summary}</div>
+        <div class="coverage-scroll-hint">Deslize a tabela →</div>
+        <div class="coverage-scroll">
+          <table class="coverage-table">
+            <thead><tr>${coverage.columns.map(c => `<th scope="col">${c.label}</th>`).join('')}</tr></thead>
+            <tbody>${coverage.rows.map(row => `<tr>${coverage.columns.map((c, index) => `<td>${row[c.key]}${index === 0 ? ' mm' : ''}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table>
+        </div>
+        <ul class="coverage-notes">${coverage.notes.map(n => `<li class="coverage-note">${n}</li>`).join('')}</ul>
+      </section>`
+    : '';
   const alternativesHtml = alternatives.length
     ? alternatives.map(a => {
         const changes = (a.changes || []).map(c =>
@@ -769,10 +845,13 @@ function buildCard(m) {
       <div class="desc-banner">${m.description}</div>
       ${usageHtml}
       <div class="section-label must">⚙️ Physical Controls &amp; Setup</div>
-      <div class="physical-intro"><strong>Set before shooting.</strong> A recalled Custom Mode cannot move a physical dial, lever or lens switch. Confirm every position shown below.</div>
+      <div class="physical-intro">${isGoPro
+        ? '<strong>Set before shooting.</strong> Confirm the Quik family, selected mode, mount and operator before capture.'
+        : '<strong>Set before shooting.</strong> A recalled Custom Mode cannot move a physical dial, lever or lens switch. Confirm every position shown below.'}</div>
       <div class="setup-list">${setupHtml}</div>
       <div class="section-label adjust">🎚️ Ajustar no Campo</div>
       <div class="setup-list">${adjustHtml}</div>
+      ${coverageHtml}
       ${equipHtml}
     </div>
 
@@ -785,7 +864,9 @@ function buildCard(m) {
     </div>
 
     <div id="panel-alternatives" class="tab-content" role="tabpanel" aria-labelledby="tab-alternatives" data-tab="alternatives" hidden>
-      <div class="alternative-intro"><strong>Temporary field variants.</strong> Use only under the stated conditions. Do not overwrite the saved Custom Mode unless a calibrated change is explicitly approved.</div>
+      <div class="alternative-intro">${isGoPro
+        ? '<strong>Temporary field variants.</strong> Use only under the stated conditions and restore the saved baseline afterward.'
+        : '<strong>Temporary field variants.</strong> Use only under the stated conditions. Do not overwrite the saved Custom Mode unless a calibrated change is explicitly approved.'}</div>
       <div class="section-label alternatives">🔀 Alternative Configurations</div>
       ${alternativesHtml}
     </div>

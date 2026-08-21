@@ -1,4 +1,4 @@
-const CACHE_NAME = 'macro-bracket-v1';
+const CACHE_NAME = 'macro-bracket-v4-final';
 const ASSETS = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
